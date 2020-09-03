@@ -13,18 +13,16 @@
 
     <div id="main-menu" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-            <li class="nav-item active"><a href="<?php global $basedir; ?>/Online-Food-Order/index.php">Home</a></li>
-            <li class="nav-item"><a <a href="<?php global $basedir; ?>/Online-Food-Order/About/about.php">About</a></li>
-            <li class="nav-item"><a <a href="<?php global $basedir; ?>/Online-Food-Order/Contact/contact.php">Contact Us</a></li>
+            <li id="nav-home" class="active"><a href="<?php global $basedir; ?>/Online-Food-Order/index.php">Home</a></li>
+            <li id="nav-about"><a <a href="<?php global $basedir; ?>/Online-Food-Order/About/about.php">About</a></li>
+            <li id="nav-contact"><a <a href="<?php global $basedir; ?>/Online-Food-Order/Contact/contact.php">Contact Us</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item"><a href="<?php global $basedir; ?>/Online-Food-Order/Register/register.php">Register</a></li>
-            <li class="nav-item"><a href="<?php global $basedir; ?>/Online-Food-Order/Login/login.php">Login</a></li>
+            <li id="nav-register"><a href="<?php global $basedir; ?>/Online-Food-Order/Register/register.php">Register</a></li>
+            <li id="nav-login"><a href="<?php global $basedir; ?>/Online-Food-Order/Login/login.php">Login</a></li>
             </li>
         </ul>
     </div>
 
   </div>
 </nav>
-
-<script src="<?php global $basedir; ?>/Online-Food-Order/navigation.js"></script>
