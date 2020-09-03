@@ -15,6 +15,8 @@
 
         </div>
     </div>
-
 </body>
+
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/footer.php') ?>
+
 </html>
