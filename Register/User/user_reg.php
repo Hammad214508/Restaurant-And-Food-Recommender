@@ -5,36 +5,57 @@
 <body>
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/navigation.php') ?>
 
+    <div class="container">
+        <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
+    </div>
+
     <div class="container-fluid text-center">
-          <div class="container" style="font-size:1.5em;">
+          <div class="container" style="font-size:1.3em;">
             <h3>User Registration</h3>
-            <hr>
-
-            <div class="text-center mb-3">
-                <input class="reg_inp" type="text" placeholder="Name" name="name" id="name" required>
-            </div>
-            <div class="text-center mb-3">
-                <input class="reg_inp" type="text" placeholder="Surname" name="surname" id="surname" required>
-            </div>
-            <div class="text-center mb-3">
-                <input class="reg_inp" type="email" placeholder="Email" name="email" id="email" required>
-            </div>
-            <div class="text-center mb-3">
-                <input class="reg_inp" type="text" placeholder="Password" name="password" id="password" required>
-            </div>
-            <div class="text-center mb-3">
-                <input class="reg_inp" type="text" placeholder="Confirm Password" name="confirm_password" id="confirm_password" required>
-            </div>
-
-            <button id="register-btn" type="button" class="btn btn-primary btn-lg">Register</button>
 
             <hr>
 
+            <form id="reg_form" method="POST">
+                <div class="text-center mt-3 mb-1">
+                    <input class="reg_inp" type="text" placeholder="Name" name="name" id="name">
+                </div>
+                <span id="name_error" class="reg_error"></span>
+
+
+                <div class="text-center mt-3 mb-1">
+                    <input class="reg_inp" type="text" placeholder="Surname" name="surname" id="surname">
+                </div>
+                <span id="surname_error" class="reg_error"></span>
+
+
+                <div class="text-center mt-3 mb-1">
+                    <input class="reg_inp" type="email" placeholder="Email" name="email" id="email">
+                </div>
+                <span id="email_error" class="reg_error"></span>
+
+                <div class="text-center mt-3 mb-1">
+                    <input class="reg_inp" type="password" placeholder="Password" name="password" id="password">
+                </div>
+                <span id="password_error" class="reg_error"></span>
+
+
+                <div class="text-center mt-3 mb-3">
+                    <input class="reg_inp" type="password" placeholder="Confirm Password" name="confirm_password" id="confirm_password">
+                </div>
+                <span id="confirm_password_error" class="reg_error"></span>
+
+                <div class="container">
+                    <button id="reg_btn" type="submit" class="btn btn-primary btn-lg">Register</button>
+                </div>
+
+            </form>
+
+            <hr>
 
           </div>
 
           <div class="container signin">
-            <p>Already have an account? <a href="<?php global $basedir; ?>/Online-Food-Order/Login/login.php">Log in</a>.</p>
+            <p>Already have an account? <a href="<?php global $basedir; ?>/Online-Food-Order/Login/User/user_login.php">Log in</a>.</p>
           </div>
     </div>
 </body>
