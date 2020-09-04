@@ -50,6 +50,10 @@
 
             </form>
 
+            <div id="account_exists" class="alert alert-info" role="alert" style="display:none">
+              Looks like you already have an account,  <a href="<?php global $basedir; ?>/Online-Food-Order/Login/User/user_login.php">Log in</a>.
+            </div>
+
             <hr>
 
           </div>

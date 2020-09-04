@@ -1,6 +1,33 @@
 $(document).ready(function(){
 
+    $.fn.check_registered = function(){
+        var email = $("#email").val();
+        $.ajax({
+           url: "/Online-Food-Order/Register/reg_services.php",
+           method: "POST",
+           data:{
+                   "actionmode"	: "check_registered",
+                   "EMAIL"      : email,
+               },
+           success:function(data) {
+              data = JSON.parse(data);
+              if (!data.success){
+                  $("#error").html("<b>ERROR CHECKING IF USER EXISTS!</b>");
+                  $.fn.temporary_show("error");
+              }else{
+                  data = data.dataset;
+                  if (data[0][0]["ISTHERE"] == "1"){
+                      $.fn.temporary_show("account_exists")
+                  }else{
+                      $.fn.register();
+                  }
+              }
+            }
+        });
+    }
+
     $.fn.register = function(){
+
         var name = $("#name").val();
         var surname = $("#surname").val()
         var email = $("#email").val();
@@ -29,16 +56,6 @@ $(document).ready(function(){
     }
 
     $.fn.registration_events = function(){
-        
-        $(".toggle-password").click(function() {
-          $(this).toggleClass("fa-eye fa-eye-slash");
-          var input = $("#password");
-          if (input.attr("type") == "password") {
-            input.attr("type", "text");
-          } else {
-            input.attr("type", "password");
-          }
-        });
 
         $("#reg_form").validate({
             rules: {
@@ -94,13 +111,10 @@ $(document).ready(function(){
              },
 
             submitHandler: function(form) {
-              $.fn.register();
+              $.fn.check_registered()
             }
          });
     }
-
-
-
 
     $.fn.temporary_show = function(id){
         var obj = $("#"+id)

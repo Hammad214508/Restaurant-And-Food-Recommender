@@ -17,21 +17,19 @@ class Connector{
 		}
 	}
 
-	public function get_binded_data($query){
+	public function get_binded_data($query, $data){
 		try {
 			$database = new Database();
 			$conn  = $database -> connection();
-			$result = $conn->query($query);
-
+			$stmt = $conn->prepare($query);
+			$stmt->execute($data);
 			// Create an array with all the rows
 			$data = array();
-			while($row = $result->fetchAll(PDO::FETCH_ASSOC)){
+			while($row = $stmt->fetchAll(PDO::FETCH_ASSOC)){
 				array_push($data, $row);
 			}
-
 			// Close connection
-			unset($result);
-
+			unset($stmt);
 			return array("success" => true, "dataset" => $data);
 
 		} catch(PDOException $e) {
