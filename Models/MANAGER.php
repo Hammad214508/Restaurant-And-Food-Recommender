@@ -24,5 +24,20 @@ class MANAGER {
 	}
 
 
+	public function get_manager_data($args){
+
+		$data = array(
+			":EMAIL" => $args["EMAIL"]
+		);
+
+		$conn = new Connector();
+
+		$query = "SELECT *
+				  FROM MANAGER
+				  WHERE EMAIL = :EMAIL;";
+
+		return $conn->get_binded_data($query, $data);
+	}
+
 
 }
