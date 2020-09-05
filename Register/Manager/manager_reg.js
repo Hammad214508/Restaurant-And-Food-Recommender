@@ -14,7 +14,7 @@ $(document).ready(function(){
            success:function(data) {
               data = JSON.parse(data);
               if (!data.success){
-                  $("#error").html("<b>ERROR CHECKING IF USER EXISTS!</b>");
+                  $("#error").html("<b>ERROR CHECKING IF MANAGER EXISTS!</b>");
                   $.fn.temporary_show("error");
               }else{
                   data = data.dataset;
@@ -48,7 +48,7 @@ $(document).ready(function(){
            success:function(data) {
               data = JSON.parse(data);
               if (!data.success){
-                  $("#error").html("<b>ERROR REGISTERING THE USER!</b>");
+                  $("#error").html("<b>ERROR REGISTERING THE MANAGER!</b>");
                   $.fn.temporary_show("error");
               }else{
                   window.open("/Online-Food-Order/Login/Manager/manager_login.php","_self")

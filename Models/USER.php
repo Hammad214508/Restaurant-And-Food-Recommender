@@ -3,7 +3,6 @@ require_once ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/Connector.php
 
 class USER {
 
-
 	public function check_registered($args){
 
 		$conn = new Connector();
@@ -22,6 +21,23 @@ class USER {
 
 		return $conn->perform_transaction($query, $args);
 	}
+
+
+	public function get_password($args){
+
+		$data = array(
+			":EMAIL" => $args["EMAIL"]
+		);
+
+		$conn = new Connector();
+
+		$query = "SELECT PASSWORD
+				  FROM USER
+			      WHERE EMAIL = :EMAIL;";
+
+		return $conn->get_binded_data($query, $data);
+	}
+
 
 
 

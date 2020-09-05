@@ -17,34 +17,34 @@
 
             <form id="reg_form" method="POST">
                 <div class="text-center mt-3 mb-1">
-                    <input class="reg_inp" type="text" placeholder="Name" name="name" id="name">
+                    <input  type="text" placeholder="Name" name="name" id="name">
                 </div>
                 <span id="name_error" class="reg_error"></span>
 
 
                 <div class="text-center mt-3 mb-1">
-                    <input class="reg_inp" type="text" placeholder="Surname" name="surname" id="surname">
+                    <input  type="text" placeholder="Surname" name="surname" id="surname">
                 </div>
                 <span id="surname_error" class="reg_error"></span>
 
 
                 <div class="text-center mt-3 mb-1">
-                    <input class="reg_inp" type="email" placeholder="Email" name="email" id="email">
+                    <input  type="email" placeholder="Email" name="email" id="email">
                 </div>
                 <span id="email_error" class="reg_error"></span>
 
                 <div class="text-center mt-3 mb-1">
-                    <input class="reg_inp" type="password" placeholder="Password" name="password" id="password">
+                    <input  type="password" placeholder="Password" name="password" id="password">
                 </div>
                 <span id="password_error" class="reg_error"></span>
 
 
-                <div class="text-center mt-3 mb-3">
-                    <input class="reg_inp" type="password" placeholder="Confirm Password" name="confirm_password" id="confirm_password">
+                <div class="text-center mt-3 mb-2">
+                    <input  type="password" placeholder="Confirm Password" name="confirm_password" id="confirm_password">
                 </div>
                 <span id="confirm_password_error" class="reg_error"></span>
 
-                <div class="container">
+                <div class="container mt-1">
                     <button id="reg_btn" type="submit" class="btn btn-primary btn-lg">Register</button>
                 </div>
 
