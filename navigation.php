@@ -20,7 +20,7 @@
                <a class="nav-link dropdown-toggle" id="register-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</a>
                <div class="dropdown-menu" aria-labelledby="register-dropdown">
                  <a class="dropdown-item" href="<?php global $basedir; ?>/Online-Food-Order/Register/User/user_reg.php">User</a>
-                 <a class="dropdown-item" href="<?php global $basedir; ?>/Online-Food-Order/Register/Admin/admin_reg.php">Admin</a>
+                 <a class="dropdown-item" href="<?php global $basedir; ?>/Online-Food-Order/Register/Manager/manager_reg.php">Manager</a>
                </div>
              </li>
 
@@ -28,7 +28,7 @@
                 <a class="nav-link dropdown-toggle" id="login-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
                 <div class="dropdown-menu" aria-labelledby="login-dropdown">
                   <a class="dropdown-item" href="<?php global $basedir; ?>/Online-Food-Order/Login/User/user_login.php">User</a>
-                  <a class="dropdown-item" href="<?php global $basedir; ?>/Online-Food-Order/Login/Admin/admin_login.php">Admin</a>
+                  <a class="dropdown-item" href="<?php global $basedir; ?>/Online-Food-Order/Login/Manager/manager_login.php">Manager</a>
                 </div>
               </li>
 

@@ -8,7 +8,8 @@ $(document).ready(function(){
            data:{
                    "actionmode"	: "check_registered",
                    "EMAIL"      : email,
-                   "USER_TYPE"  : "USER"
+                   "USER_TYPE"  : "MANAGER"
+
                },
            success:function(data) {
               data = JSON.parse(data);
@@ -38,7 +39,7 @@ $(document).ready(function(){
            url: "/Online-Food-Order/Register/reg_services.php",
            method: "POST",
            data:{
-                   "actionmode"	: "register_user",
+                   "actionmode"	: "register_manager",
                    "NAME"       : name,
                    "SURNAME"    : surname,
                    "EMAIL"      : email,
@@ -50,7 +51,7 @@ $(document).ready(function(){
                   $("#error").html("<b>ERROR REGISTERING THE USER!</b>");
                   $.fn.temporary_show("error");
               }else{
-                  window.open("/Online-Food-Order/Login/User/user_login.php","_self")
+                  window.open("/Online-Food-Order/Login/Manager/manager_login.php","_self")
               }
             }
         });
