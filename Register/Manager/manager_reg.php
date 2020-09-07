@@ -45,7 +45,7 @@
                 <span id="confirm_password_error" class="reg_error"></span>
 
                 <div class="container mt-1">
-                    <button id="reg_btn" type="submit" class="btn btn-primary btn-lg">Register</button>
+                    <button id="reg_btn" type="submit" class="btn btn-secondary btn-lg">Register</button>
                 </div>
 
             </form>

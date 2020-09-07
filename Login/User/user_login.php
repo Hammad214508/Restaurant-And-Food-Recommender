@@ -28,7 +28,7 @@
 
 
                 <div class="container mt-1">
-                    <button id="log_btn" type="submit" class="btn btn-primary btn-lg">Login</button>
+                    <button id="log_btn" type="submit" class="btn btn-secondary btn-lg">Login</button>
                 </div>
 
             </form>
