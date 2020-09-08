@@ -1,7 +1,6 @@
 <?php
-    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/USER.php');
-    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/MANAGER.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/RESTAURANT.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/FOOD.php');
 
     session_start();
 
@@ -31,6 +30,13 @@
         $form_data = update_restaurant($args);
     }
 
+    if($actionmode == "get_food_items"){
+        $args["RESTAURANT_ID"] = isset($_POST['RESTAURANT_ID']) ? $_POST['RESTAURANT_ID'] : NULL;
+
+        $form_data = get_food_items($args);
+    }
+
+
 
     echo json_encode($form_data);
 
@@ -50,6 +56,10 @@
         return $RESTAURANT -> update_restaurant($args);
     }
 
+    function get_food_items($args){
+        $FOOD = new FOOD();
+        return $FOOD -> get_food_items($args);
+    }
 
 
 

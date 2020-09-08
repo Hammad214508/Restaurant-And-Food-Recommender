@@ -1,9 +1,16 @@
 $(document).ready(function(){
+    var restaurant_id;
+    var my_rest_rendered = false;
+    var view_rendered = false;
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
         $("#nav-mgr-portal").addClass("active");
     }
+
+    /*****************************************************************
+    *                        MY RESTAURANT                           *
+    ******************************************************************/
 
     $.fn.get_restaurant = function(){
         $.ajax({
@@ -19,7 +26,8 @@ $(document).ready(function(){
                   $.fn.temporary_show("#error");
               }else{
                   data = data.dataset
-                  if (data){
+                  if (data.length > 0){
+                      restaurant_id = data[0][0]["RESTAURANT_ID"]
                       $.fn.render_restaurant_view(data[0][0]);
                   }else{
                       $.fn.insert_dummy_restaurant();
@@ -27,12 +35,14 @@ $(document).ready(function(){
               }
             }
         });
+
     }
 
     $.fn.render_restaurant_view = function(data){
-        parent = $("#data_container");
+        parent = $("#my_rest_container");
         parent.append($.fn.get_restaurant_html())
         $.fn.restaurant_data_events(data);
+        my_rest_rendered = true;
     }
 
     $.fn.get_restaurant_html = function(){
@@ -154,6 +164,39 @@ $(document).ready(function(){
     }
 
 
+    /*****************************************************************
+    *                           FOOD ITEMS                           *
+    ******************************************************************/
+
+
+    $.fn.get_food_items = function(){
+        $.ajax({
+           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           method: "POST",
+           data:{
+                   "actionmode"	   : "get_food_items",
+                   "RESTAURANT_ID" : restaurant_id
+               },
+           success:function(data) {
+              data = JSON.parse(data);
+              if (!data.success){
+                  $("#error").html("<b>ERROR GETTING FOOD ITEMS!</b>");
+                  $.fn.temporary_show("#error");
+              }else{
+                  data = data.dataset
+                  if (data.length > 0){
+                      $.fn.render_food_items(data[0][0]);
+                  }else{
+                      var parent = $("#view_container");
+                      parent.append('<h3>NO FOOD ITEMS TO DISPLAY!</h3>');
+                      //$.fn.insert_dummy_restaurant();
+                  }
+              }
+            }
+        });
+    }
+
+
     $.fn.temporary_show = function(id){
         var obj = $(id)
         obj.fadeTo(2000, 500).slideUp(500, function() {
@@ -165,11 +208,38 @@ $(document).ready(function(){
         return JSON.parse('{"' + decodeURI(data.substring(0)).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
     }
 
+    $.fn.main = function(){
+        $(".list-group-item").on('click', function(){
+            $(".list-group-item.active").removeClass("active")
+            $(this).addClass("active")
+        })
+
+        $("#my_rest").on('click', function(){
+            $(".mgr_portal_data").hide();
+            $("#my_rest_container").show()
+            if (!my_rest_rendered){
+                $.fn.get_restaurant();
+            }
+        })
+
+        $("#view").on('click', function(){
+            $(".mgr_portal_data").hide();
+            $("#view_container").show();
+            if (!view_rendered){
+                $.fn.get_food_items();
+            }
+        })
+
+        $("#my_rest").trigger('click');
+    }
+
+
+
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
            $.fn.activate_nav_bar();
-           $.fn.get_restaurant()
+           $.fn.main();
 
         };
         return thispage;

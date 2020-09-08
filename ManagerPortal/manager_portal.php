@@ -23,19 +23,20 @@
 
     <div class="container-fluid row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
-            <div class="list-group">
-                <a class="list-group-item list-group-item-dark active">My Restaurant</a>
-                <a class="list-group-item list-group-item-dark ">View Food Items</a>
-                <a class="list-group-item list-group-item-dark ">Add Food Items</a>
-                <a class="list-group-item list-group-item-dark ">Edit Food Items</a>
-                <a class="list-group-item list-group-item-dark ">Delete Food Items</a>
-            </div>
+            <!-- <div class="list-group"> -->
+                <div id="my_rest" class="list-group-item list-group-item-dark active">My Restaurant</div>
+                <div id="view" class="list-group-item list-group-item-dark">View All Food Items</div>
+                <div id="today" class="list-group-item list-group-item-dark">Today's Food Items</div>
+                <div id="new_food" class="list-group-item list-group-item-dark">Add New Food Item</div>
+                <div id="order" class="list-group-item list-group-item-dark">View Order Details</div>
+
+            <!-- </div> -->
         </div>
 
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
-            <div id="data_container" style="padding: 0px 100px 100px 100px;">
+            <div id="my_rest_container" class="mgr_portal_data" style="padding: 0px 100px 100px 100px;"></div>
+            <div id="view_container" class="mgr_portal_data" style="padding: 0px 100px 100px 100px;"></div>
 
-            </div>
         </div>
 
 
