@@ -12,9 +12,9 @@
     background-color: black !important;
 }
 
-.nav-item :hover{
+/* .nav-item :hover{
     color: white !important;
-}
+} */
 
 .list-group-item-dark.active{
     background-color: black;
@@ -31,5 +31,4 @@
 
 .list-group-item.active:hover{
     background-color: black;
-
 }

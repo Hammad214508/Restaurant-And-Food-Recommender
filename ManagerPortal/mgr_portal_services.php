@@ -36,7 +36,13 @@
         $form_data = get_food_items($args);
     }
 
+    if($actionmode == "update_food_item"){
+        $args["FOOD_ID"] = isset($_POST['FOOD_ID']) ? $_POST['FOOD_ID'] : NULL;
+        $args["COLUMN"] = isset($_POST['COLUMN']) ? $_POST['COLUMN'] : NULL;
+        $args["VALUE"] = isset($_POST['VALUE']) ? $_POST['VALUE'] : NULL;
 
+        $form_data = update_food_item($args);
+    }
 
     echo json_encode($form_data);
 
@@ -60,6 +66,14 @@
         $FOOD = new FOOD();
         return $FOOD -> get_food_items($args);
     }
+
+    function update_food_item($args){
+        $FOOD = new FOOD();
+        return $FOOD -> update_food_item($args);
+    }
+
+
+
 
 
 

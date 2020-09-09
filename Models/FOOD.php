@@ -15,5 +15,21 @@ class FOOD {
         return $conn->get_binded_data($query, $args);
     }
 
+    public function update_food_item($args){
+        $data = array(
+            "VALUE" => $args["VALUE"],
+            "FOOD_ID" => $args["FOOD_ID"]
+        );
+
+        $conn = new Connector();
+        
+        $query = "UPDATE FOOD SET ".$args['COLUMN']."=:VALUE WHERE FOOD_ID = :FOOD_ID";
+
+        return $conn->perform_transaction($query, $data);
+    }
+
+
+
+
 
 }

@@ -36,6 +36,8 @@
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
             <div id="my_rest_container" class="mgr_portal_data" style="padding: 0px 100px 100px 100px;"></div>
             <div id="view_container" class="mgr_portal_data" style="padding: 0px 100px 100px 100px;"></div>
+            <div id="new_food_container" class="mgr_portal_data" style="padding: 0px 100px 100px 100px;"></div>
+
 
         </div>
 
