@@ -26,7 +26,7 @@
             <!-- <div class="list-group"> -->
                 <div id="my_rest" class="list-group-item list-group-item-dark active">My Restaurant</div>
                 <div id="view" class="list-group-item list-group-item-dark">View All Food Items</div>
-                <div id="today" class="list-group-item list-group-item-dark">Today's Food Items</div>
+                <div id="today" class="list-group-item list-group-item-dark">Today's Menu</div>
                 <div id="new_food" class="list-group-item list-group-item-dark">Add New Food Item</div>
                 <div id="order" class="list-group-item list-group-item-dark">View Order Details</div>
 
@@ -37,7 +37,7 @@
             <div id="my_rest_container" class="mgr_portal_data" style="padding: 0px 100px 100px 100px;"></div>
             <div id="view_container" class="mgr_portal_data" style="padding: 0px 100px 100px 100px;"></div>
             <div id="new_food_container" class="mgr_portal_data" style="padding: 0px 100px 100px 100px;"></div>
-
+            <div id="today_container" class="mgr_portal_data" style="padding: 0px 100px 100px 100px;"></div>
 
         </div>
 

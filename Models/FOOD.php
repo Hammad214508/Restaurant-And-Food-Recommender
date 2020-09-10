@@ -22,11 +22,39 @@ class FOOD {
         );
 
         $conn = new Connector();
-        
+
         $query = "UPDATE FOOD SET ".$args['COLUMN']."=:VALUE WHERE FOOD_ID = :FOOD_ID";
 
         return $conn->perform_transaction($query, $data);
     }
+
+
+    public function add_new_food($args){
+
+        $conn = new Connector();
+
+        $query = "INSERT INTO FOOD (NAME, PRICE, DESCRIPTION, RESTAURANT_ID, AVAILABLE)
+                  VALUES (:NAME, :PRICE, :DESCRIPTION, :RESTAURANT_ID, 'Y')";
+
+        return $conn->perform_transaction($query, $args);
+    }
+
+
+    public function get_today_menu($args){
+
+        $conn = new Connector();
+
+        $query = "SELECT *
+                  FROM FOOD
+                  WHERE
+                    RESTAURANT_ID = :RESTAURANT_ID
+                    AND AVAILABLE = 'true'";
+
+        return $conn->get_binded_data($query, $args);
+    }
+
+
+
 
 
 

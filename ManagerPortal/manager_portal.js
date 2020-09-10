@@ -2,6 +2,7 @@ $(document).ready(function(){
     var restaurant_id;
     var my_rest_rendered = false;
     var view_rendered = false;
+    var today_rendered = false;
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -198,6 +199,7 @@ $(document).ready(function(){
         parent.append('<h3 class="text-center mb-4"> YOUR FOOD ITEMS LIST </h3>');
         parent.append($.fn.get_table_template());
         $.fn.render_food_rows(data);
+
     }
 
     $.fn.get_table_template = function(){
@@ -222,28 +224,34 @@ $(document).ready(function(){
          var parent = $("#food_items");
          for (var i = 0; i < data.length; i++){
              parent.append($.fn.food_item_row(data[i]));
+             $("#checkbox_food_"+data[i]["FOOD_ID"]).on("change", function(){
+                 today_rendered = false;
+                 var food_id =  $(this).parent().parent().attr('id');
+                 var food_field = $(this).attr("ref");
+                 var value = this.checked
+                 $.fn.update_food_item(food_id, food_field, value);
+             });
          }
+
          $("td[contenteditable=true]").on('focusout',function(){
             var food_id =  $(this).parent().attr('id');
             var food_field = $(this).attr("ref");
-            var value = $.trim($(this).text());
+            var value = $(this).text()
 
             $.fn.update_food_item(food_id, food_field, value);
-
          })
 
 
      };
 
     $.fn.food_item_row = function(data){
+        var checked = data["AVAILABLE"] == "true" ? "checked" : "";
         return (
             '<tr id="'+data["FOOD_ID"]+'">'+
             '  <td contenteditable=true ref=NAME>'+data["NAME"]+'</td>'+
             '  <td contenteditable=true ref=PRICE>'+data["PRICE"]+'</td>'+
             '  <td contenteditable=true ref=DESCRIPTION>'+data["DESCRIPTION"]+'</td>'+
-            // '  <td contenteditable=true ref=AVAILABLE>'+data["AVAILABLE"]+'</td>'+
-            '  <td class="text-center"><input type="checkbox" name="myTextEditBox" checked/></td>'+
-
+            '  <td class="text-center"><input id="checkbox_food_'+data["FOOD_ID"]+'" ref="AVAILABLE" type="checkbox"'+checked+'/></td>'+
             '</tr>'
         );
     }
@@ -273,7 +281,7 @@ $(document).ready(function(){
 
 
     /*****************************************************************
-    *                           NEW FOOD ITEM                         *
+    *                           NEW FOOD ITEM                        *
     ******************************************************************/
 
     $.fn.new_food_form = function(){
@@ -285,7 +293,7 @@ $(document).ready(function(){
             '<div class="text-center">'+
             '   <button id="add_new_food" type="button" class="btn btn-secondary btn-lg">ADD</button>'+
             '<div>'
-        )
+        );
     }
 
 
@@ -297,21 +305,124 @@ $(document).ready(function(){
             '        <p>'+label+'</p>'+
             '    </div>'+
             '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
-            '        <input type="text" class="form-control mb-3" id="'+id+'"  placeholder="'+placeholder+'">'+
+            '        <input type="text" class="form-control mb-3" id="'+id+'" placeholder="'+placeholder+'">'+
             '    </div>'+
             '</div>'
-        )
+        );
     }
 
     $.fn.add_new_food_events = function(){
         $("#add_new_food").on('click', function(){
             $.fn.add_new_food();
-        })
+        });
     }
 
     $.fn.add_new_food = function(){
-
+        $.ajax({
+           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           method: "POST",
+           data:{
+                   "actionmode"	   : "add_new_food",
+                   "NAME"          : $("#food_name").val(),
+                   "PRICE"         : $("#food_price").val(),
+                   "DESCRIPTION"   : $("#food_description").val(),
+                   "RESTAURANT_ID" : restaurant_id
+               },
+           success:function(data) {
+              var params = $.fn.get_ajax_params(this.data);
+              data = JSON.parse(data);
+              if (!data.success){
+                  $("#error").html("<b>ERROR ADDING FOOD ITEM!</b>");
+                  $.fn.temporary_show("#error");
+              }else{
+                  var parent = $("#food_items");
+                  params["NAME"] = params["NAME"].replace('+', ' ');
+                  params["DESCRIPTION"] = params["DESCRIPTION"].replace('+', ' ');
+                  parent.append($.fn.food_item_row(params));
+                  $("#view").trigger('click');
+              }
+            }
+        });
     }
+
+    /*****************************************************************
+    *                           TODAY'S MENU                         *
+    ******************************************************************/
+
+    $.fn.get_today_menu = function(){
+        $.ajax({
+           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           method: "POST",
+           data:{
+                   "actionmode"	   : "get_today_menu",
+                   "RESTAURANT_ID" : restaurant_id
+               },
+           success:function(data) {
+              data = JSON.parse(data);
+              if (!data.success){
+                  $("#error").html("<b>ERROR GETTING TODAY'S MENU!</b>");
+                  $.fn.temporary_show("#error");
+              }else{
+                  data = data.dataset
+                  if (data.length > 0){
+                      $.fn.render_menu(data[0]);
+                  }else{
+                      var parent = $("#today_container");
+                      parent.append('<h3>NO FOOD ITEMS TO DISPLAY!</h3>');
+                  }
+              }
+            }
+        });
+    }
+
+    $.fn.render_menu = function(data){
+        var parent = $("#today_container");
+        parent.empty();
+        parent.append('<h3 class="text-center mb-4"> TODAY\'S MENU </h3>');
+        parent.append($.fn.get_menu_template_template());
+        $.fn.render_today_food_rows(data);
+    }
+
+    $.fn.get_menu_template_template = function(){
+        return (
+            '<table class="table table-striped table-bordered">'+
+            '   <thead class="thead-dark">'+
+            '       <tr>'+
+            '       <th> Food Name </th>'+
+            '       <th> Price </th>'+
+            '       <th> Description </th>'+
+            '       </tr>'+
+            '   </thead>'+
+            '   <tbody id="today_menu">'+
+            '   </tbody>'+
+            '</table>'
+        );
+    }
+
+    $.fn.render_today_food_rows = function(data){
+         var parent = $("#today_menu");
+         for (var i = 0; i < data.length; i++){
+             parent.append($.fn.today_food_item_row(data[i]));
+         }
+    }
+
+    $.fn.today_food_item_row = function(data){
+        return (
+            '<tr id="'+data["FOOD_ID"]+'">'+
+            '  <td>'+data["NAME"]+'</td>'+
+            '  <td>'+data["PRICE"]+'</td>'+
+            '  <td>'+data["DESCRIPTION"]+'</td>'+
+            '</tr>'
+        )
+    }
+
+
+
+
+    /*****************************************************************
+    *                               OTHER                            *
+    ******************************************************************/
+
 
     $.fn.temporary_show = function(id){
         var obj = $(id)
@@ -355,6 +466,16 @@ $(document).ready(function(){
             $("#new_food_container").append($.fn.new_food_form())
             $.fn.add_new_food_events();
         })
+
+        $("#today").on('click', function(){
+            $(".mgr_portal_data").hide();
+            $("#today_container").show();
+            if (!today_rendered){
+                $.fn.get_today_menu();
+                today_rendered = true;
+            }
+        })
+
 
         $("#my_rest").trigger('click');
     }

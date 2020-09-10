@@ -44,6 +44,21 @@
         $form_data = update_food_item($args);
     }
 
+    if($actionmode == "add_new_food"){
+        $args["NAME"] = isset($_POST['NAME']) ? $_POST['NAME'] : NULL;
+        $args["PRICE"] = isset($_POST['PRICE']) ? $_POST['PRICE'] : NULL;
+        $args["DESCRIPTION"] = isset($_POST['DESCRIPTION']) ? $_POST['DESCRIPTION'] : NULL;
+        $args["RESTAURANT_ID"] = isset($_POST['RESTAURANT_ID']) ? $_POST['RESTAURANT_ID'] : NULL;
+
+        $form_data = add_new_food($args);
+    }
+
+    if($actionmode == "get_today_menu"){
+        $args["RESTAURANT_ID"] = isset($_POST['RESTAURANT_ID']) ? $_POST['RESTAURANT_ID'] : NULL;
+
+        $form_data = get_today_menu($args);
+    }
+
     echo json_encode($form_data);
 
     function add_restaurant($args){
@@ -71,6 +86,22 @@
         $FOOD = new FOOD();
         return $FOOD -> update_food_item($args);
     }
+
+    function add_new_food($args){
+        $FOOD = new FOOD();
+        return $FOOD -> add_new_food($args);
+    }
+
+    function get_today_menu($args){
+        $FOOD = new FOOD();
+        return $FOOD -> get_today_menu($args);
+    }
+
+
+
+
+
+
 
 
 
