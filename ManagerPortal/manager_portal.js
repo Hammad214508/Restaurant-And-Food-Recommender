@@ -289,7 +289,17 @@ $(document).ready(function(){
             '<h3 class="text-center mb-4"> NEW FOOD ITEM</h3>'+
             $.fn.new_food_input("food_name", "Name:", "Food Name" )+
             $.fn.new_food_input("food_price", "Price:", "Food Price" )+
-            $.fn.new_food_input("food_description", "Description:", "Food Description" )+
+            // $.fn.new_food_input("food_description", "Description:", "Food Description" )+
+            '<div class="row">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
+            '        <p>Description:</p>'+
+            '    </div>'+
+            '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
+            '        <textarea type="text" class="form-control mb-3" rows="2" maxlength = "200" id="food_description" placeholder="Food Description"></textarea>'+
+            '        <span id="char_limit" style="font-size:0.6em; display:none;">Character limit: 200</span>'+
+            '    </div>'+
+            '</div>'+
+
             '<div class="text-center">'+
             '   <button id="add_new_food" type="button" class="btn btn-secondary btn-lg">ADD</button>'+
             '<div>'
@@ -312,6 +322,15 @@ $(document).ready(function(){
     }
 
     $.fn.add_new_food_events = function(){
+
+        $("#food_description").on('focus', function(){
+            $("#char_limit").show();
+        })
+
+        $("#food_description").on('blur', function(){
+            $("#char_limit").hide();
+        });
+
         $("#add_new_food").on('click', function(){
             $.fn.add_new_food();
         });
@@ -415,8 +434,6 @@ $(document).ready(function(){
             '</tr>'
         )
     }
-
-
 
 
     /*****************************************************************
