@@ -53,6 +53,17 @@ class FOOD {
         return $conn->get_binded_data($query, $args);
     }
 
+    public function get_food_item_by_id($args){
+
+        $conn = new Connector();
+
+        $query = "SELECT *
+                  FROM FOOD
+                  WHERE FOOD_ID = :FOOD_ID;";
+
+        return $conn->get_binded_data($query, $args);
+    }
+
 
 
 

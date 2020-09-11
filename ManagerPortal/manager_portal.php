@@ -28,7 +28,7 @@
                 <div id="view" class="list-group-item list-group-item-dark">View All Food Items</div>
                 <div id="today" class="list-group-item list-group-item-dark">Today's Menu</div>
                 <div id="new_food" class="list-group-item list-group-item-dark">Add New Food Item</div>
-                <div id="order" class="list-group-item list-group-item-dark">View Order Details</div>
+                <!-- <div id="order" class="list-group-item list-group-item-dark">View Order Details</div> -->
 
             <!-- </div> -->
         </div>

@@ -36,7 +36,6 @@ $(document).ready(function(){
               }
             }
         });
-
     }
 
     $.fn.render_restaurant_view = function(data){
@@ -155,7 +154,7 @@ $(document).ready(function(){
             '        <p>'+label+'</p>'+
             '    </div>'+
             '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
-            '        <input type="text" class="form-control mb-3 rest_data" id="'+id+'"  placeholder="'+placeholder+'">'+
+            '        <input type="text" class="form-control mb-3 rest_data" id="'+id+'" placeholder="'+placeholder+'">'+
             '    </div>'+
                  $.fn.transaction_icons(id)+
             '</div>'
@@ -196,7 +195,20 @@ $(document).ready(function(){
 
     $.fn.render_food_items = function(data){
         var parent = $("#view_container");
-        parent.append('<h3 class="text-center mb-4"> YOUR FOOD ITEMS LIST </h3>');
+        parent.append(
+            '<div class="row">'+
+            '    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-10">'+
+            '       <h3 class="text-center mb-4"> YOUR FOOD ITEMS LIST</h3> '+
+            '    </div>'+
+            '    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2">'+
+            '       <button id="new_food_btn" class="btn btn-secondary"><i class="fa fa-plus"></i></button>'+
+            '    </div>'+
+            '</div>'
+
+        );
+        $("#new_food_btn").on("click", function(){
+            $("#new_food").trigger('click');
+        })
         parent.append($.fn.get_table_template());
         $.fn.render_food_rows(data);
 
@@ -211,6 +223,8 @@ $(document).ready(function(){
             '       <th> Price </th>'+
             '       <th> Description </th>'+
             '       <th> Available </th>'+
+            '       <th> More </th>'+
+
             '       </tr>'+
             '   </thead>'+
             '   <tbody id="food_items">'+
@@ -225,13 +239,17 @@ $(document).ready(function(){
          for (var i = 0; i < data.length; i++){
              parent.append($.fn.food_item_row(data[i]));
              $("#checkbox_food_"+data[i]["FOOD_ID"]).on("change", function(){
-                 today_rendered = false;
                  var food_id =  $(this).parent().parent().attr('id');
                  var food_field = $(this).attr("ref");
                  var value = this.checked
                  $.fn.update_food_item(food_id, food_field, value);
              });
          }
+
+         $(".more").on('click', function(){
+             var f_id = $(this).attr("ref")
+             window.open('/Online-Food-Order/FoodItem/?food_id='+f_id, '_blank');
+         })
 
          $("td[contenteditable=true]").on('focusout',function(){
             var food_id =  $(this).parent().attr('id');
@@ -247,11 +265,13 @@ $(document).ready(function(){
     $.fn.food_item_row = function(data){
         var checked = data["AVAILABLE"] == "true" ? "checked" : "";
         return (
-            '<tr id="'+data["FOOD_ID"]+'">'+
+            '<tr id="'+data["FOOD_ID"]+'" class="cursor_hand">'+
             '  <td contenteditable=true ref=NAME>'+data["NAME"]+'</td>'+
             '  <td contenteditable=true ref=PRICE>'+data["PRICE"]+'</td>'+
             '  <td contenteditable=true ref=DESCRIPTION>'+data["DESCRIPTION"]+'</td>'+
             '  <td class="text-center"><input id="checkbox_food_'+data["FOOD_ID"]+'" ref="AVAILABLE" type="checkbox"'+checked+'/></td>'+
+            '  <td ref="'+data["FOOD_ID"]+'" class="text-center more"><i class="fa fa-external-link-square" aria-hidden="true"></i></td>'+
+
             '</tr>'
         );
     }
@@ -272,7 +292,7 @@ $(document).ready(function(){
                   $("#error").html("<b>ERROR UPDATING FOOD ITEM!</b>");
                   $.fn.temporary_show("#error");
               }else{
-                  console.log("SUCCESS UPDATE")
+                  today_rendered = false;
               }
             }
         });
@@ -305,8 +325,6 @@ $(document).ready(function(){
             '<div>'
         );
     }
-
-
 
     $.fn.new_food_input = function(id, label, placeholder){
         return (

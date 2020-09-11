@@ -8,20 +8,16 @@
     color: DarkRed ;
 }
 
-.bg-dark{
-    background-color: black !important;
-}
-
-/* .nav-item :hover{
-    color: white !important;
-} */
-
 .list-group-item-dark.active{
-    background-color: black;
+    background-color: #343a40;
 }
 
 .show_border {
     border:1px solid black;
+}
+
+.cursor_hand {
+    cursor: pointer;
 }
 
 .list-group-item:hover{
@@ -30,5 +26,10 @@
 }
 
 .list-group-item.active:hover{
-    background-color: black;
+    background-color: #343a40;
+}
+
+.file {
+  visibility: hidden;
+  position: absolute;
 }
