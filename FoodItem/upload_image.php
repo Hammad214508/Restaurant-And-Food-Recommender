@@ -15,11 +15,10 @@ if(isset($_POST["submit"])) {
 }
 
 // Check if file already exists
-if (file_exists($target_file)) {
-  $form_data  = array("success" => false, "dataset" => "Sorry, file already exists.");
-  $error = true;
-
-}
+// if (file_exists($target_file)) {
+//   $form_data  = array("success" => false, "dataset" => "Sorry, file already exists.");
+//   $error = true;
+// }
 
 // Check file size
 if ($_FILES["file"]["size"] > 500000) {

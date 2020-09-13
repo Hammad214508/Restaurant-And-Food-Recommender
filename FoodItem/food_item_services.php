@@ -17,8 +17,14 @@
         $args["ENTITY_ID"] = isset($_POST['ENTITY_ID']) ? $_POST['ENTITY_ID'] : NULL;
         $args["ENTITY_TYPE"] = isset($_POST['ENTITY_TYPE']) ? $_POST['ENTITY_TYPE'] : NULL;
         $args["IMAGE_NAME"] = isset($_POST['IMAGE_NAME']) ? $_POST['IMAGE_NAME'] : NULL;
+        $args["IMAGE_EXISTS"] = isset($_POST['IMAGE_EXISTS']) ? $_POST['IMAGE_EXISTS'] : NULL;
 
         $form_data = save_image($args);
+
+        // if ($args["IMAGE_EXISTS"] == "true" && $form_data["success"]){
+        //     unlink($_SERVER['DOCUMENT_ROOT']."/Online-Food-Order/Images/".$args["IMAGE_NAME"]);
+        // }
+
     }
 
     if($actionmode == "get_image"){
@@ -28,8 +34,6 @@
 
         $form_data = get_image($args);
     }
-
-
 
 
     echo json_encode($form_data);

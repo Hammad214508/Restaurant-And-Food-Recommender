@@ -7,10 +7,23 @@ class IMAGES {
 
         $conn = new Connector();
 
-        $query = "INSERT INTO IMAGES (ENTITY_ID, ENTITY_TYPE, IMAGE_NAME)
-                  VALUES (:ENTITY_ID, :ENTITY_TYPE, :IMAGE_NAME)";
+        $data = array(
+            "ENTITY_ID" => $args["ENTITY_ID"],
+            "ENTITY_TYPE" => $args["ENTITY_TYPE"],
+            "IMAGE_NAME" => $args["IMAGE_NAME"]
+        );
 
-        return $conn->perform_transaction($query, $args);
+        if ($args["IMAGE_EXISTS"] == "true"){
+            $query = "UPDATE IMAGES
+                      SET IMAGE_NAME = :IMAGE_NAME
+                      WHERE ENTITY_ID = :ENTITY_ID
+                            AND ENTITY_TYPE = :ENTITY_TYPE";
+        }else{
+            $query = "INSERT INTO IMAGES (ENTITY_ID, ENTITY_TYPE, IMAGE_NAME)
+                      VALUES (:ENTITY_ID, :ENTITY_TYPE, :IMAGE_NAME)";
+        }
+
+        return $conn->perform_transaction($query, $data);
     }
 
     public function get_image($args){

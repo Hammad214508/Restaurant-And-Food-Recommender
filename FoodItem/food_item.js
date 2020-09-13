@@ -1,5 +1,6 @@
 $(document).ready(function(){
     var food_id;
+    var image_exists = false;
 
     $.fn.get_food_item_by_id = function(){
         $.ajax({
@@ -39,9 +40,14 @@ $(document).ready(function(){
                   $("#error").html("<b>ERROR RETRIEVING IMAGE!</b>");
                   $.fn.temporary_show("#error");
               }else{
-                  data = data.dataset
+                  data = data.dataset;
                   if (data.length > 0){
-                      var image = data[0][0]["IMAGE_NAME"];
+                      var image_name = data[0][0]["IMAGE_NAME"];
+                      image_exists = true;
+                      $("#image").show();
+                      $("#upload").show();
+                      $("#file").val(image_name);
+                      $("#image").attr("src", "/Online-Food-Order/Images/"+image_name);
 
                   }
               }
@@ -50,8 +56,113 @@ $(document).ready(function(){
     }
 
     $.fn.render_food_item = function(data){
-        $("#food_name").append(data["NAME"])
+        $("#food_name").append(data["NAME"]);
+        var parent = $("#food_item_data");
+        parent.append($.fn.new_food_form());
+        $.fn.add_new_food_events(data)
     };
+
+    $.fn.new_food_form = function(){
+        return (
+            '<div class="row mt-4">'+
+                '<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>'+
+                '<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
+                    $.fn.new_food_input("food_name_inp", "Name:", "Food Name" )+
+                    $.fn.new_food_input("food_price", "Price:", "Food Price" )+
+                    '<div class="row">'+
+                    '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
+                    '        <p>Description:</p>'+
+                    '    </div>'+
+                    '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
+                    '        <textarea type="text" class="form-control mb-3" rows="2" maxlength = "200" id="food_description" placeholder="Food Description"></textarea>'+
+                    '        <span id="char_limit" style="font-size:0.6em; display:none;">Character limit: 200</span>'+
+                    '    </div>'+
+                         $.fn.transaction_icons("food_description")+
+                    '</div>'+
+                    // '<div class="text-center mt-1">'+
+                    // '   <button id="save" type="button" class="btn btn-secondary btn-lg">Save</button>'+
+                    // '   <i id="save_tick" class="fa fa-check icon" style="font-size:2em;color:green; display:none;"></i>'+
+                    // '</div>'+
+                '</div>'+
+                '<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>'+
+            '</div>'
+
+        );
+    }
+
+
+    $.fn.add_new_food_events = function(data){
+        $("#food_name_inp").val(data["NAME"]);
+        $("#food_price").val(data["PRICE"]);
+        $("#food_description").val(data["DESCRIPTION"]);
+
+        $("#food_name_inp").on("change", function(){
+            $("#food_name").html($(this).val());
+            $.fn.update_food_item($(this).attr("id"), food_id, "NAME", $(this).val());
+        });
+
+        $("#food_description").on('focus', function(){
+            $("#char_limit").show();
+        })
+
+        $("#food_description").on('blur', function(){
+            $("#char_limit").hide();
+        });
+
+        $("#food_price").on("change", function(){
+            $.fn.update_food_item($(this).attr("id"), food_id, "PRICE", $(this).val());
+        });
+
+        $("#food_description").on("change", function(){
+            $.fn.update_food_item($(this).attr("id"), food_id, "DESCRIPTION", $(this).val());
+        });
+
+        $("#save").on('click', function(){
+            $.fn.temporary_show("#save_tick")
+        })
+
+    }
+
+    $.fn.new_food_input = function(id, label, placeholder){
+        return (
+            '<div class="row">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
+            '        <p>'+label+'</p>'+
+            '    </div>'+
+            '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
+            '        <input type="text" class="form-control mb-3 rest_data" id="'+id+'" placeholder="'+placeholder+'">'+
+            '    </div>'+
+                 $.fn.transaction_icons(id)+
+            '</div>'
+        );
+    }
+
+
+    $.fn.update_food_item = function(field, food_id, food_field, value){
+        $.fn.temporary_show("#icons_"+field+" #loading")
+        $.ajax({
+           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           method: "POST",
+           data:{
+                   "actionmode"	   : "update_food_item",
+                   "FIELD"         : field,
+                   "FOOD_ID"       : food_id,
+                   "COLUMN"        : food_field,
+                   "VALUE"         : value,
+               },
+           success:function(data) {
+              $(".icon").hide();
+              var params = $.fn.get_ajax_params(this.data);
+              data = JSON.parse(data);
+
+              if (!data.success){
+                  $.fn.temporary_show("#icons_"+params["FIELD"]+" #cross");
+              }else{
+                  $.fn.temporary_show("#icons_"+params["FIELD"]+" #tick");
+              }
+            }
+        });
+    }
 
     $.fn.image_preview = function(){
         $(".browse").on("click", function() {
@@ -62,6 +173,7 @@ $(document).ready(function(){
         $('input[type="file"]').change(function(e) {
             $("#preview").show();
             $("#upload").show();
+            $("#image").hide();
 
             var fileName = e.target.files[0].name;
             $("#file").val(fileName);
@@ -92,19 +204,16 @@ $(document).ready(function(){
                         $("#msg").html(
                             '<div class="alert alert-success"><i class="fa fa-thumbs-up"></i> Data updated successfully.</div>'
                         );
-                        // $.fn.save_image(data["dataset"]);
+                        $.fn.temporary_show($("#msg"));
+                        $.fn.save_image(data["dataset"]);
                     }
                     else{
                         $("#msg").html(
                             '<div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> '+data["dataset"]+'</div>'
                         );
+                        $.fn.temporary_show($("#msg"));
                     }
                 },
-                error: function(data) {
-                    $("#msg").html(
-                        '<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> There is some thing wrong.</div>'
-                    );
-                    }
                 });
         });
 
@@ -116,6 +225,7 @@ $(document).ready(function(){
            method: "POST",
            data:{
                    "actionmode"	   : "save_image",
+                   "IMAGE_EXISTS"  : image_exists,
                    "ENTITY_ID"     : food_id,
                    "ENTITY_TYPE"   : "FOOD",
                    "IMAGE_NAME"    : image_name
@@ -125,13 +235,32 @@ $(document).ready(function(){
               if (!data.success){
                   $("#error").html("<b>ERROR SAVING IMAGE!</b>");
                   $.fn.temporary_show("#error");
-              }else{
-                  console.log("SUCCESS");
-
               }
             }
         });
     }
+
+    $.fn.transaction_icons = function(id){
+        return (
+            '<div id="icons_'+id+'" class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1">'+
+            '    <i id="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw icon" style="font-size:2em; display:none";></i>'+
+            '    <i id="tick" class="fa fa-check icon" style="font-size:2em;color:green; display:none"></i>'+
+            '    <i id="cross" class="fa fa-close icon" style="font-size:2em;color:red; display:none"></i>'+
+            '</div>'
+        )
+    }
+
+    $.fn.temporary_show = function(id){
+        var obj = $(id);
+        obj.fadeTo(2000, 500).slideUp(500, function() {
+            obj.slideUp(500);
+        })
+    };
+
+    $.fn.get_ajax_params = function(data){
+        return JSON.parse('{"' + decodeURI(data.substring(0)).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+    }
+
 
     var pageready = (function(){
         var thispage = {};
@@ -139,9 +268,8 @@ $(document).ready(function(){
             food_id = $("#inp_hdn_food_id").length > 0 ? $("#inp_hdn_food_id").val() : "";
             $.fn.get_food_item_by_id();
             $.fn.image_preview();
-            $.fn.image_upload()
-            $.fn.get_image_name()
-            ;
+            $.fn.image_upload();
+            $.fn.get_image_name();
 
 
         };

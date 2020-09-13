@@ -136,17 +136,6 @@ $(document).ready(function(){
         )
     }
 
-    $.fn.transaction_icons = function(id){
-        return (
-            '<div id="icons_'+id+'" class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1">'+
-            '    <i id="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw icon" style="font-size:2em";></i>'+
-            '    <i id="tick" class="fa fa-check icon" style="font-size:2em;color:green"></i>'+
-            '    <i id="cross" class="fa fa-close icon" style="font-size:2em;color:red"></i>'+
-            '</div>'
-        )
-
-    }
-
     $.fn.rest_data_input = function(id, label, placeholder){
         return (
             '<div class="row">'+
@@ -296,7 +285,6 @@ $(document).ready(function(){
               }
             }
         });
-
     }
 
 
@@ -309,7 +297,6 @@ $(document).ready(function(){
             '<h3 class="text-center mb-4"> NEW FOOD ITEM</h3>'+
             $.fn.new_food_input("food_name", "Name:", "Food Name" )+
             $.fn.new_food_input("food_price", "Price:", "Food Price" )+
-            // $.fn.new_food_input("food_description", "Description:", "Food Description" )+
             '<div class="row">'+
             '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
             '        <p>Description:</p>'+
@@ -468,6 +455,16 @@ $(document).ready(function(){
 
     $.fn.get_ajax_params = function(data){
         return JSON.parse('{"' + decodeURI(data.substring(0)).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+    }
+
+    $.fn.transaction_icons = function(id){
+        return (
+            '<div id="icons_'+id+'" class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1">'+
+            '    <i id="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw icon" style="font-size:2em; display:none";></i>'+
+            '    <i id="tick" class="fa fa-check icon" style="font-size:2em;color:green; display:none"></i>'+
+            '    <i id="cross" class="fa fa-close icon" style="font-size:2em;color:red; display:none"></i>'+
+            '</div>'
+        )
     }
 
     $.fn.main = function(){
