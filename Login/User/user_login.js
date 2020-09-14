@@ -49,8 +49,7 @@ $(document).ready(function(){
               }else{
                   data = data.dataset
                   if (data[0][0]["VALID"]){
-                      console.log("VALID")
-                      // window.open("/Online-Food-Order/Login1/User/user_login.php","_self")
+                      window.open("/Online-Food-Order/UserPortal/","_self")
                   }else{
                       $("#password_error").html("INCORRECT PASSWORD, PLEASE TRY AGAIN")
                       $.fn.temporary_show("password_error")

@@ -23,7 +23,8 @@ class USER {
 	}
 
 
-	public function get_password($args){
+
+	public function get_user_data($args){
 
 		$data = array(
 			":EMAIL" => $args["EMAIL"]
@@ -31,14 +32,11 @@ class USER {
 
 		$conn = new Connector();
 
-		$query = "SELECT PASSWORD
+		$query = "SELECT *
 				  FROM USER
-			      WHERE EMAIL = :EMAIL;";
+				  WHERE EMAIL = :EMAIL;";
 
 		return $conn->get_binded_data($query, $data);
 	}
-
-
-
 
 }

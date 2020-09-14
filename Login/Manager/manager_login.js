@@ -53,7 +53,7 @@ $(document).ready(function(){
                       $.fn.temporary_show("password_error")
                   }
                   else{
-                      window.open("/Online-Food-Order/ManagerPortal/manager_portal.php","_self")
+                      window.open("/Online-Food-Order/ManagerPortal/","_self")
                   }
               }
             }

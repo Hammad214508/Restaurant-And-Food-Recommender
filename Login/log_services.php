@@ -22,16 +22,18 @@
 
     function verify_user($args){
         $USER = new USER();
-        $password = $USER -> get_password($args);
+        $user_data = $USER -> get_user_data($args);
 
-        if (!($password["success"])){
-            return $password;
+        if (!($user_data["success"])){
+            return $user_data;
         };
 
-        $password = $password["dataset"][0][0]["PASSWORD"];
+        $password = $user_data["dataset"][0][0]["PASSWORD"];
 
         if (password_verify($args['PASSWORD'], $password)) {
+            session_start();
             $form_data = array("success" => true, "dataset" => [[["VALID" => true]]]);
+            $_SESSION['logged_in'] = $user_data["dataset"];
         }else{
             $form_data = array("success" => true, "dataset" => [[["VALID" => false]]]);
         }
