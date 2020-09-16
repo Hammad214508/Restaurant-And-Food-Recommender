@@ -43,7 +43,7 @@
 
         <div id="food_item_data" class="container text-center"></div>
 
-        <div class="container text-center">
+        <div class="container text-center mt-2">
             <h3>REVIEWS</h3>
             <div class="reviews_container">
 

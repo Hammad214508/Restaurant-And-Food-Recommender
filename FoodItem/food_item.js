@@ -75,7 +75,19 @@ $(document).ready(function(){
                     '    </div>'+
                     '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
                     '        <textarea type="text" class="form-control mb-3" rows="2" maxlength = "200" id="food_description" placeholder="Food Description"></textarea>'+
-                    '        <span id="char_limit" style="font-size:0.6em; display:none;">Character limit: 200</span>'+
+                    '    </div>'+
+                         $.fn.transaction_icons("food_description")+
+                    '</div>'+
+                    '<div class="row">'+
+                    '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
+                    '        <p>Diet Type:</p>'+
+                    '    </div>'+
+                    '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left">'+
+                    '       <select name="diet_type" id="diet_type">'+
+                    '           <option value="1">Non Vegetarian</option>'+
+                    '           <option value="2">Vegetarian</option>'+
+                    '           <option value="3">Vegan</option>'+
+                    '       </select>'+
                     '    </div>'+
                          $.fn.transaction_icons("food_description")+
                     '</div>'+
@@ -95,18 +107,11 @@ $(document).ready(function(){
         $("#food_name_inp").val(data["NAME"]);
         $("#food_price").val(data["PRICE"]);
         $("#food_description").val(data["DESCRIPTION"]);
+        $("#diet_type").val(data["DIET_TYPE"]);
 
         $("#food_name_inp").on("change", function(){
             $("#food_name").html($(this).val());
             $.fn.update_food_item($(this).attr("id"), food_id, "NAME", $(this).val());
-        });
-
-        $("#food_description").on('focus', function(){
-            $("#char_limit").show();
-        })
-
-        $("#food_description").on('blur', function(){
-            $("#char_limit").hide();
         });
 
         $("#food_price").on("change", function(){
@@ -117,9 +122,13 @@ $(document).ready(function(){
             $.fn.update_food_item($(this).attr("id"), food_id, "DESCRIPTION", $(this).val());
         });
 
-        $("#save").on('click', function(){
-            $.fn.temporary_show("#save_tick")
-        })
+        $("#diet_type").on("change", function(){
+            $.fn.update_food_item($(this).attr("id"), food_id, "DIET_TYPE", $(this).val());
+        });
+
+        // $("#save").on('click', function(){
+        //     $.fn.temporary_show("#save_tick")
+        // })
 
     }
 
