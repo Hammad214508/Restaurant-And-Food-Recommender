@@ -27,8 +27,9 @@ if(isset($_GET["code"]))
 
   //Get user profile data from google
   $data = $google_service->userinfo->get();
-  //
+
   // userinfo_v2_me
+
   //Below you can find Get profile data and store into $_SESSION variable
   if(!empty($data['given_name']))
   {
@@ -61,7 +62,7 @@ if(isset($_GET["code"]))
 if(!isset($_SESSION['access_token']))
 {
  //Create a URL to obtain user authorization
- $login_button = '<a href="'.$google_client->createAuthUrl().'"><img src="sign-in-with-google.png" /></a>';
+ $login_button = '<a href="'.$google_client->createAuthUrl().'"><img src="sign_in_with_google.png" /></a>';
 }
 
 ?>
