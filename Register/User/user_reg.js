@@ -127,7 +127,8 @@ $(document).ready(function(){
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
-            $.fn.registration_events()
+            $.fn.registration_events();
+
 
         };
         return thispage;
