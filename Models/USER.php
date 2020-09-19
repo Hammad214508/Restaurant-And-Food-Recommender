@@ -16,8 +16,8 @@ class USER {
 
 		$conn = new Connector();
 
-		$query = "INSERT INTO USER (NAME, SURNAME, EMAIL, PASSWORD)
-			      VALUES (:NAME, :SURNAME, :EMAIL, :PASSWORD);";
+		$query = "INSERT INTO USER (NAME, SURNAME, EMAIL, PASSWORD, GOOGLE_LOGIN)
+			      VALUES (:NAME, :SURNAME, :EMAIL, :PASSWORD, :GOOGLE_LOGIN);";
 
 		return $conn->perform_transaction($query, $args);
 	}

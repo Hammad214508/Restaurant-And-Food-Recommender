@@ -8,30 +8,31 @@
 
     <?php
 
-        if(isset($_GET["code"])){
-         $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
-
-         if(!isset($token['error'])){
-
-          $google_client->setAccessToken($token['access_token']);
-          $_SESSION['access_token'] = $token['access_token'];
-          $google_service = new Google_Service_Oauth2($google_client);
-          $data = $google_service->userinfo->get();
-
-          if(!empty($data['given_name'])){
-           $_SESSION['user_first_name'] = $data['given_name'];
-          }
-
-          if(!empty($data['family_name'])){
-           $_SESSION['user_last_name'] = $data['family_name'];
-          }
-
-          if(!empty($data['email'])){
-           $_SESSION['user_email_address'] = $data['email'];
-          }
-         }
-
-        }
+        // if(isset($_GET["code"])){
+        //  // echo "<script type='text/javascript'>alert('HERE');</script>";
+        //  $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
+        //
+        //  if(!isset($token['error'])){
+        //
+        //   $google_client->setAccessToken($token['access_token']);
+        //   $_SESSION['access_token'] = $token['access_token'];
+        //   $google_service = new Google_Service_Oauth2($google_client);
+        //   $data = $google_service->userinfo->get();
+        //
+        //   if(!empty($data['given_name'])){
+        //    $_SESSION['user_first_name'] = $data['given_name'];
+        //   }
+        //
+        //   if(!empty($data['family_name'])){
+        //    $_SESSION['user_last_name'] = $data['family_name'];
+        //   }
+        //
+        //   if(!empty($data['email'])){
+        //    $_SESSION['user_email_address'] = $data['email'];
+        //   }
+        //  }
+        //
+        // }
      ?>
 
     <div class="container">
@@ -80,7 +81,7 @@
                 <?php
                 if(!isset($_SESSION['access_token'])){
                     echo "OR";
-                    echo '<div class="container mt-2"><a href="'.$google_client->createAuthUrl().'"><img src="'.$basedir.'/Online-Food-Order/LoginGoogle/sign_in_with_google.png" style="width:20%;"></a></div>';
+                    echo '<div class="container mt-2"><a href="'.$google_client->createAuthUrl().'"><img src="'.$basedir.'/Online-Food-Order/LoginGoogle/sign_in_with_google.png" style="width:25%;"></a></div>';
                 }
                  ?>
 
