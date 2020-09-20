@@ -21,7 +21,6 @@ $(document).ready(function(){
               }else{
                   data = data.dataset;
                   if (data[0][0]["ISTHERE"] == "1"){
-                      alert("ACCOUNT_EXISTS")
                       $.fn.verify();
                       // window.open("/Online-Food-Order/UserPortal/","_self")
                   }else{
@@ -48,11 +47,7 @@ $(document).ready(function(){
               data = JSON.parse(data);
               if (!data.success){
                   alert("ERROR")
-                  // $("#error").html("<b>ERROR REGISTERING THE USER!</b>");
-                  // $.fn.temporary_show("error");
               }else{
-                  alert("REGISTERED");
-                  // window.open("/Online-Food-Order/UserPortal/","_self");
                   $.fn.verify();
               }
             }
@@ -74,17 +69,13 @@ $(document).ready(function(){
            success:function(data) {
               data = JSON.parse(data);
               if (!data.success){
-                  // $("#error").html("<b>ERROR LOGGING THE USER!</b>");
-                  // $.fn.temporary_show("error");
                    alert("ERROR VERYFYING");
               }else{
                   data = data.dataset
                   if (data[0][0]["VALID"]){
                       window.open("/Online-Food-Order/UserPortal/","_self")
                   }else{
-                      alert("ERROR VERYFYING");
-                      // $("#password_error").html("INCORRECT PASSWORD, PLEASE TRY AGAIN")
-                      // $.fn.temporary_show("password_error")
+                      alert("NOT VALID");
                   }
               }
             }

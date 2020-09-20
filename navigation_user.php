@@ -20,7 +20,7 @@
             <li id="nav-usr-portal" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Online-Food-Order/UserPortal/"> <?php echo $_SESSION["logged_in"][0][0]["NAME"] ." ".$_SESSION["logged_in"][0][0]["SURNAME"] ;?> </a></li>
             <li id="nav-restaurants" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Online-Food-Order/UserPortal/"> Restaurants </a></li>
             <li id="nav-food-items" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Online-Food-Order/UserPortal/"> Food Items </a></li>
-            <li id="nav-recommendation" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Online-Food-Order/UserPortal/"> Recommended </a></li>
+            <li id="nav-recommendation" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Online-Food-Order/UserPortal/Recommender/recommended.php"> Recommended </a></li>
 
             <li id="nav-logout" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Online-Food-Order/Login/logout.php">Log Out <i class="fa fa-sign-out"></i> </a></li>
         </ul>
