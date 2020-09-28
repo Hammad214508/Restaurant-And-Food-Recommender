@@ -17,3 +17,6 @@ gs.fit(data)
 
 print(gs.best_score["rmse"])
 print(gs.best_params["rmse"])
+
+# 1.6100716388369631
+# {'sim_options': {'name': 'msd', 'min_support': 5, 'user_based': False}}
