@@ -6,7 +6,7 @@ class Database{
 		// PDO connection parameters
 
         $host = 'localhost';
-        $dbname = 'my_database';
+        $dbname = 'database';
         $username = 'root';
         $password = '';
 
