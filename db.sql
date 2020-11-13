@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 07, 2020 at 01:57 PM
+-- Generation Time: Nov 13, 2020 at 05:10 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -52,7 +52,31 @@ CREATE TABLE `FOOD` (
 --
 
 INSERT INTO `FOOD` (`FOOD_ID`, `NAME`, `PRICE`, `DESCRIPTION`, `RESTAURANT_ID`, `AVAILABLE`, `DIET_TYPE`) VALUES
-(1, 'Pizza ', 12, 'Nice Pizza', 1, 'true', '2');
+(1, 'Pizza ', 12, 'Nice Pizza', 1, 'true', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `FOOD_REVIEWS`
+--
+
+DROP TABLE IF EXISTS `FOOD_REVIEWS`;
+CREATE TABLE `FOOD_REVIEWS` (
+  `REVIEW_ID` int(10) NOT NULL,
+  `FOOD_ID` int(10) NOT NULL,
+  `USER_ID` int(10) NOT NULL,
+  `REVIEW` varchar(250) DEFAULT NULL,
+  `HEALTHY` float DEFAULT NULL,
+  `FILLING` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `FOOD_REVIEWS`
+--
+
+INSERT INTO `FOOD_REVIEWS` (`REVIEW_ID`, `FOOD_ID`, `USER_ID`, `REVIEW`, `HEALTHY`, `FILLING`) VALUES
+(1, 1, 1, 'I like the pizza', 3.2, 1.2),
+(2, 1, 2, 'I  liked it', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -109,6 +133,61 @@ CREATE TABLE `RATINGS` (
   `RATING` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `RATINGS`
+--
+
+INSERT INTO `RATINGS` (`USER_ID`, `FOOD_ID`, `RATING`) VALUES
+(8, 7, 1),
+(8, 2, 3),
+(4, 10, 4),
+(6, 10, 5),
+(5, 9, 5),
+(3, 4, 5),
+(6, 9, 3),
+(4, 2, 3),
+(10, 5, 2),
+(10, 9, 3),
+(6, 7, 2),
+(1, 4, 2),
+(3, 5, 4),
+(8, 1, 4),
+(4, 6, 4),
+(3, 8, 1),
+(10, 9, 2),
+(4, 6, 3),
+(10, 5, 1),
+(6, 2, 2),
+(1, 3, 5),
+(3, 2, 2),
+(8, 2, 2),
+(4, 7, 1),
+(9, 10, 1),
+(6, 6, 1),
+(3, 6, 2),
+(4, 2, 3),
+(10, 6, 5),
+(1, 4, 5),
+(5, 7, 5),
+(7, 4, 5),
+(4, 2, 3),
+(2, 3, 5),
+(3, 10, 5),
+(5, 9, 5),
+(10, 2, 4),
+(9, 5, 4),
+(4, 5, 2),
+(1, 3, 2),
+(10, 6, 5),
+(2, 1, 5),
+(10, 5, 1),
+(7, 5, 4),
+(7, 6, 4),
+(10, 4, 2),
+(1, 5, 1),
+(1, 9, 1),
+(5, 7, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -131,7 +210,7 @@ CREATE TABLE `RESTAURANT` (
 --
 
 INSERT INTO `RESTAURANT` (`RESTAURANT_ID`, `NAME`, `EMAIL`, `NUMBER`, `ADDRESS`, `WEBSITE`, `MANAGER_ID`) VALUES
-(1, 'My Restaurant ', 'my@emailf', '07776846506', 'This is my address', 'hammadmehmood.co.uk', 1);
+(1, 'My Restaurant ', 'my@email', '07776846506', 'This is my address', 'hammadmehmood.co.uk', 1);
 
 -- --------------------------------------------------------
 
@@ -167,6 +246,12 @@ ALTER TABLE `FOOD`
   ADD PRIMARY KEY (`FOOD_ID`);
 
 --
+-- Indexes for table `FOOD_REVIEWS`
+--
+ALTER TABLE `FOOD_REVIEWS`
+  ADD PRIMARY KEY (`REVIEW_ID`);
+
+--
 -- Indexes for table `MANAGER`
 --
 ALTER TABLE `MANAGER`
@@ -193,6 +278,12 @@ ALTER TABLE `USER`
 --
 ALTER TABLE `FOOD`
   MODIFY `FOOD_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `FOOD_REVIEWS`
+--
+ALTER TABLE `FOOD_REVIEWS`
+  MODIFY `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `MANAGER`

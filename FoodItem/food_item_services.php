@@ -1,6 +1,7 @@
 <?php
     include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/FOOD.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/IMAGES.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/FOOD_REVIEWS.php');
 
 
     session_start();
@@ -11,6 +12,19 @@
         $args["FOOD_ID"] = isset($_POST['FOOD_ID']) ? $_POST['FOOD_ID'] : NULL;
 
         $form_data = get_food_item_by_id($args);
+    }
+
+
+    if($actionmode == "get_food_stats"){
+        $args["FOOD_ID"] = isset($_POST['FOOD_ID']) ? $_POST['FOOD_ID'] : NULL;
+
+        $form_data = get_food_stats($args);
+    }
+
+    if($actionmode == "get_food_reviews"){
+        $args["FOOD_ID"] = isset($_POST['FOOD_ID']) ? $_POST['FOOD_ID'] : NULL;
+
+        $form_data = get_food_reviews($args);
     }
 
     if($actionmode == "save_image"){
@@ -43,6 +57,18 @@
         $FOOD = new FOOD();
         return $FOOD -> get_food_item_by_id($args);
     }
+
+    function get_food_stats($args){
+        $FOOD_REVIEWS = new FOOD_REVIEWS();
+        return $FOOD_REVIEWS -> get_food_stats($args);
+    }
+
+    function get_food_reviews($args){
+        $FOOD_REVIEWS = new FOOD_REVIEWS();
+        return $FOOD_REVIEWS -> get_food_reviews($args);
+    }
+
+
 
     function save_image($args){
         $IMAGES = new IMAGES();

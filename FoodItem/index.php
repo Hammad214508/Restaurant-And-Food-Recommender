@@ -4,11 +4,16 @@
     <title>Food Item</title>
 
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/header.php') ?>
+
 </head>
 
 <?php $food_id = isset($_GET["food_id"]) ? $_GET["food_id"] : NULL; ?>
 
 <body>
+    <div class="container">
+        <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
+    </div>
+
     <div class="container">
 
         <div class="text-center">
@@ -45,7 +50,7 @@
 
         <div class="container text-center mt-2">
             <h3>REVIEWS</h3>
-            <div class="reviews_container">
+            <div id="reviews_container">
 
             </div>
         </div>

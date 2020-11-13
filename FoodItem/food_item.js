@@ -13,7 +13,7 @@ $(document).ready(function(){
            success:function(data) {
               data = JSON.parse(data);
               if (!data.success){
-                  $("#error").html("<b>ERROR GETTING RESTAURANT!</b>");
+                  $("#error").html("<b>ERROR GETTING FOOD ITEM!</b>");
                   $.fn.temporary_show("#error");
               }else{
                   data = data.dataset
@@ -22,6 +22,52 @@ $(document).ready(function(){
                   }
               }
             }
+        });
+    }
+
+    $.fn.get_food_stats = function(){
+        $.ajax({
+           url: "/Online-Food-Order/FoodItem/food_item_services.php",
+           method: "POST",
+           data:{
+                   "actionmode"	   : "get_food_stats",
+                   "FOOD_ID"       : food_id
+               },
+           success:function(data) {
+              data = JSON.parse(data);
+              if (!data.success){
+                  $("#error").html("<b>ERROR GETTING FOOD REVIEWS!</b>");
+                  $.fn.temporary_show("#error");
+              }else{
+                  data = data.dataset
+                  if (data.length > 0){
+                      $.fn.render_food_stats(data[0]);
+                  }
+              }
+          }
+        });
+    }
+
+    $.fn.get_food_reviews = function(){
+        $.ajax({
+           url: "/Online-Food-Order/FoodItem/food_item_services.php",
+           method: "POST",
+           data:{
+                   "actionmode"	   : "get_food_reviews",
+                   "FOOD_ID"       : food_id
+               },
+           success:function(data) {
+              data = JSON.parse(data);
+              if (!data.success){
+                  $("#error").html("<b>ERROR GETTING FOOD REVIEWS!</b>");
+                  $.fn.temporary_show("#error");
+              }else{
+                  data = data.dataset
+                  if (data.length > 0){
+                      $.fn.render_food_reviews(data[0]);
+                  }
+              }
+          }
         });
     }
 
@@ -89,7 +135,7 @@ $(document).ready(function(){
                     '           <option value="3">Vegan</option>'+
                     '       </select>'+
                     '    </div>'+
-                         $.fn.transaction_icons("food_description")+
+                         $.fn.transaction_icons("diet_type")+
                     '</div>'+
                     // '<div class="text-center mt-1">'+
                     // '   <button id="save" type="button" class="btn btn-secondary btn-lg">Save</button>'+
@@ -171,6 +217,25 @@ $(document).ready(function(){
               }
             }
         });
+    }
+
+    $.fn.render_food_stats  = function(stats){
+        var rating = stats[0]["RATING"]
+        var healthy = stats[0]["HEALTHY"]
+        var filling = stats[0]["FILLING"]
+        $("#reviews_container").append(
+            "<h5>Rating: "+rating+"<h5>"+
+            "<h5>Healthy: "+healthy+"<h5>"+
+            "<h5>Filling: "+filling+"<h5>"
+        )
+
+    }
+
+    $.fn.render_food_reviews  = function(reviews){
+        $.each(reviews, function( index, value ) {
+          $("#reviews_container").append(value["REVIEW"] + "<br>")
+        });
+
     }
 
     $.fn.image_preview = function(){
@@ -279,6 +344,9 @@ $(document).ready(function(){
             $.fn.image_preview();
             $.fn.image_upload();
             $.fn.get_image_name();
+            $.fn.get_food_stats();
+            $.fn.get_food_reviews();
+
 
 
         };

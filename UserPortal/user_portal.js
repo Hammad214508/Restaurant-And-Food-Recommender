@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    
+
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
         $("#nav-usr-portal").addClass("active");
@@ -10,7 +10,6 @@ $(document).ready(function(){
         var thispage = {};
         thispage.init = function(){
             $.fn.activate_nav_bar();
-            console.log("HERE")
 
         };
         return thispage;
