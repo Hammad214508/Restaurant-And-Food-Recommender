@@ -48,6 +48,9 @@
         $args["NAME"] = isset($_POST['NAME']) ? $_POST['NAME'] : NULL;
         $args["PRICE"] = isset($_POST['PRICE']) ? $_POST['PRICE'] : NULL;
         $args["DESCRIPTION"] = isset($_POST['DESCRIPTION']) ? $_POST['DESCRIPTION'] : NULL;
+        $args["DIET_TYPE"] = isset($_POST['DIET_TYPE']) ? $_POST['DIET_TYPE'] : NULL;
+        $args["HEALTHY_RATING"] = isset($_POST['HEALTHY_RATING']) ? $_POST['HEALTHY_RATING'] : NULL;
+        $args["FILLING_RATING"] = isset($_POST['FILLING_RATING']) ? $_POST['FILLING_RATING'] : NULL;
         $args["RESTAURANT_ID"] = isset($_POST['RESTAURANT_ID']) ? $_POST['RESTAURANT_ID'] : NULL;
 
         $form_data = add_new_food($args);

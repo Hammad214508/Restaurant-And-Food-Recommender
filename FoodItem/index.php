@@ -49,9 +49,12 @@
         <div id="food_item_data" class="container text-center"></div>
 
         <div class="container text-center mt-2">
-            <h3>REVIEWS</h3>
             <div id="reviews_container">
-
+                <h3>REVIEWS</h3>
+                <div id="reviews"></div>
+                <br>
+                <h3>Statistics</h3>
+                <div id="stats"></div>
             </div>
         </div>
 

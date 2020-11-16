@@ -306,7 +306,36 @@ $(document).ready(function(){
             '        <span id="char_limit" style="font-size:0.6em; display:none;">Character limit: 200</span>'+
             '    </div>'+
             '</div>'+
-
+            '<div class="row">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
+            '        <p>Diet Type:</p>'+
+            '    </div>'+
+            '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left">'+
+            '       <select name="diet_type" id="diet_type">'+
+            '           <option value="1">Non Vegetarian</option>'+
+            '           <option value="2">Vegetarian</option>'+
+            '           <option value="3">Vegan</option>'+
+            '       </select>'+
+            '    </div>'+
+            '</div>'+
+            '<div class="row">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
+            '        <p>Healthy rating:</p>'+
+            '    </div>'+
+            '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left my-auto">'+
+            '       <input id="health_slider" class="border-0" type="range" min="0" max="5" step="0.25" />'+
+            '       <span id="health_value" class="font-weight-bold text-secondary"></span>'+
+            '    </div>'+
+            '</div>'+
+            '<div class="row">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
+            '        <p>Filling rating:</p>'+
+            '    </div>'+
+            '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left my-auto">'+
+            '       <input id="filling_slider" class="border-0" type="range" min="0" max="5" step="0.25" />'+
+            '       <span id="filling_value" class="font-weight-bold text-secondary"></span>'+
+            '    </div>'+
+            '</div>'+
             '<div class="text-center">'+
             '   <button id="add_new_food" type="button" class="btn btn-secondary btn-lg">ADD</button>'+
             '<div>'
@@ -328,6 +357,20 @@ $(document).ready(function(){
 
     $.fn.add_new_food_events = function(){
 
+
+        $('#health_value').html($('#health_slider').val());
+
+        $('#health_slider').on('input change', function(){
+          $('#health_value').html($('#health_slider').val());
+        });
+
+        $('#filling_value').html($('#filling_slider').val());
+
+        $('#filling_slider').on('input change', function(){
+          $('#filling_value').html($('#filling_slider').val());
+        });
+
+
         $("#food_description").on('focus', function(){
             $("#char_limit").show();
         })
@@ -346,11 +389,14 @@ $(document).ready(function(){
            url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
            method: "POST",
            data:{
-                   "actionmode"	   : "add_new_food",
-                   "NAME"          : $("#food_name").val(),
-                   "PRICE"         : $("#food_price").val(),
-                   "DESCRIPTION"   : $("#food_description").val(),
-                   "RESTAURANT_ID" : restaurant_id
+                   "actionmode"	     : "add_new_food",
+                   "NAME"            : $("#food_name").val(),
+                   "PRICE"           : $("#food_price").val(),
+                   "DESCRIPTION"     : $("#food_description").val(),
+                   "DIET_TYPE"       : $("#diet_type").val(),
+                   "HEALTHY_RATING"  : $('#health_slider').val(),
+                   "FILLING_RATING"  : $('#filling_slider').val(),
+                   "RESTAURANT_ID"   : restaurant_id
                },
            success:function(data) {
               var params = $.fn.get_ajax_params(this.data);

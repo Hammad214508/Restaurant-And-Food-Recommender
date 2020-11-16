@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var food_id;
     var image_exists = false;
+    var healthy_rating, filling_rating;
 
     $.fn.get_food_item_by_id = function(){
         $.ajax({
@@ -66,6 +67,9 @@ $(document).ready(function(){
                   if (data.length > 0){
                       $.fn.render_food_reviews(data[0]);
                   }
+                  else{
+                       $("#reviews").append("<h5>No reviews to show!</h5>")
+                  }
               }
           }
         });
@@ -103,6 +107,8 @@ $(document).ready(function(){
 
     $.fn.render_food_item = function(data){
         $("#food_name").append(data["NAME"]);
+        healthy_rating = data["HEALTHY_RATING"];
+        filling_rating = data["FILLING_RATING"];
         var parent = $("#food_item_data");
         parent.append($.fn.new_food_form());
         $.fn.add_new_food_events(data)
@@ -221,19 +227,17 @@ $(document).ready(function(){
 
     $.fn.render_food_stats  = function(stats){
         var rating = stats[0]["RATING"]
-        var healthy = stats[0]["HEALTHY"]
-        var filling = stats[0]["FILLING"]
-        $("#reviews_container").append(
-            "<h5>Rating: "+rating+"<h5>"+
-            "<h5>Healthy: "+healthy+"<h5>"+
-            "<h5>Filling: "+filling+"<h5>"
+        $("#stats").append(
+            "<p>Rating: "+rating+"<p>"+
+            "<p>Healthy: "+healthy_rating+"<p>"+
+            "<p>Filling: "+filling_rating+"<p>"
         )
 
     }
 
     $.fn.render_food_reviews  = function(reviews){
         $.each(reviews, function( index, value ) {
-          $("#reviews_container").append(value["REVIEW"] + "<br>")
+          $("#reviews").append("<p>" +value["REVIEW"] + "</p>")
         });
 
     }

@@ -32,8 +32,8 @@ class FOOD {
 
         $conn = new Connector();
 
-        $query = "INSERT INTO FOOD (NAME, PRICE, DESCRIPTION, RESTAURANT_ID, AVAILABLE)
-                  VALUES (:NAME, :PRICE, :DESCRIPTION, :RESTAURANT_ID, 'false')";
+        $query = "INSERT INTO FOOD (NAME, PRICE, DESCRIPTION, RESTAURANT_ID, AVAILABLE, DIET_TYPE, HEALTHY_RATING, FILLING_RATING)
+                  VALUES (:NAME, :PRICE, :DESCRIPTION, :RESTAURANT_ID, 'false', :DIET_TYPE, :HEALTHY_RATING, :FILLING_RATING)";
 
         return $conn->perform_transaction($query, $args);
     }

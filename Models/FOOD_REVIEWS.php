@@ -8,10 +8,9 @@ class FOOD_REVIEWS {
 
         $conn = new Connector();
 
-        $query = "SELECT round(AVG(RATING), 2) AS RATING, round(AVG(HEALTHY), 2) AS HEALTHY, round(AVG(FILLING), 2) AS FILLING
-                  FROM FOOD_REVIEWS
-                       INNER JOIN RATINGS ON FOOD_REVIEWS.FOOD_ID = RATINGS.FOOD_ID
-                  WHERE FOOD_REVIEWS.FOOD_ID = :FOOD_ID;";
+        $query = "SELECT round(AVG(RATING), 2) AS RATING
+                  FROM RATINGS
+                  WHERE RATINGS.FOOD_ID = :FOOD_ID;";
 
         return $conn->get_binded_data($query, $args);
     }
