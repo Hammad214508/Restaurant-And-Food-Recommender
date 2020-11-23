@@ -1,9 +1,9 @@
 <head>
     <title>Login</title>
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/header.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
 </head>
 <body>
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/navigation.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/navigation.php') ?>
     <div class="container">
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
     </div>
@@ -34,7 +34,7 @@
             </form>
 
             <div id="account_not_exists" class="alert alert-info" role="alert" style="display:none">
-              Looks like you don't have an account,  <a href="<?php global $basedir; ?>/Online-Food-Order/Register/Manager/manager_reg.php">Register</a>.
+              Looks like you don't have an account,  <a href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/Manager/manager_reg.php">Register</a>.
             </div>
 
             <hr>
@@ -42,12 +42,12 @@
           </div>
 
           <div class="container signin">
-            <p>Don't have have an account? <a href="<?php global $basedir; ?>/Online-Food-Order/Register/Manager/manager_reg.php">Register</a>.</p>
+            <p>Don't have have an account? <a href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/Manager/manager_reg.php">Register</a>.</p>
           </div>
     </div>
 
 </body>
 
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/footer.php') ?>
-<script src="<?php global $basedir; ?>/Online-Food-Order/Login/login.js"></script>
-<script src="<?php global $basedir; ?>/Online-Food-Order/Login/Manager/manager_login.js"></script>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/login.js"></script>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/Manager/manager_login.js"></script>

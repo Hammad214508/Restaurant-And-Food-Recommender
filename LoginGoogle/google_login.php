@@ -1,6 +1,6 @@
 <?php
 
-require_once ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/LoginGoogle/config.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/LoginGoogle/config.php');
 
 if(isset($_GET["code"])){
  $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
@@ -42,5 +42,5 @@ if(isset($_GET["code"])){
  <input id="inp_hdn_surname" style="display:none;" value="<?php echo $_SESSION['user_last_name'] ?>"></input>
  <input id="inp_hdn_email_address" style="display:none;" value="<?php echo $_SESSION['user_email_address'] ?>"></input>
 
- <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/footer.php') ?>
- <script src="<?php global $basedir; ?>/Online-Food-Order/LoginGoogle/google_login.js"></script>
+ <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
+ <script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/LoginGoogle/google_login.js"></script>

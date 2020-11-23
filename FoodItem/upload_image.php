@@ -1,5 +1,5 @@
 <?php
-$target_dir = $_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Images/';
+$target_dir = $_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Images/';
 $target_file = $target_dir . basename($_FILES["file"]["name"]);
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 $error = false;

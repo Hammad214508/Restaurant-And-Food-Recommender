@@ -1,10 +1,10 @@
 <head>
     <title>Contact Us</title>
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/header.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
 </head>
 <body>
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/navigation.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/navigation.php') ?>
 </body>
 
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/footer.php') ?>
-<script src="<?php global $basedir; ?>/Online-Food-Order/Contact/contact.js"></script>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Contact/contact.js"></script>

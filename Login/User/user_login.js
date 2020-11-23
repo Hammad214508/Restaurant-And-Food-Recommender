@@ -3,7 +3,7 @@ $(document).ready(function(){
     $.fn.check_registered = function(){
         var email = $("#email").val();
         $.ajax({
-           url: "/Online-Food-Order/Register/reg_services.php",
+           url: "/Restaurant-And-Food-Recommender/Register/reg_services.php",
            method: "POST",
            data:{
                    "actionmode"	: "check_registered",
@@ -33,7 +33,7 @@ $(document).ready(function(){
         var password = $("#password").val();
 
         $.ajax({
-           url: "/Online-Food-Order/Login/log_services.php",
+           url: "/Restaurant-And-Food-Recommender/Login/log_services.php",
            method: "POST",
            data:{
                    "actionmode"	: "verify",
@@ -49,7 +49,7 @@ $(document).ready(function(){
               }else{
                   data = data.dataset
                   if (data[0][0]["VALID"]){
-                      window.open("/Online-Food-Order/UserPortal/","_self")
+                      window.open("/Restaurant-And-Food-Recommender/UserPortal/","_self")
                   }else{
                       $("#password_error").html("INCORRECT PASSWORD, PLEASE TRY AGAIN")
                       $.fn.temporary_show("password_error")

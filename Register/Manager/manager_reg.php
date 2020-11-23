@@ -1,9 +1,9 @@
 <head>
     <title>Register</title>
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/header.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
 </head>
 <body>
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/navigation.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/navigation.php') ?>
 
     <div class="container">
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
@@ -51,7 +51,7 @@
             </form>
 
             <div id="account_exists" class="alert alert-info" role="alert" style="display:none">
-              Looks like you already have an account,  <a href="<?php global $basedir; ?>/Online-Food-Order/Login/Manager/manager_login.php">Log in</a>.
+              Looks like you already have an account,  <a href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/Manager/manager_login.php">Log in</a>.
             </div>
 
             <hr>
@@ -59,13 +59,13 @@
           </div>
 
           <div class="container signin">
-            <p>Already have an account? <a href="<?php global $basedir; ?>/Online-Food-Order/Login/Manager/manager_login.php">Log in</a>.</p>
+            <p>Already have an account? <a href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/Manager/manager_login.php">Log in</a>.</p>
           </div>
     </div>
 </body>
 
 <input id="inp_hdn_root_folder" style="display:none" value="<?php $_SERVER['DOCUMENT_ROOT'] ?>"></input>
 
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/footer.php') ?>
-<script src="<?php global $basedir; ?>/Online-Food-Order/Register/register.js"></script>
-<script src="<?php global $basedir; ?>/Online-Food-Order/Register/Manager/manager_reg.js"></script>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/register.js"></script>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/Manager/manager_reg.js"></script>

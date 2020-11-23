@@ -6,7 +6,7 @@ $(document).ready(function(){
 
     $.fn.check_registered = function(){
         $.ajax({
-           url: "/Online-Food-Order/Register/reg_services.php",
+           url: "/Restaurant-And-Food-Recommender/Register/reg_services.php",
            method: "POST",
            data:{
                    "actionmode"	: "check_registered",
@@ -22,7 +22,7 @@ $(document).ready(function(){
                   data = data.dataset;
                   if (data[0][0]["ISTHERE"] == "1"){
                       $.fn.verify();
-                      // window.open("/Online-Food-Order/UserPortal/","_self")
+                      // window.open("/Restaurant-And-Food-Recommender/UserPortal/","_self")
                   }else{
                       $.fn.register();
                   }
@@ -34,7 +34,7 @@ $(document).ready(function(){
     $.fn.register = function(){
 
         $.ajax({
-           url: "/Online-Food-Order/Register/reg_services.php",
+           url: "/Restaurant-And-Food-Recommender/Register/reg_services.php",
            method: "POST",
            data:{
                    "actionmode"	 : "register_user",
@@ -58,7 +58,7 @@ $(document).ready(function(){
 
 
         $.ajax({
-           url: "/Online-Food-Order/Login/log_services.php",
+           url: "/Restaurant-And-Food-Recommender/Login/log_services.php",
            method: "POST",
            data:{
                    "actionmode"	 : "verify",
@@ -73,7 +73,7 @@ $(document).ready(function(){
               }else{
                   data = data.dataset
                   if (data[0][0]["VALID"]){
-                      window.open("/Online-Food-Order/UserPortal/","_self")
+                      window.open("/Restaurant-And-Food-Recommender/UserPortal/","_self")
                   }else{
                       alert("NOT VALID");
                   }

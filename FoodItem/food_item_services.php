@@ -1,7 +1,7 @@
 <?php
-    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/FOOD.php');
-    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/IMAGES.php');
-    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/FOOD_REVIEWS.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/FOOD.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/IMAGES.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/FOOD_REVIEWS.php');
 
 
     session_start();
@@ -36,7 +36,7 @@
         $form_data = save_image($args);
 
         // if ($args["IMAGE_EXISTS"] == "true" && $form_data["success"]){
-        //     unlink($_SERVER['DOCUMENT_ROOT']."/Online-Food-Order/Images/".$args["IMAGE_NAME"]);
+        //     unlink($_SERVER['DOCUMENT_ROOT']."/Restaurant-And-Food-Recommender/Images/".$args["IMAGE_NAME"]);
         // }
 
     }

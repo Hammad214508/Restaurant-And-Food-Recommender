@@ -1,6 +1,6 @@
 <?php
-    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/USER.php');
-    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/MANAGER.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/USER.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/MANAGER.php');
 
     $actionmode = isset($_POST['actionmode']) ? $_POST['actionmode'] : NULL;
 

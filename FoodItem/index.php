@@ -3,7 +3,7 @@
 <head>
     <title>Food Item</title>
 
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/header.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
 
 </head>
 
@@ -67,8 +67,8 @@
 <input id="inp_hdn_food_id" style="display:none;" value="<?php echo $food_id ?>"></input>
 
 
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/footer.php') ?>
-<script src="<?php global $basedir; ?>/Online-Food-Order/FoodItem/food_item.js"></script>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/FoodItem/food_item.js"></script>
 
 
 </html>

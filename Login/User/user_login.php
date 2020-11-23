@@ -1,10 +1,10 @@
 <head>
     <title>Login</title>
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/header.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
 </head>
 <body>
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/navigation.php') ?>
-    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/LoginGoogle/config.php'); ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/navigation.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/LoginGoogle/config.php'); ?>
 
     <div class="container">
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
@@ -36,14 +36,14 @@
                 <?php
                 if(!isset($_SESSION['access_token'])){
                     echo "OR";
-                    echo '<div class="container mt-2"><a href="'.$google_client->createAuthUrl().'"><img src="'.$basedir.'/Online-Food-Order/LoginGoogle/sign_in_with_google.png" style="width:25%;"></a></div>';
+                    echo '<div class="container mt-2"><a href="'.$google_client->createAuthUrl().'"><img src="'.$basedir.'/Restaurant-And-Food-Recommender/LoginGoogle/sign_in_with_google.png" style="width:25%;"></a></div>';
                 }
                  ?>
 
             </form>
 
             <div id="account_not_exists" class="alert alert-info" role="alert" style="display:none">
-              Looks like you don't have an account,  <a href="<?php global $basedir; ?>/Online-Food-Order/Register/User/user_reg.php">Register</a>.
+              Looks like you don't have an account,  <a href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/User/user_reg.php">Register</a>.
             </div>
 
             <hr>
@@ -51,12 +51,12 @@
           </div>
 
           <div class="container signin">
-            <p>Don't have have an account? <a href="<?php global $basedir; ?>/Online-Food-Order/Register/User/user_reg.php">Register</a>.</p>
+            <p>Don't have have an account? <a href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/User/user_reg.php">Register</a>.</p>
           </div>
     </div>
 
 </body>
 
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/footer.php') ?>
-<script src="<?php global $basedir; ?>/Online-Food-Order/Login/login.js"></script>
-<script src="<?php global $basedir; ?>/Online-Food-Order/Login/User/user_login.js"></script>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/login.js"></script>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/User/user_login.js"></script>

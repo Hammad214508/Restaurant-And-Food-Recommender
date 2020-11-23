@@ -15,7 +15,7 @@ $(document).ready(function(){
 
     $.fn.get_restaurant = function(){
         $.ajax({
-           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           url: "/Restaurant-And-Food-Recommender/ManagerPortal/mgr_portal_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "get_restaurant",
@@ -78,7 +78,7 @@ $(document).ready(function(){
     $.fn.update_restaurant = function(field){
         $.fn.temporary_show("#icons_"+field+" #loading")
         $.ajax({
-           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           url: "/Restaurant-And-Food-Recommender/ManagerPortal/mgr_portal_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "update_restaurant",
@@ -107,7 +107,7 @@ $(document).ready(function(){
 
     $.fn.insert_dummy_restaurant = function(){
         $.ajax({
-           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           url: "/Restaurant-And-Food-Recommender/ManagerPortal/mgr_portal_services.php",
            method: "POST",
            data:{
                    "actionmode"	: "add_restaurant",
@@ -158,7 +158,7 @@ $(document).ready(function(){
 
     $.fn.get_food_items = function(){
         $.ajax({
-           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           url: "/Restaurant-And-Food-Recommender/ManagerPortal/mgr_portal_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "get_food_items",
@@ -237,7 +237,7 @@ $(document).ready(function(){
 
          $(".more").on('click', function(){
              var f_id = $(this).attr("ref")
-             window.open('/Online-Food-Order/FoodItem/?food_id='+f_id, '_blank');
+             window.open('/Restaurant-And-Food-Recommender/FoodItem/?food_id='+f_id, '_blank');
          })
 
          $("td[contenteditable=true]").on('focusout',function(){
@@ -267,7 +267,7 @@ $(document).ready(function(){
 
     $.fn.update_food_item = function(food_id, food_field, value){
         $.ajax({
-           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           url: "/Restaurant-And-Food-Recommender/ManagerPortal/mgr_portal_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "update_food_item",
@@ -386,7 +386,7 @@ $(document).ready(function(){
 
     $.fn.add_new_food = function(){
         $.ajax({
-           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           url: "/Restaurant-And-Food-Recommender/ManagerPortal/mgr_portal_services.php",
            method: "POST",
            data:{
                    "actionmode"	     : "add_new_food",
@@ -421,7 +421,7 @@ $(document).ready(function(){
 
     $.fn.get_today_menu = function(){
         $.ajax({
-           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           url: "/Restaurant-And-Food-Recommender/ManagerPortal/mgr_portal_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "get_today_menu",

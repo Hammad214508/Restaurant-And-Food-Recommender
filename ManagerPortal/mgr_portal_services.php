@@ -1,6 +1,6 @@
 <?php
-    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/RESTAURANT.php');
-    include ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/FOOD.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/RESTAURANT.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/FOOD.php');
 
     session_start();
 

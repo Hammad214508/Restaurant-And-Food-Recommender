@@ -1,5 +1,5 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'].'/Online-Food-Order/Models/Database.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/Database.php');
 
 class Connector{
 	// Creating and returning a database connection

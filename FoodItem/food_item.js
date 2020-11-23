@@ -5,7 +5,7 @@ $(document).ready(function(){
 
     $.fn.get_food_item_by_id = function(){
         $.ajax({
-           url: "/Online-Food-Order/FoodItem/food_item_services.php",
+           url: "/Restaurant-And-Food-Recommender/FoodItem/food_item_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "get_food_item_by_id",
@@ -28,7 +28,7 @@ $(document).ready(function(){
 
     $.fn.get_food_stats = function(){
         $.ajax({
-           url: "/Online-Food-Order/FoodItem/food_item_services.php",
+           url: "/Restaurant-And-Food-Recommender/FoodItem/food_item_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "get_food_stats",
@@ -51,7 +51,7 @@ $(document).ready(function(){
 
     $.fn.get_food_reviews = function(){
         $.ajax({
-           url: "/Online-Food-Order/FoodItem/food_item_services.php",
+           url: "/Restaurant-And-Food-Recommender/FoodItem/food_item_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "get_food_reviews",
@@ -77,7 +77,7 @@ $(document).ready(function(){
 
     $.fn.get_image_name = function(){
         $.ajax({
-           url: "/Online-Food-Order/FoodItem/food_item_services.php",
+           url: "/Restaurant-And-Food-Recommender/FoodItem/food_item_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "get_image",
@@ -97,7 +97,7 @@ $(document).ready(function(){
                       $("#image").show();
                       $("#upload").show();
                       $("#file").val(image_name);
-                      $("#image").attr("src", "/Online-Food-Order/Images/"+image_name);
+                      $("#image").attr("src", "/Restaurant-And-Food-Recommender/Images/"+image_name);
 
                   }
               }
@@ -202,7 +202,7 @@ $(document).ready(function(){
     $.fn.update_food_item = function(field, food_id, food_field, value){
         $.fn.temporary_show("#icons_"+field+" #loading")
         $.ajax({
-           url: "/Online-Food-Order/ManagerPortal/mgr_portal_services.php",
+           url: "/Restaurant-And-Food-Recommender/ManagerPortal/mgr_portal_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "update_food_item",
@@ -299,7 +299,7 @@ $(document).ready(function(){
 
     $.fn.save_image  = function(image_name){
         $.ajax({
-           url: "/Online-Food-Order/FoodItem/food_item_services.php",
+           url: "/Restaurant-And-Food-Recommender/FoodItem/food_item_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "save_image",

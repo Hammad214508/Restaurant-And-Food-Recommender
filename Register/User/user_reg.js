@@ -3,7 +3,7 @@ $(document).ready(function(){
     $.fn.check_registered = function(){
         var email = $("#email").val();
         $.ajax({
-           url: "/Online-Food-Order/Register/reg_services.php",
+           url: "/Restaurant-And-Food-Recommender/Register/reg_services.php",
            method: "POST",
            data:{
                    "actionmode"	: "check_registered",
@@ -35,7 +35,7 @@ $(document).ready(function(){
         var password = $("#password").val();
 
         $.ajax({
-           url: "/Online-Food-Order/Register/reg_services.php",
+           url: "/Restaurant-And-Food-Recommender/Register/reg_services.php",
            method: "POST",
            data:{
                    "actionmode"	: "register_user",
@@ -50,7 +50,7 @@ $(document).ready(function(){
                   $("#error").html("<b>ERROR REGISTERING THE USER!</b>");
                   $.fn.temporary_show("error");
               }else{
-                  window.open("/Online-Food-Order/Login/User/user_login.php","_self")
+                  window.open("/Restaurant-And-Food-Recommender/Login/User/user_login.php","_self")
               }
             }
         });
