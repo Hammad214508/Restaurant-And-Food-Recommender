@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 13, 2020 at 05:10 PM
+-- Generation Time: Nov 23, 2020 at 07:56 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -24,7 +24,6 @@ USE `database`;
 -- Table structure for table `DIET_TYPE`
 --
 
-DROP TABLE IF EXISTS `DIET_TYPE`;
 CREATE TABLE `DIET_TYPE` (
   `DIET_ID` int(11) NOT NULL,
   `DIET_NAME` int(11) NOT NULL
@@ -36,7 +35,6 @@ CREATE TABLE `DIET_TYPE` (
 -- Table structure for table `FOOD`
 --
 
-DROP TABLE IF EXISTS `FOOD`;
 CREATE TABLE `FOOD` (
   `FOOD_ID` int(10) NOT NULL,
   `NAME` varchar(250) DEFAULT NULL,
@@ -44,15 +42,21 @@ CREATE TABLE `FOOD` (
   `DESCRIPTION` varchar(250) DEFAULT NULL,
   `RESTAURANT_ID` int(10) NOT NULL,
   `AVAILABLE` varchar(250) NOT NULL,
-  `DIET_TYPE` varchar(250) DEFAULT NULL
+  `DIET_TYPE` varchar(250) DEFAULT NULL,
+  `HEALTHY_RATING` float NOT NULL,
+  `FILLING_RATING` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `FOOD`
 --
 
-INSERT INTO `FOOD` (`FOOD_ID`, `NAME`, `PRICE`, `DESCRIPTION`, `RESTAURANT_ID`, `AVAILABLE`, `DIET_TYPE`) VALUES
-(1, 'Pizza ', 12, 'Nice Pizza', 1, 'true', '1');
+INSERT INTO `FOOD` (`FOOD_ID`, `NAME`, `PRICE`, `DESCRIPTION`, `RESTAURANT_ID`, `AVAILABLE`, `DIET_TYPE`, `HEALTHY_RATING`, `FILLING_RATING`) VALUES
+(1, 'Pizza ', 12, 'Nice Pizza', 1, 'false', '1', 2.5, 5),
+(2, 'cake', 19, 'good cake', 1, 'true', '2', 3.7, 1.8),
+(3, 'Ice cream ', 1, 'This is ice cream description', 1, 'false', '3', 4.8, 2.9),
+(4, 'Chips', 1.5, 'Nice chips', 1, 'true', '2', 2, 3.25),
+(5, 'Burrito', 12, 'I don\'t know', 2, 'true', '1', 5, 1.5);
 
 -- --------------------------------------------------------
 
@@ -60,7 +64,6 @@ INSERT INTO `FOOD` (`FOOD_ID`, `NAME`, `PRICE`, `DESCRIPTION`, `RESTAURANT_ID`, 
 -- Table structure for table `FOOD_REVIEWS`
 --
 
-DROP TABLE IF EXISTS `FOOD_REVIEWS`;
 CREATE TABLE `FOOD_REVIEWS` (
   `REVIEW_ID` int(10) NOT NULL,
   `FOOD_ID` int(10) NOT NULL,
@@ -84,7 +87,6 @@ INSERT INTO `FOOD_REVIEWS` (`REVIEW_ID`, `FOOD_ID`, `USER_ID`, `REVIEW`, `HEALTH
 -- Table structure for table `IMAGES`
 --
 
-DROP TABLE IF EXISTS `IMAGES`;
 CREATE TABLE `IMAGES` (
   `ENTITY_ID` int(10) NOT NULL,
   `ENTITY_TYPE` varchar(250) NOT NULL,
@@ -104,7 +106,6 @@ INSERT INTO `IMAGES` (`ENTITY_ID`, `ENTITY_TYPE`, `IMAGE_NAME`) VALUES
 -- Table structure for table `MANAGER`
 --
 
-DROP TABLE IF EXISTS `MANAGER`;
 CREATE TABLE `MANAGER` (
   `MANAGER_ID` int(10) NOT NULL,
   `NAME` varchar(250) DEFAULT NULL,
@@ -118,7 +119,9 @@ CREATE TABLE `MANAGER` (
 --
 
 INSERT INTO `MANAGER` (`MANAGER_ID`, `NAME`, `SURNAME`, `EMAIL`, `PASSWORD`) VALUES
-(1, 'Harsh ', 'Patel', 'harsh@email', '$2y$10$R6Ejsr0z/0CGBonoqWbC2eaQV8qSC.w5Uckub1ASJ7Pq6ITQaSlsy');
+(1, 'Harsh ', 'Patel', 'harsh@email', '$2y$10$R6Ejsr0z/0CGBonoqWbC2eaQV8qSC.w5Uckub1ASJ7Pq6ITQaSlsy'),
+(2, 'Jaydip', 'Magan', 'magan@email', '$2y$10$sVP1IP4jGmAZP.89VSfVqe/bq/YK1mEhSNmsBvY8kH4r1h8mmVI6K'),
+(3, 'Anjali', 'Shukla', 'anjali@email', '$2y$10$u89SrYbgAYQ5dxRsOt5bNu.b0eJmW9thexeMQKYTVz8wtNbQfNnr2');
 
 -- --------------------------------------------------------
 
@@ -126,7 +129,6 @@ INSERT INTO `MANAGER` (`MANAGER_ID`, `NAME`, `SURNAME`, `EMAIL`, `PASSWORD`) VAL
 -- Table structure for table `RATINGS`
 --
 
-DROP TABLE IF EXISTS `RATINGS`;
 CREATE TABLE `RATINGS` (
   `USER_ID` int(10) NOT NULL,
   `FOOD_ID` int(10) NOT NULL,
@@ -194,7 +196,6 @@ INSERT INTO `RATINGS` (`USER_ID`, `FOOD_ID`, `RATING`) VALUES
 -- Table structure for table `RESTAURANT`
 --
 
-DROP TABLE IF EXISTS `RESTAURANT`;
 CREATE TABLE `RESTAURANT` (
   `RESTAURANT_ID` int(10) NOT NULL,
   `NAME` varchar(250) DEFAULT NULL,
@@ -202,6 +203,8 @@ CREATE TABLE `RESTAURANT` (
   `NUMBER` varchar(250) DEFAULT NULL,
   `ADDRESS` varchar(250) DEFAULT NULL,
   `WEBSITE` varchar(250) DEFAULT NULL,
+  `OPENING_TIME` time NOT NULL DEFAULT '08:00:00',
+  `CLOSING_TIME` time NOT NULL DEFAULT '22:00:00',
   `MANAGER_ID` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -209,8 +212,10 @@ CREATE TABLE `RESTAURANT` (
 -- Dumping data for table `RESTAURANT`
 --
 
-INSERT INTO `RESTAURANT` (`RESTAURANT_ID`, `NAME`, `EMAIL`, `NUMBER`, `ADDRESS`, `WEBSITE`, `MANAGER_ID`) VALUES
-(1, 'My Restaurant ', 'my@email', '07776846506', 'This is my address', 'hammadmehmood.co.uk', 1);
+INSERT INTO `RESTAURANT` (`RESTAURANT_ID`, `NAME`, `EMAIL`, `NUMBER`, `ADDRESS`, `WEBSITE`, `OPENING_TIME`, `CLOSING_TIME`, `MANAGER_ID`) VALUES
+(1, 'My Restaurant', 'my@email', '07776846506', 'This is my address', 'https://hammadmehmood.co.uk', '08:00:00', '22:00:00', 1),
+(2, 'Magan\'s restaurant', 'maganrestaurant@email', '1245647', 'Wembley', 'https://jaydipmagan.com/', '02:00:00', '05:30:00', 2),
+(3, '', '', '', '', '', '09:30:00', '22:30:00', 3);
 
 -- --------------------------------------------------------
 
@@ -218,7 +223,6 @@ INSERT INTO `RESTAURANT` (`RESTAURANT_ID`, `NAME`, `EMAIL`, `NUMBER`, `ADDRESS`,
 -- Table structure for table `USER`
 --
 
-DROP TABLE IF EXISTS `USER`;
 CREATE TABLE `USER` (
   `USER_ID` int(10) NOT NULL,
   `NAME` varchar(250) NOT NULL,
@@ -277,7 +281,7 @@ ALTER TABLE `USER`
 -- AUTO_INCREMENT for table `FOOD`
 --
 ALTER TABLE `FOOD`
-  MODIFY `FOOD_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `FOOD_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `FOOD_REVIEWS`
@@ -289,13 +293,13 @@ ALTER TABLE `FOOD_REVIEWS`
 -- AUTO_INCREMENT for table `MANAGER`
 --
 ALTER TABLE `MANAGER`
-  MODIFY `MANAGER_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `MANAGER_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `RESTAURANT`
 --
 ALTER TABLE `RESTAURANT`
-  MODIFY `RESTAURANT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `RESTAURANT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `USER`
