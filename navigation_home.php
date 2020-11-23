@@ -18,17 +18,17 @@
 
         <ul class="nav navbar-nav">
             <li id="nav-register" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="register-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</a>
+                <a class="nav-link dropdown-toggle" id="register-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
                 <div class="dropdown-menu" aria-labelledby="register-dropdown">
-                    <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/User/user_reg.php">User</a>
-                    <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/Manager/manager_reg.php">Manager</a>
+                    <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/User/user_reg.php">Registration</a>
+                    <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/User/user_login.php">Login</a>
                 </div>
             </li>
             <li id="nav-login" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="login-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+                <a class="nav-link dropdown-toggle" id="login-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager</a>
                 <div class="dropdown-menu" aria-labelledby="login-dropdown">
-                    <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/User/user_login.php">User</a>
-                    <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/Manager/manager_login.php">Manager</a>
+                  <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/Manager/manager_reg.php">Registration</a>
+                    <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/Manager/manager_login.php">Login</a>
                 </div>
             </li>
         </ul>

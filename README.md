@@ -1,1 +1,1 @@
-# Web application for contactless food ordering in restaurants with smart suggestions
+# Web application for restauarant and food recommendation

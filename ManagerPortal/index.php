@@ -1,6 +1,8 @@
 <head>
     <title>Manager Portal</title>
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
+    <link rel="stylesheet" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/libraries/timepicker/jquery.timepicker.css">
+
 </head>
 <body>
     <?php
@@ -49,4 +51,5 @@
 </body>
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/libraries/timepicker/jquery.timepicker.min.js"></script>
 <script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/ManagerPortal/manager_portal.js"></script>

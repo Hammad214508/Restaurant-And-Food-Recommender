@@ -52,9 +52,19 @@ $(document).ready(function(){
             $.fn.rest_data_input("contact", "Contact Number:", "Your Restaurant's Number" )+
             $.fn.rest_data_input("address", "Restaurant Address:", "Your Restaurant's Address" )+
             $.fn.rest_data_input("website", "Restaurant Website:", "Your Restaurant's Website" )+
+            $.fn.rest_time_picker("open_time", "Opening Time:", "Opening Time")+
+            $.fn.rest_time_picker("close_time", "Closing Time:", "Closing Time")+
             $.fn.save_button("save_rest_data")
         )
     }
+
+    $.fn.string_time_to_date = function(string){
+        var pieces = string.split(':')
+        var hour = parseInt(pieces[0], 10);
+        var minute = parseInt(pieces[1], 10);
+        var second = parseInt(pieces[2], 10);
+        return new Date(2000, 01, 02, hour, minute, second);
+    };
 
     $.fn.restaurant_data_events = function(data){
         $("#name").val(data["NAME"]);
@@ -73,10 +83,22 @@ $(document).ready(function(){
             $.fn.temporary_show("#icons_save_rest_data #tick");
         });
 
+        $('#open_time').timepicker();
+        $('#close_time').timepicker();
+
+        $('#open_time').timepicker({ 'timeFormat': 'h:i a' });
+        $('#close_time').timepicker({ 'timeFormat': 'h:i a' });
+
+        $('#open_time').timepicker('setTime', $.fn.string_time_to_date(data["OPENING_TIME"]));
+        $('#close_time').timepicker('setTime', $.fn.string_time_to_date(data["CLOSING_TIME"]));
+
+
     }
 
+
     $.fn.update_restaurant = function(field){
-        $.fn.temporary_show("#icons_"+field+" #loading")
+        $.fn.temporary_show("#icons_"+field+" #loading");
+
         $.ajax({
            url: "/Restaurant-And-Food-Recommender/ManagerPortal/mgr_portal_services.php",
            method: "POST",
@@ -87,7 +109,9 @@ $(document).ready(function(){
                    "EMAIL"         : $("#email").val(),
                    "NUMBER"        : $("#contact").val(),
                    "ADDRESS"       : $("#address").val(),
-                   "WEBSITE"       : $("#website").val()
+                   "WEBSITE"       : $("#website").val(),
+                   "OPENING_TIME"  : $("#open_time").val(),
+                   "CLOSING_TIME"  : $("#close_time").val()
                },
            success:function(data) {
               $(".icon").hide();
@@ -148,6 +172,22 @@ $(document).ready(function(){
                  $.fn.transaction_icons(id)+
             '</div>'
         )
+    }
+
+    $.fn.rest_time_picker = function(id, label, placeholder){
+        return (
+            '<div class="row">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
+            '        <p>'+label+'</p>'+
+            '    </div>'+
+            '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
+            '        <input id="'+id+'" type="text" class="time ui-timepicker-input rest_data" autocomplete="off" placeholder="'+placeholder+'">'+
+            '    </div>'+
+                 $.fn.transaction_icons(id)+
+            '</div>'
+
+        )
+
     }
 
 
@@ -498,6 +538,20 @@ $(document).ready(function(){
             obj.slideUp(500);
         })
     };
+
+    // $.fn.get_time_string = function(datetime){
+    //     var dateString = '';
+    //     var h = datetime.getHours(); //returns 0-23
+    //     var m = datetime.getMinutes(); //returns 0-59
+    //     var s = datetime.getSeconds(); //returns 0-59
+
+    //     if (h < 10) h = '0' + h;
+    //     if (m < 10) m = '0' + m;
+    //     if (s < 10) s = '0' + s;
+
+    //     dateString = h + ':' + m + ':' + s;
+    //     return dateString;
+    // }
 
     $.fn.get_ajax_params = function(data){
         return JSON.parse('{"' + decodeURI(data.substring(0)).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')

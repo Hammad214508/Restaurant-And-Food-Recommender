@@ -25,6 +25,8 @@
         $args["NUMBER"] = isset($_POST['NUMBER']) ? $_POST['NUMBER'] : NULL;
         $args["ADDRESS"] = isset($_POST['ADDRESS']) ? $_POST['ADDRESS'] : NULL;
         $args["WEBSITE"] = isset($_POST['WEBSITE']) ? $_POST['WEBSITE'] : NULL;
+        $args["OPENING_TIME"] = isset($_POST['OPENING_TIME']) ? date('H:i:s', strtotime($_POST['OPENING_TIME'])) : NULL;
+        $args["CLOSING_TIME"] = isset($_POST['CLOSING_TIME']) ? date('H:i:s', strtotime($_POST['CLOSING_TIME'])) : NULL;
         $args["MANAGER_ID"] = $_SESSION["logged_in"][0][0]["MANAGER_ID"];
 
         $form_data = update_restaurant($args);
