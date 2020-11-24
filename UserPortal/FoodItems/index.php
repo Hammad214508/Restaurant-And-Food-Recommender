@@ -1,5 +1,5 @@
 <head>
-    <title>User Portal</title>
+    <title>Food Items</title>
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
 </head>
 <body>
@@ -10,10 +10,8 @@
     }
     ?>
 
-    <div class="container">
-        <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
-    </div>
+    <h1>Food Items</h1>
 </body>
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
-<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/user_portal.js"></script>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/FoodItems/food_items.js"></script>

@@ -26,4 +26,6 @@ class FOOD_REVIEWS {
         return $conn->get_binded_data($query, $args);
     }
 
+
+
 }

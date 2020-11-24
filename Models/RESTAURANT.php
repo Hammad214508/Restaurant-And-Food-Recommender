@@ -42,4 +42,40 @@ class RESTAURANT {
         return $conn->perform_transaction($query, $args);
     }
 
+    public function get_all_restaurants($args){
+
+        $conn = new Connector();
+
+        $rating = "(SELECT AVG(RATING) AS RATING
+                    FROM RATINGS
+                    WHERE FOOD_ID IN
+                        (SELECT FOOD_ID 
+                        FROM FOOD 
+                        WHERE FOOD.RESTAURANT_ID = RESTAURANT.RESTAURANT_ID))";
+
+        $query = "SELECT RESTAURANT_ID, NAME, EMAIL, NUMBER, ADDRESS, ROUND(".$rating.", 2) AS RATING, OPENING_TIME, CLOSING_TIME
+                  FROM RESTAURANT";
+        
+
+
+        return $conn->get_binded_data($query, $args);
+    }
+
+    public function get_restaurant_rating($args){
+
+        $conn = new Connector();
+
+        $query = "SELECT AVG(RATING) AS RATING
+                  FROM RATINGS
+                  WHERE FOOD_ID IN
+                    (SELECT FOOD_ID 
+                    FROM FOOD 
+                    WHERE RESTAURANT_ID=:RESTAURANT_ID)
+                ";
+
+        return $conn->get_binded_data($query, $args);
+    }
+
+    
+
 }

@@ -539,20 +539,6 @@ $(document).ready(function(){
         })
     };
 
-    // $.fn.get_time_string = function(datetime){
-    //     var dateString = '';
-    //     var h = datetime.getHours(); //returns 0-23
-    //     var m = datetime.getMinutes(); //returns 0-59
-    //     var s = datetime.getSeconds(); //returns 0-59
-
-    //     if (h < 10) h = '0' + h;
-    //     if (m < 10) m = '0' + m;
-    //     if (s < 10) s = '0' + s;
-
-    //     dateString = h + ':' + m + ':' + s;
-    //     return dateString;
-    // }
-
     $.fn.get_ajax_params = function(data){
         return JSON.parse('{"' + decodeURI(data.substring(0)).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
     }
