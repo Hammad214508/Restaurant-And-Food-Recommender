@@ -5,7 +5,6 @@ $(document).ready(function(){
         $("#nav-food-items").addClass("active");
     }
 
-
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
