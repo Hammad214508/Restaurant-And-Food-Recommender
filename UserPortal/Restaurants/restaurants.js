@@ -5,12 +5,13 @@ $(document).ready(function(){
         $("#nav-restaurants").addClass("active");
     }
 
-    $.fn.get_all_restaurants = function(){
+    $.fn.get_all_restaurants = function(open){
         $.ajax({
            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
            method: "POST",
            data:{
                    "actionmode"	   : "get_all_restaurants",
+                   "OPEN"          : open
                },
            success:function(data) {
                 data = JSON.parse(data);
@@ -32,6 +33,7 @@ $(document).ready(function(){
     $.fn.render_restaurant_boxes = function(restaurants){
         var num_restaurants = restaurants.length;
         var parent = $("#restaurants_container");
+        parent.empty();
         for(var i = 0; i < num_restaurants; i++){
             if (i % 3 == 0){
                 var row = $("<div class='row'>");
@@ -81,6 +83,13 @@ $(document).ready(function(){
         });
     };
 
+    $.fn.open_restaurant_event = function(){
+        $("#open_rest").on("change", function(){
+            $.fn.get_all_restaurants($(this).prop("checked"));
+        })
+    }
+
+
     $.fn.string_time_to_date = function(string){
         var pieces = string.split(':')
         var hour = parseInt(pieces[0], 10);
@@ -117,6 +126,7 @@ $(document).ready(function(){
         thispage.init = function(){
             $.fn.activate_nav_bar();
             $.fn.get_all_restaurants();
+            $.fn.open_restaurant_event();
 
         };
         return thispage;

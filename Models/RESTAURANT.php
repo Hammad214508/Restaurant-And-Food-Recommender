@@ -43,6 +43,8 @@ class RESTAURANT {
     }
 
     public function get_all_restaurants($args){
+    
+        $where =
 
         $conn = new Connector();
 
@@ -56,9 +58,11 @@ class RESTAURANT {
         $query = "SELECT RESTAURANT_ID, NAME, EMAIL, NUMBER, ADDRESS, ROUND(".$rating.", 2) AS RATING, OPENING_TIME, CLOSING_TIME
                   FROM RESTAURANT";
         
+        if ($args["OPEN"]){
+            $query .= " WHERE NOW() BETWEEN OPENING_TIME AND CLOSING_TIME;";
+        }
 
-
-        return $conn->get_binded_data($query, $args);
+        return $conn->get_binded_data($query, array());
     }
 
     public function get_restaurant_rating($args){

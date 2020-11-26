@@ -6,7 +6,8 @@
     $actionmode = isset($_POST['actionmode']) ? $_POST['actionmode'] : NULL;
 
     if($actionmode == "get_all_restaurants"){
-        $args = array();
+        $open = isset($_POST['OPEN']) ? $_POST['OPEN'] : NULL;
+        $args["OPEN"] = $open  == "true" ? true : false;
         $form_data = get_all_restaurants($args);
     }
    
