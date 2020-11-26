@@ -4,6 +4,9 @@
 </head>
 <body>
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/navigation.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/LoginGoogle/config.php'); ?>
+
+    <?php $_SESSION['user_type'] = "MANAGER"; ?>
 
     <div class="container">
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
@@ -21,12 +24,10 @@
                 </div>
                 <span id="name_error" class="reg_error"></span>
 
-
                 <div class="text-center mt-3 mb-1">
                     <input  type="text" placeholder="Surname" name="surname" id="surname">
                 </div>
                 <span id="surname_error" class="reg_error"></span>
-
 
                 <div class="text-center mt-3 mb-1">
                     <input  type="email" placeholder="Email" name="email" id="email">
@@ -38,7 +39,6 @@
                 </div>
                 <span id="password_error" class="reg_error"></span>
 
-
                 <div class="text-center mt-3 mb-2">
                     <input  type="password" placeholder="Confirm Password" name="confirm_password" id="confirm_password">
                 </div>
@@ -47,6 +47,13 @@
                 <div class="container mt-1">
                     <button id="reg_btn" type="submit" class="btn btn-secondary btn-lg">Register</button>
                 </div>
+
+                <?php
+                // if(!isset($_SESSION['access_token'])){
+                    echo "OR";
+                    echo '<div class="container mt-2"><a href="'.$google_client->createAuthUrl().'"><img src="'.$basedir.'/Restaurant-And-Food-Recommender/LoginGoogle/sign_in_with_google.png" style="width:25%;"></a></div>';
+                // }
+                 ?>
 
             </form>
 

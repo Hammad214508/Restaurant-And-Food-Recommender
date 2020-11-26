@@ -4,9 +4,14 @@
 </head>
 <body>
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/navigation.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/LoginGoogle/config.php'); ?>
+
+    <?php $_SESSION['user_type'] = "MANAGER" ?>
+
     <div class="container">
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
     </div>
+
 
     <div class="container-fluid text-center">
           <div class="container" style="font-size:1.3em;">
@@ -30,6 +35,13 @@
                 <div class="container mt-1">
                     <button id="log_btn" type="submit" class="btn btn-secondary btn-lg">Login</button>
                 </div>
+
+                <?php
+                // if(!isset($_SESSION['access_token'])){
+                    echo "OR";
+                    echo '<div class="container mt-2"><a href="'.$google_client->createAuthUrl().'"><img src="'.$basedir.'/Restaurant-And-Food-Recommender/LoginGoogle/sign_in_with_google.png" style="width:25%;"></a></div>';
+                // }
+                 ?>
 
             </form>
 

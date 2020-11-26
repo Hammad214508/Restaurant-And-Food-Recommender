@@ -3,7 +3,7 @@ $(document).ready(function(){
         var thispage = {};
         thispage.init = function(){
            $(".nav-item.active").removeClass("active");
-           $("#nav-register").addClass("active");
+           $("#nav-user").addClass("active");
         };
         return thispage;
     })();

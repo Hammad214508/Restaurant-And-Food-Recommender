@@ -7,7 +7,7 @@
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/LoginGoogle/config.php'); ?>
 
     <?php
-
+        $_SESSION['user_type'] = "USER";
         // if(isset($_GET["code"])){
         //  // echo "<script type='text/javascript'>alert('HERE');</script>";
         //  $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
@@ -79,10 +79,10 @@
                 </div>
 
                 <?php
-                if(!isset($_SESSION['access_token'])){
+                // if(!isset($_SESSION['access_token'])){
                     echo "OR";
                     echo '<div class="container mt-2"><a href="'.$google_client->createAuthUrl().'"><img src="'.$basedir.'/Restaurant-And-Food-Recommender/LoginGoogle/sign_in_with_google.png" style="width:25%;"></a></div>';
-                }
+                // }
                  ?>
 
             </form>

@@ -22,8 +22,6 @@ class USER {
 		return $conn->perform_transaction($query, $args);
 	}
 
-
-
 	public function get_user_data($args){
 
 		$data = array(

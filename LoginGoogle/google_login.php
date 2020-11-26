@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/LoginGoogle/config.php');
 
@@ -25,19 +26,12 @@ if(isset($_GET["code"])){
    $_SESSION['user_email_address'] = $data['email'];
   }
 
-  // echo $_SESSION['user_first_name'];
-  // echo "<br>";
-  // echo $_SESSION['user_last_name'];
-  // echo "<br>";
-  // echo $_SESSION['user_email_address'];
-  // echo "<br>";
-
  }
 
 }
 
  ?>
-
+ <input id="inp_hdn_user_type" style="display:none;" value="<?php echo $_SESSION['user_type'] ?>"></input>
  <input id="inp_hdn_name" style="display:none;" value="<?php echo $_SESSION['user_first_name'] ?>"></input>
  <input id="inp_hdn_surname" style="display:none;" value="<?php echo $_SESSION['user_last_name'] ?>"></input>
  <input id="inp_hdn_email_address" style="display:none;" value="<?php echo $_SESSION['user_email_address'] ?>"></input>

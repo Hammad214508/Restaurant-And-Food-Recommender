@@ -594,7 +594,6 @@ $(document).ready(function(){
             }
         })
 
-
         $("#my_rest").trigger('click');
     }
 

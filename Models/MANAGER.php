@@ -17,8 +17,8 @@ class MANAGER {
 
 		$conn = new Connector();
 
-		$query = "INSERT INTO MANAGER (NAME, SURNAME, EMAIL, PASSWORD)
-			      VALUES (:NAME, :SURNAME, :EMAIL, :PASSWORD);";
+		$query = "INSERT INTO MANAGER (NAME, SURNAME, EMAIL, PASSWORD, GOOGLE_LOGIN)
+			      VALUES (:NAME, :SURNAME, :EMAIL, :PASSWORD, :GOOGLE_LOGIN);";
 
 		return $conn->perform_transaction($query, $args);
 	}

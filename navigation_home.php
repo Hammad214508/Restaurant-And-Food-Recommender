@@ -17,16 +17,16 @@
         </ul>
 
         <ul class="nav navbar-nav">
-            <li id="nav-register" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="register-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
-                <div class="dropdown-menu" aria-labelledby="register-dropdown">
+            <li id="nav-user" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="user-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
+                <div class="dropdown-menu" aria-labelledby="user-dropdown">
                     <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/User/user_reg.php">Registration</a>
                     <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/User/user_login.php">Login</a>
                 </div>
             </li>
-            <li id="nav-login" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="login-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager</a>
-                <div class="dropdown-menu" aria-labelledby="login-dropdown">
+            <li id="nav-manager" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="manager-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager</a>
+                <div class="dropdown-menu" aria-labelledby="manager-dropdown">
                   <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/Manager/manager_reg.php">Registration</a>
                     <a class="dropdown-item" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/Manager/manager_login.php">Login</a>
                 </div>

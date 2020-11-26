@@ -14,7 +14,6 @@
         }else{
             $form_data = check_manager_registered($args);
         }
-
     }
 
     if($actionmode == "register_user"){
@@ -37,11 +36,16 @@
         $args["NAME"] = isset($_POST['NAME']) ? $_POST['NAME'] : NULL;
         $args["SURNAME"] = isset($_POST['SURNAME']) ? $_POST['SURNAME'] : NULL;
         $args["EMAIL"] = isset($_POST['EMAIL']) ? $_POST['EMAIL'] : NULL;
-        $args["PASSWORD"] = isset($_POST['PASSWORD']) ? $_POST['PASSWORD'] : NULL;
-        $args["PASSWORD"] = password_hash($_POST['PASSWORD'], PASSWORD_DEFAULT);
+        if (isset($_POST['PASSWORD'])){
+            $args["PASSWORD"] = $_POST['PASSWORD'];
+            $args["PASSWORD"] = password_hash($_POST['PASSWORD'], PASSWORD_DEFAULT);
+        }else{
+            $args["PASSWORD"] = NULL;
+        }
+        
+        $args["GOOGLE_LOGIN"] = isset($_POST['GOOGLE_LOGIN']) ? $_POST['GOOGLE_LOGIN'] : false;
 
         $form_data = register_manager($args);
-
     }
 
     echo json_encode($form_data);
