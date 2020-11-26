@@ -26,7 +26,7 @@
             <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12">
                 <form class="form-inline d-flex">
                     <i class="fa fa-search" aria-hidden="true"></i>
-                    <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+                    <input id="search_text" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
                 </form>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 bottom-buffer text-center">

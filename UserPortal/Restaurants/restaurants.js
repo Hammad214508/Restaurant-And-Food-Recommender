@@ -1,5 +1,6 @@
 $(document).ready(function(){
-
+    var rest_search = "";
+    
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
         $("#nav-restaurants").addClass("active");
@@ -11,7 +12,8 @@ $(document).ready(function(){
            method: "POST",
            data:{
                    "actionmode"	   : "get_all_restaurants",
-                   "OPEN"          : open
+                   "OPEN"          : open, 
+                   "SEARCH"        : rest_search
                },
            success:function(data) {
                 data = JSON.parse(data);
@@ -23,9 +25,11 @@ $(document).ready(function(){
                     if (data.length > 0){
                         $.fn.render_restaurant_boxes(data[0]);
                     }else{
-                        console.log("No restaurants")
+                        parent = $("#restaurants_container")
+                        parent.empty();
+                        parent.append("<h1>NO RESTAURANTS</h1>");
                     }
-              }
+                }
             }
         });
     }
@@ -83,12 +87,18 @@ $(document).ready(function(){
         });
     };
 
-    $.fn.open_restaurant_event = function(){
+    $.fn.restaurant_filter_events = function(){
+        // Open restaurants
         $("#open_rest").on("change", function(){
             $.fn.get_all_restaurants($(this).prop("checked"));
-        })
-    }
+        });
 
+        // Search bar
+        $("#search_text").on("keyup", function(e){
+            rest_search = $(this).val();
+            $.fn.get_all_restaurants($("#open_rest").prop("checked"));
+        }); 
+    };
 
     $.fn.string_time_to_date = function(string){
         var pieces = string.split(':')
@@ -126,7 +136,7 @@ $(document).ready(function(){
         thispage.init = function(){
             $.fn.activate_nav_bar();
             $.fn.get_all_restaurants();
-            $.fn.open_restaurant_event();
+            $.fn.restaurant_filter_events();
 
         };
         return thispage;

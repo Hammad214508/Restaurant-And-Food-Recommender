@@ -44,8 +44,6 @@ class RESTAURANT {
 
     public function get_all_restaurants($args){
     
-        $where =
-
         $conn = new Connector();
 
         $rating = "(SELECT AVG(RATING) AS RATING
@@ -56,30 +54,14 @@ class RESTAURANT {
                         WHERE FOOD.RESTAURANT_ID = RESTAURANT.RESTAURANT_ID))";
 
         $query = "SELECT RESTAURANT_ID, NAME, EMAIL, NUMBER, ADDRESS, ROUND(".$rating.", 2) AS RATING, OPENING_TIME, CLOSING_TIME
-                  FROM RESTAURANT";
-        
+                  FROM RESTAURANT
+                  WHERE LOWER(NAME) LIKE '%".$args["SEARCH"]."%'";
+                 
         if ($args["OPEN"]){
-            $query .= " WHERE NOW() BETWEEN OPENING_TIME AND CLOSING_TIME;";
+            $query .= " AND NOW() BETWEEN OPENING_TIME AND CLOSING_TIME;";
         }
 
         return $conn->get_binded_data($query, array());
     }
-
-    public function get_restaurant_rating($args){
-
-        $conn = new Connector();
-
-        $query = "SELECT AVG(RATING) AS RATING
-                  FROM RATINGS
-                  WHERE FOOD_ID IN
-                    (SELECT FOOD_ID 
-                    FROM FOOD 
-                    WHERE RESTAURANT_ID=:RESTAURANT_ID)
-                ";
-
-        return $conn->get_binded_data($query, $args);
-    }
-
-    
 
 }
