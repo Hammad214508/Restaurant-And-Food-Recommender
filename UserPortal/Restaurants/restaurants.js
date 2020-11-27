@@ -1,5 +1,6 @@
 $(document).ready(function(){
     var rest_search = "";
+    var sorting = "none";
     
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -13,7 +14,8 @@ $(document).ready(function(){
            data:{
                    "actionmode"	   : "get_all_restaurants",
                    "OPEN"          : open, 
-                   "SEARCH"        : rest_search
+                   "SEARCH"        : rest_search,
+                   "SORTING"       : sorting
                },
            success:function(data) {
                 data = JSON.parse(data);
@@ -96,6 +98,12 @@ $(document).ready(function(){
         // Search bar
         $("#search_text").on("keyup", function(e){
             rest_search = $(this).val();
+            $.fn.get_all_restaurants($("#open_rest").prop("checked"));
+        }); 
+
+        // Sorting 
+        $("#sorting").on("change", function(){
+            sorting = $(this).val();
             $.fn.get_all_restaurants($("#open_rest").prop("checked"));
         }); 
     };

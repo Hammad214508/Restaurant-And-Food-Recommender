@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+    $.fn.activate_nav_bar = function(){
+        $(".nav-item.active").removeClass("active");
+        $("#nav-manager").addClass("active");
+    }
+
     $.fn.check_registered = function(){
         var email = $("#email").val();
         $.ajax({
@@ -110,8 +115,8 @@ $(document).ready(function(){
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
-            $.fn.login_events()
-
+            $.fn.activate_nav_bar();
+            $.fn.login_events();
         };
         return thispage;
     })();

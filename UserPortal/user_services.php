@@ -9,7 +9,8 @@
         $open = isset($_POST['OPEN']) ? $_POST['OPEN'] : NULL;
         $args["OPEN"] = $open  == "true" ? true : false;
         $args["SEARCH"] = isset($_POST['SEARCH']) ? $_POST['SEARCH'] : NULL;
-        
+        $args["SORTING"] = isset($_POST['SORTING']) ? $_POST['SORTING'] : NULL;
+                
         $form_data = get_all_restaurants($args);
     }
    

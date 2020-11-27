@@ -51,7 +51,20 @@ class RESTAURANT {
                   WHERE LOWER(NAME) LIKE '%".$args["SEARCH"]."%'";
                  
         if ($args["OPEN"]){
-            $query .= " AND NOW() BETWEEN OPENING_TIME AND CLOSING_TIME;";
+            $query .= " AND NOW() BETWEEN OPENING_TIME AND CLOSING_TIME";
+        }
+
+        if ($args["SORTING"] == "ratings"){
+            $query .= " ORDER BY RATING DESC";
+        }
+
+        if ($args["SORTING"] == "reviews"){
+            $query = "SELECT R.RESTAURANT_ID, R.NAME, R.EMAIL, R.NUMBER, R.ADDRESS, R.RATING, R.OPENING_TIME, R.CLOSING_TIME, COUNT(RT.FOOD_ID) AS NUM_REVIEWS
+                      FROM RESTAURANT R, FOOD F, RATINGS RT
+                        WHERE R.RESTAURANT_ID = F.RESTAURANT_ID 
+                        AND F.FOOD_ID = RT.FOOD_ID
+                      GROUP BY R.RESTAURANT_ID 
+                      ORDER BY NUM_REVIEWS DESC";
         }
 
         return $conn->get_binded_data($query, array());
