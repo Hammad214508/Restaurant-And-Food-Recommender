@@ -127,18 +127,6 @@ $(document).ready(function(){
         return strTime;
       }
 
-
-    $.fn.temporary_show = function(id){
-        var obj = $(id)
-        obj.fadeTo(2000, 500).slideUp(500, function() {
-            obj.slideUp(500);
-        })
-    };
-
-    $.fn.get_ajax_params = function(data){
-        return JSON.parse('{"' + decodeURI(data.substring(0)).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
-    }
-
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){

@@ -74,5 +74,4 @@
 <input id="inp_hdn_root_folder" style="display:none" value="<?php $_SERVER['DOCUMENT_ROOT'] ?>"></input>
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
-<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/register.js"></script>
 <script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Register/Manager/manager_reg.js"></script>

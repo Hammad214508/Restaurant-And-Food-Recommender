@@ -4,7 +4,6 @@ require_once ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models
 class Connector{
 	// Creating and returning a database connection
 
-
 	public function perform_transaction($query, $data){
 		try {
 			$database = new Database();

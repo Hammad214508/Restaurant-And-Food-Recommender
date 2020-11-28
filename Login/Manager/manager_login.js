@@ -105,13 +105,6 @@ $(document).ready(function(){
          });
     }
 
-    $.fn.temporary_show = function(id){
-        var obj = $("#"+id)
-        obj.fadeTo(2000, 500).slideUp(500, function() {
-            obj.slideUp(500);
-        })
-    }
-
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){

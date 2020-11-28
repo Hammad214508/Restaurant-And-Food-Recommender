@@ -61,5 +61,4 @@
 </body>
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
-<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/login.js"></script>
 <script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/Manager/manager_login.js"></script>
