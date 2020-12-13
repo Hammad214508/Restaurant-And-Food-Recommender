@@ -15,7 +15,7 @@ sim_options = {
 #                'min_support': 1, 
 #                'user_based': True}
 
-algo = KNNBasic(sim_options=sim_options)
+algo = KNNWithZScore(sim_options=sim_options)
 # KNNBasic
 # KNNWithZScore 
 # KNNBaseline
