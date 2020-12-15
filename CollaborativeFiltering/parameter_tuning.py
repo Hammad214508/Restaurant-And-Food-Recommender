@@ -1,7 +1,7 @@
 from surprise import KNNWithMeans, KNNWithZScore
 from surprise import Dataset
 from surprise.model_selection import GridSearchCV
-from load_data import data
+from load_user_data import training_data
 
 # data = Dataset.load_builtin("ml-100k")
 sim_options = {
@@ -13,7 +13,7 @@ sim_options = {
 param_grid = {"sim_options": sim_options}
 
 gs = GridSearchCV(KNNWithZScore, param_grid, measures=["rmse", "mae"], cv=3)
-gs.fit(data)
+gs.fit(training_data)
 
 print(gs.best_score["rmse"])
 print(gs.best_params["rmse"])
