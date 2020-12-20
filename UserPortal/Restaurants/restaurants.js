@@ -1,13 +1,14 @@
 $(document).ready(function(){
     var rest_search = "";
     var sorting = "none";
+    var open = false;
     
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
         $("#nav-restaurants").addClass("active");
     }
 
-    $.fn.get_all_restaurants = function(open){
+    $.fn.get_all_restaurants = function(){
         $.ajax({
            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
            method: "POST",
@@ -92,19 +93,20 @@ $(document).ready(function(){
     $.fn.restaurant_filter_events = function(){
         // Open restaurants
         $("#open_rest").on("change", function(){
-            $.fn.get_all_restaurants($(this).prop("checked"));
+            open = $(this).prop("checked");
+            $.fn.get_all_restaurants();
         });
 
         // Search bar
         $("#search_text").on("keyup", function(e){
             rest_search = $(this).val();
-            $.fn.get_all_restaurants($("#open_rest").prop("checked"));
+            $.fn.get_all_restaurants();
         }); 
 
         // Sorting 
         $("#sorting").on("change", function(){
             sorting = $(this).val();
-            $.fn.get_all_restaurants($("#open_rest").prop("checked"));
+            $.fn.get_all_restaurants();
         }); 
     };
 

@@ -20,6 +20,8 @@
         </div>
     </div>
 
+    <div id="food_items_container" class="container"></div>
+
 </body>
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>

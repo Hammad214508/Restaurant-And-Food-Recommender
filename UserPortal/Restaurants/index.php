@@ -61,7 +61,6 @@
 
     <div id="restaurants_container" class="container"></div>
 
-    <div></div>
 </body>
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
