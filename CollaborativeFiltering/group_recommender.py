@@ -29,7 +29,6 @@ def get_user_score(user_id):
 
 users = [1, 2, 3]
 
-
 restaurant_ids = get_all_restaurants()
 rest_scores = {}    
 for r_id in restaurant_ids:
@@ -38,4 +37,5 @@ for r_id in restaurant_ids:
     for user_id in users:
         rest_score += get_user_score(user_id)
     rest_scores[r_id[0]] = rest_score
+    
 print(rest_scores)
