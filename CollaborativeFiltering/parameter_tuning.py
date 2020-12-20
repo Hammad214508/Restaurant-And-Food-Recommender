@@ -1,7 +1,7 @@
 from surprise import KNNWithMeans, KNNWithZScore
 from surprise import Dataset
 from surprise.model_selection import GridSearchCV
-from load_user_data import training_data
+from train import training_data
 
 # data = Dataset.load_builtin("ml-100k")
 sim_options = {
