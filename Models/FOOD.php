@@ -67,9 +67,15 @@ class FOOD {
 
         $conn = new Connector();
 
-        $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, R.NAME AS RESTAURANT_NAME
+        $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, F.AVG_RATING, R.NAME AS RESTAURANT_NAME
                   FROM FOOD F
-                  INNER JOIN RESTAURANT R ON F.RESTAURANT_ID = R.RESTAURANT_ID";
+                  INNER JOIN RESTAURANT R ON F.RESTAURANT_ID = R.RESTAURANT_ID
+                  WHERE LOWER(F.NAME) LIKE '%".$args["SEARCH"]."%'";
+        
+        if ($args["AVAILABLE"]){
+            $query .= " AND F.AVAILABLE = 'true' 
+                        AND NOW() BETWEEN R.OPENING_TIME AND R.CLOSING_TIME";
+        }
 
         return $conn->get_binded_data($query, $args);
     }

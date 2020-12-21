@@ -14,13 +14,6 @@
         $form_data = get_food_item_by_id($args);
     }
 
-
-    if($actionmode == "get_food_stats"){
-        $args["FOOD_ID"] = isset($_POST['FOOD_ID']) ? $_POST['FOOD_ID'] : NULL;
-
-        $form_data = get_food_stats($args);
-    }
-
     if($actionmode == "get_food_reviews"){
         $args["FOOD_ID"] = isset($_POST['FOOD_ID']) ? $_POST['FOOD_ID'] : NULL;
 
@@ -58,17 +51,10 @@
         return $FOOD -> get_food_item_by_id($args);
     }
 
-    function get_food_stats($args){
-        $FOOD_REVIEWS = new FOOD_REVIEWS();
-        return $FOOD_REVIEWS -> get_food_stats($args);
-    }
-
     function get_food_reviews($args){
         $FOOD_REVIEWS = new FOOD_REVIEWS();
         return $FOOD_REVIEWS -> get_food_reviews($args);
     }
-
-
 
     function save_image($args){
         $IMAGES = new IMAGES();
