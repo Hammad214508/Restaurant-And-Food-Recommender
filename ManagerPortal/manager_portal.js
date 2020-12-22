@@ -253,7 +253,6 @@ $(document).ready(function(){
             '       <th> Description </th>'+
             '       <th> Available </th>'+
             '       <th> More </th>'+
-
             '       </tr>'+
             '   </thead>'+
             '   <tbody id="food_items">'+
@@ -396,7 +395,6 @@ $(document).ready(function(){
     }
 
     $.fn.add_new_food_events = function(){
-
 
         $('#health_value').html($('#health_slider').val());
 

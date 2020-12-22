@@ -119,6 +119,23 @@ $(document).ready(function(){
         //     sorting = $(this).val();
         //     $.fn.get_all_restaurants();
         // }); 
+
+        $('#health_value').html($('#health_slider').val());
+
+        $('#health_slider').on('input change', function(){
+          $('#health_value').html($('#health_slider').val());
+        });
+
+        $('#filling_value').html($('#filling_slider').val());
+
+        $('#filling_slider').on('input change', function(){
+          $('#filling_value').html($('#filling_slider').val());
+        });
+
+
+        $("#more").click(function(){
+            $(".more_filters").toggle();
+         });
     };
 
 
