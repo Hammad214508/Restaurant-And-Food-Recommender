@@ -1,20 +1,43 @@
 $(document).ready(function(){
     var available = false;
     var food_item_search = "";
+    var sorting, filling_rating_filter, healthy_rating_filter, diet_type_filter;
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
         $("#nav-food-items").addClass("active");
     }
 
+    $.fn.restart_filters = function(){
+        available = false;
+        food_item_search = "";
+        healthy_rating_filter = ""
+        filling_rating_filter = ""
+        sorting = ""
+        diet_type_filter = "";
+
+        $('#health_value').html(2.5);
+        $('#health_slider').val(2.5);
+
+        $('#filling_value').html(2.5);
+        $('#filling_value').val(2.5);
+
+    }
+
     $.fn.get_all_food_items = function(){
+        
+
         $.ajax({
             url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
             method: "POST",
             data:{
-                    "actionmode"	: "get_all_food_items",
-                    "AVAILABLE"     : available,
-                    "SEARCH"        : food_item_search,
+                    "actionmode"	 : "get_all_food_items",
+                    "AVAILABLE"      : available,
+                    "SEARCH"         : food_item_search,
+                    "SORTING"        : sorting,
+                    "FILLING_RATING" : filling_rating_filter, 
+                    "HEALTHY_RATING" : healthy_rating_filter, 
+                    "DIET_TYPE"      : diet_type_filter
                 },
             success:function(data) {
                 data = JSON.parse(data);
@@ -114,30 +137,51 @@ $(document).ready(function(){
             $.fn.get_all_food_items();
         }); 
 
-        // // Sorting 
-        // $("#sorting").on("change", function(){
-        //     sorting = $(this).val();
-        //     $.fn.get_all_restaurants();
-        // }); 
+        // Sorting 
+        $("#sorting").on("change", function(){
+            sorting = $(this).val();
+            $.fn.get_all_food_items();
+        }); 
 
+        // Healthy rating 
         $('#health_value').html($('#health_slider').val());
 
-        $('#health_slider').on('input change', function(){
+        $('#health_slider').on('input', function(){
           $('#health_value').html($('#health_slider').val());
         });
 
+        $('#health_slider').on('change', function(){
+            healthy_rating_filter = $('#health_slider').val();
+            $.fn.get_all_food_items();
+        });
+
+        // Filling rating
         $('#filling_value').html($('#filling_slider').val());
 
-        $('#filling_slider').on('input change', function(){
+        $('#filling_slider').on('input', function(){
           $('#filling_value').html($('#filling_slider').val());
         });
 
+        $('#filling_slider').on('change', function(){
+            filling_rating_filter = $('#filling_slider').val();
+            $.fn.get_all_food_items();
+        });
+
+        // Diet type
+        $("#diet_type").on("change", function(){
+            diet_type_filter = $(this).val();
+            $.fn.get_all_food_items();
+        }); 
 
         $("#more").click(function(){
-            $(".more_filters").toggle();
+            $(".more_filters").slideToggle("slow");
+         });
+
+         $("#reset").click(function(){
+            $.fn.restart_filters();
+            $.fn.get_all_food_items();
          });
     };
-
 
     var pageready = (function(){
         var thispage = {};

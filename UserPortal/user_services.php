@@ -19,6 +19,11 @@
         $available = isset($_POST['AVAILABLE']) ? $_POST['AVAILABLE'] : NULL;
         $args["AVAILABLE"] = $available  == "true" ? true : false;
         $args["SEARCH"] = isset($_POST['SEARCH']) ? $_POST['SEARCH'] : NULL;
+        $args["SORTING"] = isset($_POST['SORTING']) ? $_POST['SORTING'] : NULL;
+        $args["FILLING_RATING"] = isset($_POST['FILLING_RATING']) ? $_POST['FILLING_RATING'] : NULL;
+        $args["HEALTHY_RATING"] = isset($_POST['HEALTHY_RATING']) ? $_POST['HEALTHY_RATING'] : NULL;
+        $args["DIET_TYPE"] = isset($_POST['DIET_TYPE']) ? $_POST['DIET_TYPE'] : NULL;
+
         $form_data = get_all_food_items($args);
     }
    
