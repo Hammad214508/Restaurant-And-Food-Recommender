@@ -28,13 +28,6 @@ sql = """ SELECT DISTINCT R.FOOD_ID
               """
               # AND NOW() BETWEEN RES.OPENING_TIME AND RES.CLOSING_TIME
 
-# parameters = "4"
-
-# sql = """
-#         SELECT FOOD_ID
-#         FROM FOOD 
-#         WHERE RESTAURANT_ID = %s
-#         """
 mycursor.execute(sql, parameters)
 
 food_ids = mycursor.fetchall()
@@ -48,11 +41,13 @@ for food_id in food_ids:
     predictions[food_id[0]] = prediction.est
 
 sorted = {k: v for k, v in sorted(predictions.items(), key=lambda item: item[1], reverse=True)}
+# print(sorted)
 
-for food_id, rating in sorted.items():
-    print(str(food_id)+ ":", rating)
+# for food_id, rating in sorted.items():
+#     print(str(food_id)+ ":", rating)
     
 # print("Top 3 are:", list(sorted)[:3])
+print("HELLO")
 
 # https://realpython.com/build-recommendation-engine-collaborative-filtering/
 #
