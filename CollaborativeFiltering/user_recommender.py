@@ -16,7 +16,7 @@ if (diet_type_query == ""):
   parameters = (available, healthy_rating_min, healthy_rating_max, filling_rating_min, filling_rating_max)
 
 
-sql = """ SELECT DISTINCT R.FOOD_ID
+sql = """ SELECT DISTINCT R.FOOD_ID, F.NAME
           FROM RATINGS R 
               INNER JOIN FOOD F ON R.FOOD_ID = F.FOOD_ID
               INNER JOIN RESTAURANT RES ON F.RESTAURANT_ID = RES.RESTAURANT_ID
@@ -31,6 +31,7 @@ sql = """ SELECT DISTINCT R.FOOD_ID
 mycursor.execute(sql, parameters)
 
 food_ids = mycursor.fetchall()
+print(food_ids)
 
 user_id = int(sys.argv[1])
 
@@ -41,13 +42,11 @@ for food_id in food_ids:
     predictions[food_id[0]] = prediction.est
 
 sorted = {k: v for k, v in sorted(predictions.items(), key=lambda item: item[1], reverse=True)}
-# print(sorted)
 
 # for food_id, rating in sorted.items():
 #     print(str(food_id)+ ":", rating)
     
 # print("Top 3 are:", list(sorted)[:3])
-print("HELLO")
 
 # https://realpython.com/build-recommendation-engine-collaborative-filtering/
 #
