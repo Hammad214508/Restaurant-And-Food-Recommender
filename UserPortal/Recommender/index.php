@@ -25,34 +25,28 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <form class="form-inline d-flex">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                    <input id="search_text" class="form-control ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
-                </form>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 bottom-buffer text-left">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        Diet type:
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-auto">
+                        <select class="form-control" id="diet_type">
+                            <option value="1">Non Vegetarian</option>
+                            <option value="2">Vegetarian</option>
+                            <option value="3">Vegan</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 bottom-buffer text-left">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 bottom-buffer text-right">
                 <div class="form-check">
                     <input id="available" type="checkbox" class="form-check-input">
                     <label class="form-check-label" for="available">Available</label>
                 </div>
             </div>
 
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 bottom-buffer text-right">
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        Sort by:
-                    </div>
-                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-auto">
-                        <select class="form-control" id="sorting">
-                            <option value="none">None</option>
-                            <option value="ratings">Ratings high to low</option>
-                            <option value="reviews">Most popular</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
 
             <div id="more" class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 bottom-buffer text-right">
                 <button id="more" class="btn btn-link">More</button> <i class="fa fa-filter" aria-hidden="true"></i>
@@ -82,20 +76,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 bottom-buffer text-left">
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                            Diet type:
-                        </div>
-                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-auto">
-                            <select class="form-control" id="diet_type">
-                                <option value="1">Non Vegetarian</option>
-                                <option value="2">Vegetarian</option>
-                                <option value="3">Vegan</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 bottom-buffer text-left">
                     <button id="reset" type="button" class="btn btn-secondary btn-sm">Reset</button>

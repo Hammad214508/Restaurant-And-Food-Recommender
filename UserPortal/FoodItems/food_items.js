@@ -26,7 +26,6 @@ $(document).ready(function(){
 
     $.fn.get_all_food_items = function(){
         
-
         $.ajax({
             url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
             method: "POST",
@@ -67,14 +66,14 @@ $(document).ready(function(){
                 var row = $("<div class='row'>");
                 parent.append(row);
             }
-            id = food_items[i]["FOOD_ID"];
-            name = food_items[i]["NAME"];
-            price = food_items[i]["PRICE"];
-            diet = $.fn.get_diet_type(food_items[i]["DIET_TYPE"]);
-            healthy_rating = food_items[i]["HEALTHY_RATING"]
-            filling_rating = food_items[i]["FILLING_RATING"]
-            rating = food_items[i]["AVG_RATING"] 
-            restaurant_name = food_items[i]["RESTAURANT_NAME"]
+            var id = food_items[i]["FOOD_ID"];
+            var name = food_items[i]["NAME"];
+            var price = food_items[i]["PRICE"];
+            var diet = $.fn.get_diet_type(food_items[i]["DIET_TYPE"]);
+            var healthy_rating = food_items[i]["HEALTHY_RATING"]
+            var filling_rating = food_items[i]["FILLING_RATING"]
+            var rating = food_items[i]["AVG_RATING"] 
+            var restaurant_name = food_items[i]["RESTAURANT_NAME"]
             var proj = $.fn.get_food_item_box(id, name, price, diet, healthy_rating, filling_rating, rating, restaurant_name);
             row.append(proj);
         }

@@ -85,7 +85,11 @@ algo.fit(trainingSet)
 
 
 def get_data_to_recommend(parameters):
-  diet_type_query = "" if len(parameters) == 5 else "AND F.DIET_TYPE = %s"
+  if parameters[5] == "true":
+    available_query = "AND F.AVAILABLE = %s"
+  else:
+    parameters = parameters[:-1]
+    available_query = ""
 
   sql = """ SELECT DISTINCT F.FOOD_ID, F.NAME, F.PRICE, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING,
                   F.AVG_RATING, RES.NAME AS RESTAURANT_NAME
@@ -93,12 +97,13 @@ def get_data_to_recommend(parameters):
                 INNER JOIN FOOD F ON R.FOOD_ID = F.FOOD_ID
                 INNER JOIN RESTAURANT RES ON F.RESTAURANT_ID = RES.RESTAURANT_ID
             WHERE 
-                F.AVAILABLE = %s
-                """+diet_type_query+"""
-                AND F.HEALTHY_RATING BETWEEN %s AND %s
-                AND F.FILLING_RATING BETWEEN %s AND %s
-                """
+               F.DIET_TYPE >= %s
+               AND F.HEALTHY_RATING BETWEEN %s AND %s
+               AND F.FILLING_RATING BETWEEN %s AND %s
+               """+available_query+"""
+               """
                 # AND NOW() BETWEEN RES.OPENING_TIME AND RES.CLOSING_TIME
+  print(sql)
 
   mycursor.execute(sql, parameters)
 

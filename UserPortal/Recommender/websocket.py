@@ -25,7 +25,6 @@ async def register(websocket):
 async def unregister(websocket):
     USERS.remove(websocket)
 
-
 async def counter(websocket, path):
     # register(websocket) sends user_event() to websocket
     await register(websocket)
@@ -35,20 +34,25 @@ async def counter(websocket, path):
             data = json.loads(message)
             if data["action"] == "recommender":
                 user_id = data['user_id']
-                available = "true"
-                diet_type = "1" 
-                diet_type_query = "" if diet_type == "1" else "AND F.DIET_TYPE = %s"
-                healthy_rating_min = "0"
-                healthy_rating_max = "5"
-                filling_rating_min = "0"
-                filling_rating_max = "5"
-
-                parameters = (available, diet_type, healthy_rating_min, healthy_rating_max, filling_rating_min, filling_rating_max)
-                if (diet_type_query == ""):
-                    parameters = (available, healthy_rating_min, healthy_rating_max, filling_rating_min, filling_rating_max)
+                available = "true" if data['available'] else "false"
+                diet_type = str(data['diet_type_filter'])
+                if "healthy_rating_filter" in data.keys():
+                    healthy_rating_min = str(int(data["healthy_rating_filter"])-1)
+                    healthy_rating_max = str(int(data["healthy_rating_filter"])+1)
+                else:
+                    healthy_rating_min = "0"
+                    healthy_rating_max = "5"
+                if "filling_rating_filter" in data.keys():
+                    filling_rating_min = str(int(data["filling_rating_filter"])-1)
+                    filling_rating_min = str(int(data["filling_rating_filter"])+1)
+                else:
+                    filling_rating_min = "0"
+                    filling_rating_max = "5"
+                parameters = (diet_type, healthy_rating_min, healthy_rating_max, filling_rating_min, filling_rating_max, available)
+                print(parameters)
                 DATA["recommended"] = recommender.get_user_recommendations(int(user_id), parameters)
-               
                 DATA["order"] = recommender.get_order_rating()
+                print(DATA["recommended"])
                 await notify_state()
             else:
                 print("ERROR")
