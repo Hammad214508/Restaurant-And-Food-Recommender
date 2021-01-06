@@ -2,22 +2,22 @@ import asyncio
 import json
 import logging
 import websockets
+import CollaborativeFiltering.user_recommender as recommender
 
 logging.basicConfig()
 
-STATE = {}
+DATA = {}
 
 USERS = set()
 
 def state_event():
-    return json.dumps({"type": "recommended_items", **STATE})
+    return json.dumps({"type": "recommended_items", **DATA})
 
 
 async def notify_state():
     if USERS:  # asyncio.wait doesn't accept an empty list
         message = state_event()
         await asyncio.wait([user.send(message) for user in USERS])
-
 
 async def register(websocket):
     USERS.add(websocket)
@@ -35,8 +35,20 @@ async def counter(websocket, path):
             data = json.loads(message)
             if data["action"] == "recommender":
                 user_id = data['user_id']
-                print(user_id)
-                STATE["recommended"] = {2: 5, 5: 4.851646989425987, 6: 4.677862113322286, 1: 4.347988484214488, 4: 4.299610455239277}
+                available = "true"
+                diet_type = "1" 
+                diet_type_query = "" if diet_type == "1" else "AND F.DIET_TYPE = %s"
+                healthy_rating_min = "0"
+                healthy_rating_max = "5"
+                filling_rating_min = "0"
+                filling_rating_max = "5"
+
+                parameters = (available, diet_type, healthy_rating_min, healthy_rating_max, filling_rating_min, filling_rating_max)
+                if (diet_type_query == ""):
+                    parameters = (available, healthy_rating_min, healthy_rating_max, filling_rating_min, filling_rating_max)
+                DATA["recommended"] = recommender.get_user_recommendations(int(user_id), parameters)
+               
+                DATA["order"] = recommender.get_order_rating()
                 await notify_state()
             else:
                 print("ERROR")

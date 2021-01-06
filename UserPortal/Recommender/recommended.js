@@ -3,7 +3,6 @@ $(document).ready(function(){
     var user_id;
     var websocket = new WebSocket("ws://127.0.0.1:6789/");
   
-
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
         $("#nav-recommendation").addClass("active");
@@ -18,6 +17,7 @@ $(document).ready(function(){
         data = JSON.parse(event.data);
         if (data.type == "recommended_items"){
             console.log(data["recommended"])
+            console.log(data["order"])
         }
         else{
            console.error("unsupported event", data);
