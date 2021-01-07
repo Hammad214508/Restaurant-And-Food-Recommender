@@ -14,7 +14,9 @@ $(document).ready(function(){
         healthy_rating_filter = ""
         filling_rating_filter = ""
         sorting = ""
-        diet_type_filter = "";
+        diet_type_filter = 1;
+
+        $("#diet_type").val(diet_type_filter);
 
         $('#health_value').html(2.5);
         $('#health_slider').val(2.5);

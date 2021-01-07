@@ -1,6 +1,4 @@
-# from database import mycursor
 import pandas as pd
-# from train import algo
 import sys
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -83,7 +81,6 @@ algo.fit(trainingSet)
 "                COLLABORATIVE FILTERING                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
 def get_data_to_recommend(parameters):
   if parameters[5] == "true":
     available_query = "AND F.AVAILABLE = %s"
@@ -103,7 +100,6 @@ def get_data_to_recommend(parameters):
                """+available_query+"""
                """
                 # AND NOW() BETWEEN RES.OPENING_TIME AND RES.CLOSING_TIME
-  print(sql)
 
   mycursor.execute(sql, parameters)
 
@@ -113,39 +109,17 @@ def get_data_to_recommend(parameters):
 def get_user_recommendations(user_id, parameters):
   food_ids = get_data_to_recommend(parameters)
   data = {}
+  predictions = {}
   for food_id in food_ids:
       prediction = algo.predict(user_id, food_id[0])
       predictions[food_id[0]] = prediction.est
-      data[food_id[0]] = {  "A":prediction.est, "ID" : food_id[0], "NAME": food_id[1], "PRICE": food_id[2], 
+      data[food_id[0]] = {  "A": prediction.est, "ID" : food_id[0], "NAME": food_id[1], "PRICE": food_id[2], 
                             "DIET": food_id[3], "HEALTHY" : food_id[4], "FILLING": food_id[5], 
                             "AVG_RATING": food_id[6], "REST_NAME": food_id[7]}
+  all_data = {k: v for k, v in data.items()}
+  sorted_by_preference = [k for k, v in sorted(predictions.items(), key=lambda item: item[1], reverse=True)]
+  return all_data, sorted_by_preference
 
-  return {k: v for k, v in data.items()}
-
-
-def get_order_rating():
-  return [k for k, v in sorted(predictions.items(), key=lambda item: item[1], reverse=True)]
-
-
-predictions = {}
-
-# available = "true"
-# diet_type = "1" 
-# diet_type_query = "" if diet_type == "1" else "AND F.DIET_TYPE = %s"
-# healthy_rating_min = "0"
-# healthy_rating_max = "5"
-# filling_rating_min = "0"
-# filling_rating_max = "5"
-
-# parameters = (available, diet_type, healthy_rating_min, healthy_rating_max, filling_rating_min, filling_rating_max)
-# if (diet_type_query == ""):
-#   parameters = (available, healthy_rating_min, healthy_rating_max, filling_rating_min, filling_rating_max)
-
-
-# data = get_user_recommendations(1, parameters)
-# print(data)
-# order =  get_order_rating()
-# print(order)
 
 
 # https://realpython.com/build-recommendation-engine-collaborative-filtering/

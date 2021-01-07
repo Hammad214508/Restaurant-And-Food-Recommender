@@ -13,6 +13,8 @@ $(document).ready(function(){
         filling_rating_filter = ""
         diet_type_filter = 1;
 
+        $("#diet_type").val(diet_type_filter);
+
         $('#health_value').html(2.5);
         $('#health_slider').val(2.5);
 
@@ -39,27 +41,29 @@ $(document).ready(function(){
                 }));
     }
 
+    $.fn.websocket_response = function(){
+        websocket.onmessage = function (event) {
+            data = JSON.parse(event.data);
+            if (data.type == "recommended_items"){
+                $.fn.render_food_item_boxes(data["recommended"][0], data["recommended"][1]);
+            }
+            else{
+                $("#error").html("<b>ERROR GETTING FOOD RECOMMENDATIONS!</b>");
+                $.fn.temporary_show("#error");        
+            }
+        };
+    }
 
-    websocket.onmessage = function (event) {
-        data = JSON.parse(event.data);
-        if (data.type == "recommended_items"){
-            $.fn.render_food_item_boxes(data["recommended"], data["order"]);
-        }
-        else{
-            $("#error").html("<b>ERROR GETTING FOOD RECOMMENDATIONS!</b>");
-            $.fn.temporary_show("#error");        
-        }
-    };
+    $.fn.websocket_open_and_error = function(){
+        websocket.onopen = function(e) {
+            $.fn.get_recommended_food_items();
+        };
 
-    websocket.onopen = function(e) {
-        $.fn.get_recommended_food_items();
-    };
-
-    websocket.onerror = function(error) {
-        $("#error").html("<b>ERROR WITH WEBSOCKET SERVER</b>");
-        $.fn.temporary_show("#error");    
-    };
-
+        websocket.onerror = function(error) {
+            $("#error").html("<b>ERROR WITH WEBSOCKET SERVER</b>");
+            $.fn.temporary_show("#error");    
+        };
+    }
 
     $.fn.render_food_item_boxes = function(recommended, order){
         var parent = $("#food_items_container");
@@ -185,6 +189,8 @@ $(document).ready(function(){
         thispage.init = function(){
             $.fn.activate_nav_bar();
             user_id = $("#inp_hdn_uid").val();
+            $.fn.websocket_open_and_error();
+            $.fn.websocket_response();
             $.fn.food_items_filter_events();
 
         };
