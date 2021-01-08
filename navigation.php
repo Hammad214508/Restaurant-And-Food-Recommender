@@ -1,6 +1,7 @@
 <?php
-session_start();
-if(isset($_SESSION["logged_in"][0][0]["MANAGER_ID"])){
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}if(isset($_SESSION["logged_in"][0][0]["MANAGER_ID"])){
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/navigation_mgr.php');
 }
 elseif(isset($_SESSION["logged_in"][0][0]["USER_ID"])){

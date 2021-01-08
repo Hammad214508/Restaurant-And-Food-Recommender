@@ -17,7 +17,7 @@
 
     <div class="container-fluid">
         <div class="jumbotron">
-            <h1> Recommender</h1>
+            <h1>Recommender</h1>
             <p>I can help you decide what to get</p>
         </div>
     </div>

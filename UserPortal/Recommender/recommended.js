@@ -9,8 +9,8 @@ $(document).ready(function(){
 
     $.fn.restart_filters = function(){
         available = false;
-        healthy_rating_filter = ""
-        filling_rating_filter = ""
+        healthy_rating_filter = "";
+        filling_rating_filter = "";
         diet_type_filter = 1;
 
         $("#diet_type").val(diet_type_filter);
@@ -127,13 +127,12 @@ $(document).ready(function(){
         if (diet == "1"){
             str_diet = "Non Vegetarian";
         }else if (diet == "2"){
-            str_diet = "Vegetarian"
+            str_diet = "Vegetarian";
         }else{
-            str_diet = "Vegan"
+            str_diet = "Vegan";
         }
         return str_diet;
     }
-
 
 
     $.fn.food_items_filter_events = function(){
