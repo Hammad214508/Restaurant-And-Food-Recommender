@@ -35,18 +35,18 @@ def get_parameters_for_recommendation(data):
         healthy_rating_max = "5"
     if "filling_rating_filter" in data.keys() and data["filling_rating_filter"]:
         filling_rating_min = str(float(data["filling_rating_filter"])-1)
-        filling_rating_min = str(float(data["filling_rating_filter"])+1)
+        filling_rating_max = str(float(data["filling_rating_filter"])+1)
     else:
         filling_rating_min = "0"
         filling_rating_max = "5"
-    
+
     available = "true" if data['available'] else "false"
     parameters = (diet_type, healthy_rating_min, healthy_rating_max, filling_rating_min, filling_rating_max, available)
     return parameters
 
 def get_parameters_for_notification(data):
     return ("connection", data["from_uid"], data["to_uid"], data["message"])
-     
+
 
 async def handler(websocket, path):
     # register(websocket) sends user_event() to websocket

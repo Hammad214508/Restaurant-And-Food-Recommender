@@ -12,8 +12,4 @@ $google_client -> setRedirectUri('https://localhost/Restaurant-And-Food-Recommen
 $google_client -> addScope('email');
 $google_client -> addScope('profile');
 
-// if (session_status() == PHP_SESSION_NONE) {
-//     session_start();
-// }
-// session_start();
 ?>

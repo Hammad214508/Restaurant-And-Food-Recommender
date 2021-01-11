@@ -37,4 +37,20 @@ class USER {
 		return $conn->get_binded_data($query, $data);
 	}
 
+	public function get_users($args){
+		$data = array(
+				":SEARCH1"=>"%".strtolower($args["SEARCH"])."%",
+				":SEARCH2"=>"%".strtolower($args["SEARCH"])."%",
+		);
+
+		$conn = new Connector();
+
+		$query = "SELECT USER_ID AS ID, CONCAT(NAME, ' ', SURNAME) AS ITEM
+							FROM USER
+							WHERE LOWER(NAME) LIKE :SEARCH1
+								    OR LOWER(SURNAME) LIKE :SEARCH2;";
+
+		return $conn->get_binded_data($query, $data);
+	}
+
 }
