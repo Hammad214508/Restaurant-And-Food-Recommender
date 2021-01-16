@@ -57,3 +57,11 @@
 .bottom-buffer{
     margin-bottom: 2em;
 }
+
+.rm-user{
+    color:grey;
+}
+
+.rm-user:hover{
+    color:black;
+}

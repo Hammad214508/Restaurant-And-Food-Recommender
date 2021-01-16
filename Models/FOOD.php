@@ -71,9 +71,9 @@ class FOOD {
                   FROM FOOD F
                   INNER JOIN RESTAURANT R ON F.RESTAURANT_ID = R.RESTAURANT_ID
                   WHERE LOWER(F.NAME) LIKE '%".$args["SEARCH"]."%'";
-        
+
         if ($args["AVAILABLE"]){
-            $query .= " AND F.AVAILABLE = 'true' 
+            $query .= " AND F.AVAILABLE = 'true'
                         AND NOW() BETWEEN R.OPENING_TIME AND R.CLOSING_TIME";
         }
 
@@ -96,12 +96,12 @@ class FOOD {
 
 
         if ($args["SORTING"] == "reviews"){
-            
+
             $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, F.AVG_RATING, R.NAME AS RESTAURANT_NAME, COUNT(F.FOOD_ID) AS NUM_REVIEWS
                       FROM FOOD F, RATINGS RT, RESTAURANT R
-                        WHERE R.RESTAURANT_ID = F.RESTAURANT_ID 
+                        WHERE R.RESTAURANT_ID = F.RESTAURANT_ID
                         AND F.FOOD_ID = RT.FOOD_ID
-                      GROUP BY F.FOOD_ID 
+                      GROUP BY F.FOOD_ID
                       ORDER BY NUM_REVIEWS DESC";
         }
 

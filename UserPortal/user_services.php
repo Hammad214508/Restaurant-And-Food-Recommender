@@ -1,8 +1,7 @@
 <?php
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/RESTAURANT.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/FOOD.php');
-
-    // session_start();
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/CONNECTIONS.php');
 
     $actionmode = isset($_POST['actionmode']) ? $_POST['actionmode'] : NULL;
 
@@ -11,7 +10,7 @@
         $args["OPEN"] = $open  == "true" ? true : false;
         $args["SEARCH"] = isset($_POST['SEARCH']) ? $_POST['SEARCH'] : NULL;
         $args["SORTING"] = isset($_POST['SORTING']) ? $_POST['SORTING'] : NULL;
-                
+
         $form_data = get_all_restaurants($args);
     }
 
@@ -26,7 +25,23 @@
 
         $form_data = get_all_food_items($args);
     }
-   
+
+    if($actionmode == "get_connections"){
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+
+        $form_data = get_connections($args);
+    }
+
+    if($actionmode == "delete_connection"){
+        $args["USER1"] = isset($_POST['USER1']) ? $_POST['USER1'] : NULL;
+        $args["USER2"] = isset($_POST['USER2']) ? $_POST['USER2'] : NULL;
+
+        $form_data = delete_connection($args);
+    }
+
+
+    
+
     echo json_encode($form_data);
 
     function get_all_restaurants($args){
@@ -38,4 +53,18 @@
         $FOOD = new FOOD();
         return $FOOD -> get_all_food_items($args);
     }
+
+    function get_connections($args){
+        $CONNECTIONS = new CONNECTIONS();
+        return $CONNECTIONS -> get_connections($args);
+    }
+
+    function delete_connection($args){
+        $CONNECTIONS = new CONNECTIONS();
+        return $CONNECTIONS -> delete_connection($args);
+    }
+
+
+
+
 ?>
