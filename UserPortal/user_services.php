@@ -2,6 +2,7 @@
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/RESTAURANT.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/FOOD.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/CONNECTIONS.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/NOTIFICATIONS.php');
 
     $actionmode = isset($_POST['actionmode']) ? $_POST['actionmode'] : NULL;
 
@@ -39,7 +40,20 @@
         $form_data = delete_connection($args);
     }
 
+    if($actionmode == "get_recommended_users"){
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
 
+        $form_data = get_recommended_users($args);
+    }
+
+    if($actionmode == "send_connection_request"){
+        $args["TYPE"] = isset($_POST['TYPE']) ? $_POST['TYPE'] : NULL;
+        $args["FROM"] = isset($_POST['FROM']) ? $_POST['FROM'] : NULL;
+        $args["TO"] = isset($_POST['TO']) ? $_POST['TO'] : NULL;
+        $args["MESSAGE"] = isset($_POST['MESSAGE']) ? $_POST['MESSAGE'] : NULL;
+
+        $form_data = send_connection_request($args);
+    }
     
 
     echo json_encode($form_data);
@@ -63,6 +77,18 @@
         $CONNECTIONS = new CONNECTIONS();
         return $CONNECTIONS -> delete_connection($args);
     }
+
+    function get_recommended_users($args){
+        $CONNECTIONS = new CONNECTIONS();
+        return $CONNECTIONS -> get_recommended_users($args);
+    }
+
+    function send_connection_request($args){
+        $NOTIFICATIONS = new NOTIFICATIONS();
+        return $NOTIFICATIONS -> send_connection_request($args);
+    }
+    
+
 
 
 

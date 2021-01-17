@@ -28,13 +28,19 @@
             <div id="my_net" class="list-group-item list-group-item-dark active">My Network</div>
             <div id="find" class="list-group-item list-group-item-dark">Find People</div>
             <div id="requests" class="list-group-item list-group-item-dark">Connection Requests</div>
+
+            <button id="create_group" type="button" class="btn btn-secondary mt-5">Create Group</button>
+
         </div>
 
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
             <div id="my_net_container" class="connections_data" style="padding: 0px 100px 100px 100px;">
                 <div id="connections" style="border:1px solid black; overflow:scroll; height:29.6875em;"> </div>
             </div>
-            <div id="find_container" class="connections_data" style="padding: 0px 100px 100px 100px;"></div>
+            <div id="find_container" class="connections_data" style="padding: 0px 100px 100px 100px;">
+                <div id="recommended_users" style="border:1px solid black; overflow:scroll; height:29.6875em;"> </div>
+            </div>
+
             <div id="requests_container" class="connections_data" style="padding: 0px 100px 100px 100px;"></div>
         </div>
 

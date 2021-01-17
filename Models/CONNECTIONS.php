@@ -27,6 +27,22 @@ class CONNECTIONS {
 		return $conn->perform_transaction($query, $args);
 	}
 
+	public function get_recommended_users($args){
+
+		$conn = new Connector();
+
+		$query = "SELECT  U.USER_ID, U.NAME, U.SURNAME, U.EMAIL
+				  FROM  USER U 
+				  WHERE U.USER_ID NOT IN
+				  		(SELECT USER2 
+						 FROM CONNECTIONS 
+						 WHERE USER1 = :USER_ID)";
+
+		return $conn->get_binded_data($query, $args);
+	}
+
+	
+
 
 
 	
