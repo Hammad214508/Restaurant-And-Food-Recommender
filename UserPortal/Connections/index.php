@@ -34,10 +34,13 @@
 
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
             <div id="my_net_container" class="connections_data" style="padding: 0px 100px 100px 100px; display:none" >
-                <div id="connections" overflow:scroll; height:29.6875em;"> </div>
+                <div id="connections" style="overflow:scroll; height:20em;"> </div>
+                <button id="get_recom_btn" type="button" class="btn btn-secondary mt-5 crt_group" style="display:none">Get Recommendations</button>
+                <button id="not_recom" type="button" class="btn btn-secondary mt-5 crt_group" style="display:none">Cancel</button>
+
             </div>
             <div id="find_container" class="connections_data" style="padding: 0px 100px 100px 100px; display:none">
-                <div id="recommended_users" overflow:scroll; height:29.6875em;"> </div>
+                <div id="recommended_users" style="overflow:scroll; height:20em;"> </div>
             </div>
 
             <div id="requests_container" class="connections_data" style="padding: 0px 100px 100px 100px; display:none">

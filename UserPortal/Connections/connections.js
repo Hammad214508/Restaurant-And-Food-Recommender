@@ -41,13 +41,14 @@ $(document).ready(function(){
 
         $("#create_group").on("click", function(){
             $("#my_net").trigger('click');
-            $(".u_checkbox").show();
+            $("#connections").addClass("show_border")
             $(".user_rm").hide();;
+            $(".crt_group").show();
         })
 
-        // $("#my_net").trigger('click');
+        $("#my_net").trigger('click');
         // $("#find").trigger('click');
-        $("#requests").trigger('click');
+        // $("#requests").trigger('click');
 
 
     }
@@ -92,9 +93,9 @@ $(document).ready(function(){
     $.fn.get_user_template = function(data){
         return (
             '<div id="my_net_user_'+data["USER_ID"]+'" class="row mt-2">'+
-            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 u_checkbox text-center" style="display:none">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 crt_group text-center" style="display:none">'+
             '        <div class="form-check">'+
-            '            <input type="checkbox" class="user-checkbox form-check-input" ref="'+data["USER_ID"]+'">'+
+            '            <input type="checkbox" class="user-checkbox form-check-input" type="checkbox" ref="'+data["USER_ID"]+'">'+
             '        </div>'+
             '    </div> '+
             '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">'+
@@ -119,6 +120,25 @@ $(document).ready(function(){
                 $.fn.remove_connection(del_id);
             }
         });
+
+        $("#get_recom_btn").on("click", function(){
+            array = $('input[type=checkbox]:checked').map(function(_, el) {return $(el).attr("ref");}).get();
+            console.log(array)
+        })
+
+
+        $("#not_recom").on("click", function(){
+            $("#connections").removeClass("show_border")
+            $(".user_rm").show();;
+            $(".crt_group").hide();
+        })
+
+        
+
+
+        
+
+  
     }
 
     $.fn.remove_connection = function(user2){
@@ -157,7 +177,8 @@ $(document).ready(function(){
                      $.fn.temporary_show("#error");
                  }else{
                      data = data.dataset
-                     if (data.length > 0){
+                     var num_connections =  (data.length) ? data[0].length : 0;
+                     if (num_connections > 1){
                          $.fn.render_recommended_connections(data[0]);
                      }else{
                          parent = $("#find_container")
@@ -172,7 +193,9 @@ $(document).ready(function(){
     $.fn.render_recommended_connections = function(data){
         var parent = $("#recommended_users");
         for (var i = 0; i < data.length; i++){
-            parent.append($.fn.get_user_recommended_template(data[i]));
+            if (data[i]["USER_ID"] != user_id){
+                parent.append($.fn.get_user_recommended_template(data[i]));
+            }
         }
         $.fn.set_user_recommended_events();
     }
@@ -380,8 +403,6 @@ $(document).ready(function(){
          });
 
     }
-
-
 
 
     var pageready = (function(){
