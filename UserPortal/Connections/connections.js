@@ -4,6 +4,13 @@ $(document).ready(function(){
     var my_net_rendered = false;
     var find_rendered = false;
     var num_requests;
+    var websocket = new WebSocket("ws://127.0.0.1:6789/");
+
+    websocket.onerror = function(error) {
+        $("#error").html("<b>ERROR WITH WEBSOCKET SERVER</b>");
+        $.fn.temporary_show("#error");    
+    };
+
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -122,22 +129,16 @@ $(document).ready(function(){
         });
 
         $("#get_recom_btn").on("click", function(){
-            array = $('input[type=checkbox]:checked').map(function(_, el) {return $(el).attr("ref");}).get();
-            console.log(array)
+            users = $('input[type=checkbox]:checked').map(function(_, el) {return $(el).attr("ref");}).get();
+            $.fn.get_group_recommedations(users);
+            $.fn.websocket_response();
         })
-
 
         $("#not_recom").on("click", function(){
             $("#connections").removeClass("show_border")
             $(".user_rm").show();;
             $(".crt_group").hide();
         })
-
-        
-
-
-        
-
   
     }
 
@@ -402,6 +403,30 @@ $(document).ready(function(){
              }
          });
 
+    }
+
+    $.fn.get_group_recommedations = function(users){
+        users.push(user_id)
+        websocket.send(
+            JSON.stringify(
+                {
+                    action: 'group_recommender', 
+                    "users": users,
+                }));
+    }
+
+
+    $.fn.websocket_response = function(){
+        websocket.onmessage = function (event) {
+            data = JSON.parse(event.data);
+            if (data.type == "recommended_items"){
+                console.log(data)
+            }
+            else{
+                $("#error").html("<b>ERROR GETTING RESTTAURANT RECOMMENDATIONS!</b>");
+                $.fn.temporary_show("#error");        
+            }
+        };
     }
 
 

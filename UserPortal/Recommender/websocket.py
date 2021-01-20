@@ -3,7 +3,7 @@ import json
 import logging
 import websockets
 import CollaborativeFiltering.user_recommender as recommender
-import notifications
+import CollaborativeFiltering.group_recommender as group_recommender
 
 logging.basicConfig()
 
@@ -14,7 +14,7 @@ USERS = set()
 def get_message():
     return json.dumps({"type": "recommended_items", **DATA})
 
-async def notify_state(websocket):
+async def send_response(websocket):
     if websocket:  # asyncio.wait doesn't accept an empty list
         message = get_message()
         await websocket.send(message)
@@ -57,10 +57,10 @@ async def handler(websocket, path):
             if data["action"] == "recommender":
                 parameters = get_parameters_for_recommendation(data)
                 DATA["recommended"] = recommender.get_user_recommendations(int(data['user_id']), parameters)
-                await notify_state(websocket)
-            elif data["action"] == "connection_request":
-                parameters = get_parameters_for_notification(data)
-                notifications.register_notification(parameters)
+                await send_response(websocket)
+            elif data["action"] == "group_recommender":
+                DATA["recommended"]= group_recommender.get_recommended_restaurants(data["users"])
+                await send_response(websocket)
             else:
                 print("ERROR")
     finally:

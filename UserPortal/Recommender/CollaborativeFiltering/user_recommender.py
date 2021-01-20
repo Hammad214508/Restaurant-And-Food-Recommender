@@ -116,9 +116,8 @@ def get_user_recommendations(user_id, parameters):
       data[food_id[0]] = {  "P_RATING": prediction.est, "ID" : food_id[0], "NAME": food_id[1], 
                             "PRICE": food_id[2], "DIET": food_id[3], "HEALTHY" : food_id[4], 
                             "FILLING": food_id[5], "AVG_RATING": food_id[6], "REST_NAME": food_id[7]}
-  all_data = {k: v for k, v in data.items()}
   sorted_by_preference = [k for k, v in sorted(predictions.items(), key=lambda item: item[1], reverse=True)]
-  return all_data, sorted_by_preference
+  return data, sorted_by_preference
 
 
 
