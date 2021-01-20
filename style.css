@@ -58,19 +58,24 @@
     margin-bottom: 2em;
 }
 
-.rm-user{
+.usr-icon{
     color:grey;
 }
 
-.rm-user:hover{
+.usr-icon:hover{
     color:black;
 }
 
 
-.add-user{
-    color:grey;
-}
-
-.add-user:hover{
-    color:black;
-}
+.button__badge {
+    background-color: #fa3e3e;
+    border-radius: 2px;
+    color: white;
+   
+    padding: 1px 3px;
+    font-size: 14px;
+    
+    position: inline; /* Position the badge within the relatively positioned button */
+    top: 0;
+    right: 0;
+  }

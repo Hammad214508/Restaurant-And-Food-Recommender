@@ -36,7 +36,8 @@
     if($actionmode == "delete_connection"){
         $args["USER1"] = isset($_POST['USER1']) ? $_POST['USER1'] : NULL;
         $args["USER2"] = isset($_POST['USER2']) ? $_POST['USER2'] : NULL;
-
+        $args["USER1cp"] = $args["USER1"];
+        $args["USER2cp"] = $args["USER2"];
         $form_data = delete_connection($args);
     }
 
@@ -54,7 +55,29 @@
 
         $form_data = send_connection_request($args);
     }
-    
+
+    if($actionmode == "get_connection_requests"){
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+
+        $form_data = get_connection_requests($args);
+    }
+
+    if($actionmode == "connection_request_response"){
+        $args["MY_ID"] = isset($_POST['MY_ID']) ? $_POST['MY_ID'] : NULL;
+        $args["OTHER_ID"] = isset($_POST['OTHER_ID']) ? $_POST['OTHER_ID'] : NULL;
+
+        if ($_POST['RESPONSE'] == "reject"){
+            $form_data = delete_request($args);
+        }else{
+            $deleted = delete_request($args);
+            $args["MY_ID1"] =  $args["MY_ID"];
+            $args["OTHER_ID1"] =  $args["OTHER_ID"];
+            if ($deleted["success"]){
+                $form_data = add_connection($args);
+            }
+        }
+    }
+
 
     echo json_encode($form_data);
 
@@ -87,7 +110,26 @@
         $NOTIFICATIONS = new NOTIFICATIONS();
         return $NOTIFICATIONS -> send_connection_request($args);
     }
+
+    function get_connection_requests($args){
+        $NOTIFICATIONS = new NOTIFICATIONS();
+        return $NOTIFICATIONS -> get_connection_requests($args);
+    }
+
+    function delete_request($args){
+        $NOTIFICATIONS = new NOTIFICATIONS();
+        return $NOTIFICATIONS -> delete_request($args);
+    }
+
+    function add_connection($args){
+        $CONNECTIONS = new CONNECTIONS();
+        return $CONNECTIONS -> add_connection($args);
+    }
+
     
+
+    
+
 
 
 

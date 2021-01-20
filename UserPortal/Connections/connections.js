@@ -3,6 +3,7 @@ $(document).ready(function(){
     var user_id;
     var my_net_rendered = false;
     var find_rendered = false;
+    var num_requests;
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -36,21 +37,18 @@ $(document).ready(function(){
         $("#requests").on('click', function(){
             $(".connections_data").hide();
             $("#requests_container").show()
-            // if (!my_rest_rendered){
-            //     $.fn.get_restaurant();
-            //     my_rest_rendered = true;
-            // }
         })
 
         $("#create_group").on("click", function(){
             $("#my_net").trigger('click');
             $(".u_checkbox").show();
             $(".user_rm").hide();;
-
         })
 
         // $("#my_net").trigger('click');
-        $("#find").trigger('click');
+        // $("#find").trigger('click');
+        $("#requests").trigger('click');
+
 
     }
 
@@ -100,18 +98,14 @@ $(document).ready(function(){
             '        </div>'+
             '    </div> '+
             '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">'+
-            '        <div class="text-center">'+
                         data["NAME"]+
-            '        </div>'+
             '    </div>'+
             '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">'+
-            '        <div class="text-center">'+
                         data["SURNAME"]+
-            '        </div>'+
             '    </div>'+
             '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 user_rm">'+
             '        <div class="text-right">'+
-            '            <i class="fa fa-user-times rm-user" ref="'+data["USER_ID"]+'"></i>'+
+            '            <i class="fa fa-user-times usr-icon rm-user" ref="'+data["USER_ID"]+'"></i>'+
             '        </div>'+
             '    </div>'+
             '</div>'
@@ -185,8 +179,8 @@ $(document).ready(function(){
 
     $.fn.get_user_recommended_template = function(data){
         return (
-            '<div id="container_'+data["USER_ID"]+'" class="container-fluid" >'+
-            '<div id="user_'+data["USER_ID"]+'" class="row mt-2">'+
+            '<div id="container_'+data["USER_ID"]+'" class="container-fluid">'+
+            '<div class="row mt-2">'+
             '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">'+
             '        <div class="text-center">'+
                         data["NAME"]+
@@ -199,11 +193,11 @@ $(document).ready(function(){
             '    </div>'+
             '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 user_rm">'+
             '        <div id="icon_'+data["USER_ID"]+'" class="text-right">'+
-            '            <i class="fa fa-user-plus add-user" ref="'+data["USER_ID"]+'"></i>'+
+            '            <i  class="fa fa-user-plus usr-icon add-user" ref="'+data["USER_ID"]+'"></i>'+
             '        </div>'+
             '    </div>'+
             '</div>'+
-            '<div>'
+            '</div>'
         )
     }
     
@@ -239,7 +233,7 @@ $(document).ready(function(){
         '            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>'+
         '            </div>'+
         '        </div>'+
-        '    <div>  '+
+        '    </div>  '+
         '</div>'
         )
  
@@ -284,7 +278,108 @@ $(document).ready(function(){
          });
     }
 
+    $.fn.get_connection_requests = function(){
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+            method: "POST",
+            data:{
+                    "actionmode"  : "get_connection_requests",
+                    "USER_ID"     : user_id
+                },
+            success:function(data) {
+                 data = JSON.parse(data);
+                 if (!data.success){
+                     $("#error").html("<b>ERROR GETTING CONNECTION REQUEST!</b>");
+                     $.fn.temporary_show("#error");
+                 }else{
+                    data = data.dataset
+                    num_requests =  (data.length) ? data[0].length : 0;
+                    $("#num_notif").html(num_requests)
+                    if (num_requests > 0){
+                        $.fn.render_connection_requests(data[0]);
+                    }else{
+                        parent = $("#requests_container")
+                        parent.empty();
+                        parent.append("<h1>NO CONNECTION REQUESTS TO SHOW</h1>");
+                    }
+                }
+             }
+         });
+    }
 
+    $.fn.render_connection_requests = function(data){
+        var parent = $("#requests_container");
+        for (var i = 0; i < data.length; i++){
+            parent.append($.fn.get_user_connection_request(data[i]));
+        }
+        $.fn.set_user_connection_request_events();
+    }
+
+    $.fn.get_user_connection_request = function(data){
+        return (
+            '<div id="request_'+data["USER_ID"]+'" class="container-fluid" >'+
+            '<div class="row mt-2">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">'+
+                        data["NAME"]+
+            '    </div>'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">'+
+                        data["SURNAME"]+
+            '    </div>'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 user_rm">'+
+            '        <div class="text-left">'+
+            '            <i class="fa fa-user-plus usr-icon acc-user" ref="'+data["USER_ID"]+'"></i>'+
+            '        </div>'+
+            '    </div>'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 user_rm">'+
+            '        <div class="text-left">'+
+            '            <i class="fa fa-user-times usr-icon rej-user" ref="'+data["USER_ID"]+'"></i>'+
+            '        </div>'+
+            '    </div>'+
+            '</div>'+
+            '<div class="row mt-2 mb-2">'+
+            '    <textarea rows="4" cols="42">'+data["MESSAGE"]+'</textarea>'+
+            '</div>'+
+            '</div>'
+        )
+    }
+
+    $.fn.set_user_connection_request_events = function(){
+        $(".acc-user").on('click', function(){
+            var uid = $(this).attr("ref");
+            $.fn.accept_reject_request(uid, "accept")
+        })
+
+        $(".rej-user").on('click', function(){
+            var uid = $(this).attr("ref");
+            $.fn.accept_reject_request(uid, "reject")
+        })
+    }
+
+    $.fn.accept_reject_request = function(uid, response){
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+            method: "POST",
+            data:{
+                    "actionmode"  : "connection_request_response",
+                    "RESPONSE"    : response,
+                    "MY_ID"       : user_id,
+                    "OTHER_ID"    : uid,
+                },
+            success:function(data) {
+                 data = JSON.parse(data);
+                 if (!data.success){
+                     var txt = (response == "accept") ? "ACCEPTING" : "REJECTING";
+                     $("#error").html("<b>ERROR "+txt+" REQUEST!</b>");
+                     $.fn.temporary_show("#error");
+                 }else{
+                    $("#request_"+uid).remove();
+                    num_requests -= 1;
+                    $("#num_notif").html(num_requests);
+                 }
+             }
+         });
+
+    }
 
 
 
@@ -294,6 +389,7 @@ $(document).ready(function(){
         thispage.init = function(){
             user_id = $("#inp_hdn_uid").val();
             $.fn.activate_nav_bar();
+            $.fn.get_connection_requests();
             $.fn.main();
 
         };
