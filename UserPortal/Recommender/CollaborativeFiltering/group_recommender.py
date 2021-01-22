@@ -110,10 +110,10 @@ def get_user_score(user_id, rest_foods):
 def get_recommended_restaurants(users):
     restaurant_ids = get_all_restaurants()
     rest_scores = {}    
+    data = {}
     for rest in restaurant_ids:
         rest_score = 0
         rest_foods = get_restaurant_foods(rest[0])
-        data = {}
         for user_id in users:
             rest_score += get_user_score(user_id, rest_foods)
         rest_scores[rest[0]] = rest_score

@@ -31,7 +31,11 @@
                 <span id="password_error" class="log_error"></span>
 
 
-                <div class="container mt-1">
+                <div class="mt-3 show_pass_pos">
+                    <input id="show_password" type="checkbox" class="user-checkbox form-check-input" type="checkbox"> <span style="font-size:14px;">Show password</span> 
+                </div>
+
+                <div class="container mt-3">
                     <button id="log_btn" type="submit" class="btn btn-secondary btn-lg">Login</button>
                 </div>
 

@@ -74,7 +74,11 @@
                 </div>
                 <span id="confirm_password_error" class="reg_error"></span>
 
-                <div class="container mt-1 mb-1">
+                <div class="mt-3 show_pass_pos">
+                    <input id="show_password" type="checkbox" class="user-checkbox form-check-input" type="checkbox"> <span style="font-size:14px;">Show password</span> 
+                </div>
+
+                <div class="container mt-3">
                     <button id="reg_btn" type="submit" class="btn btn-secondary btn-lg">Register</button>
                 </div>
 

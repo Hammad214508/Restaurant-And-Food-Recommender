@@ -8,6 +8,17 @@
     color: DarkRed ;
 }
 
+/* .show_pass_pos{
+    position:absolute; 
+    left: 485px; 
+    top: 230px;
+} */
+
+.show_pass_pos{
+    position:relative; 
+    left: -76px; 
+}
+
 .list-group-item-dark.active{
     background-color: #343a40;
 }

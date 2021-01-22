@@ -121,6 +121,18 @@ $(document).ready(function(){
               $.fn.check_registered()
             }
          });
+
+         $("#show_password").on("change", function(){
+            if ($(this).prop("checked")){
+                $("#password").attr("type", "text");
+                $("#confirm_password").attr("type", "text");
+
+            }else{
+                $("#password").attr("type", "password");
+                $("#confirm_password").attr("type", "password");
+            }
+         })
+
     }
 
     var pageready = (function(){

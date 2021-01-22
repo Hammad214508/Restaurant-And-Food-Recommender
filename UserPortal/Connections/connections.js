@@ -420,13 +420,18 @@ $(document).ready(function(){
         websocket.onmessage = function (event) {
             data = JSON.parse(event.data);
             if (data.type == "recommended_items"){
-                console.log(data)
+                $.fn.render_restaurant_boxes(data["recommended"][0], data["recommended"][1]);
             }
             else{
                 $("#error").html("<b>ERROR GETTING RESTTAURANT RECOMMENDATIONS!</b>");
                 $.fn.temporary_show("#error");        
             }
         };
+    }
+
+    $.fn.render_restaurant_boxes = function(restaurants, order){
+        
+
     }
 
 
