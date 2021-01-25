@@ -86,7 +86,7 @@
     padding: 1px 3px;
     font-size: 14px;
     
-    position: inline; /* Position the badge within the relatively positioned button */
+    /* position: inline; Position the badge within the relatively positioned button */
     top: 0;
     right: 0;
   }
