@@ -276,7 +276,7 @@ $(document).ready(function(){
 
          $(".more").on('click', function(){
              var f_id = $(this).attr("ref")
-             window.open('/Restaurant-And-Food-Recommender/FoodItem/?food_id='+f_id, '_blank');
+             window.open('/Restaurant-And-Food-Recommender/FoodItem/Manager/?food_id='+f_id, '_blank');
          })
 
          $("td[contenteditable=true]").on('focusout',function(){

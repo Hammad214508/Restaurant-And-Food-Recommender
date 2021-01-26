@@ -107,7 +107,7 @@ $(document).ready(function(){
     $.fn.get_food_item_box = function(id, name, price, diet, healthy_rating, filling_rating, rating, restaurant_name){
         var template = (
             "<div id='food_item_"+id+"' ref="+id+" class=\"col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12 bottom-buffer\">"+
-            "  <div class=\"grey-box\">"+
+            "  <div class=\"grey-box\" ref="+id+">" +
             "      <h3>"+name+"</h3>"+
             "      <p><b>Price:</b> "+price+"</p>"+
             "      <p><b>Diet:</b> "+diet+"</p>"+
@@ -123,11 +123,12 @@ $(document).ready(function(){
     }
 
     $.fn.add_event = function(){
-        // $('.white-box').on('click',function() {
-        //     if ($(this).attr('href') != "undefined"){
-        //         window.location.href = $(this).attr('href');
-        //     }
-        // })
+        $('.grey-box').on('click',function() {
+            if ($(this).attr('href') != "undefined"){
+                window.location.href = "https://localhost/Restaurant-And-Food-Recommender/FoodItem/User/?food_id="+$(this).attr('ref');
+            }
+        });
+
         $('.grey-box').hover(function(){
           $(this).css("background-color", "grey");
           }, function(){

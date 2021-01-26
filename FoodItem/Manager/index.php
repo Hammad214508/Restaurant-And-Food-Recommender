@@ -10,6 +10,12 @@
 <?php $food_id = isset($_GET["food_id"]) ? $_GET["food_id"] : NULL; ?>
 
 <body>
+	<?php
+    	include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/navigation.php');
+		if(!$_SESSION["logged_in"][0][0]["MANAGER_ID"]){
+			header('location: /Restaurant-And-Food-Recommender/Login/Manager/manager_login.php');
+		}
+    ?>
     <div class="container">
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
     </div>
@@ -68,7 +74,7 @@
 
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
-<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/FoodItem/food_item.js"></script>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/FoodItem/Manager/food_item.js"></script>
 
 
 </html>
