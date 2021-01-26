@@ -47,8 +47,7 @@ $(document).ready(function(){
                   data = data.dataset
                   if (data.length > 0){
                       $.fn.render_food_reviews(data[0]);
-                  }
-                  else{
+                  }else{
                        $("#reviews").append("<h5>No reviews to show!</h5>")
                   }
               }
@@ -91,6 +90,8 @@ $(document).ready(function(){
         $("#price").html("£ "+data["PRICE"]);
         $("#description").html(data["DESCRIPTION"]);
         $("#diet_type").html($.fn.get_diet_type(data["DIET_TYPE"]));
+        $("#restaurant").html(data["RESTAURANT_NAME"]);
+
     };
 
     

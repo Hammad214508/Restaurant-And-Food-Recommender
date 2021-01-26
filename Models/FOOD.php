@@ -56,8 +56,9 @@ class FOOD {
 
         $conn = new Connector();
 
-        $query = "SELECT *
-                  FROM FOOD
+        $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, F.AVG_RATING, R.NAME AS RESTAURANT_NAME
+                  FROM FOOD F
+                  INNER JOIN RESTAURANT R ON F.RESTAURANT_ID = R.RESTAURANT_ID
                   WHERE FOOD_ID = :FOOD_ID;";
 
         return $conn->get_binded_data($query, $args);

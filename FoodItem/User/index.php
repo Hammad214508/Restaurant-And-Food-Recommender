@@ -22,66 +22,72 @@
 
     <div class="container">
 
-        <div class="text-center">
-            <h1 id="food_name"></h1>
-        </div>
-
-        <div class="container">
-    		<div class="row justify-content-md-center">
-    		<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
-    			<div id="msg" style="display:none;"></div>
-    			<form method="post" id="image-form" enctype="multipart/form-data" onSubmit="return false;">
-    				<div class="form-group text-center">
-    					<img src="https://placehold.it/80x80" id="preview" class="img-thumbnail" style="display:none;">
-                        <img id="image" src="" style="display:none;">
-    				</div>
-    			</form>
-    		</div>
-    		</div>
-    	</div>
-
-        <div id="food_item_data" class="container">
-			<div class="row mt-4">
-				<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<div class="row">
-						<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
-							<p>Price:</p>
+        <div class="container mt-5">
+			<div class="row">
+				<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+					<h1 id="food_name"></h1>
+					<div id="image_div">
+						<div id="msg" style="display:none;"></div>
+						<form method="post" id="image-form" enctype="multipart/form-data" onSubmit="return false;">
+							<div class="mb-3">
+								<img src="https://placehold.it/80x80" id="preview" class="img-thumbnail" style="display:none;">
+								<img id="image" src="" style="display:none;">
+							</div>
+						</form>
+					</div>
+					<div id="food_data">
+						<div class="row">
+							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
+								<p>Price:</p>
+							</div>
+							<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+								<p id="price"></p>
+							</div>
 						</div>
-						<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">
-							<p id="price"></p>
+						<div class="row">
+							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
+								<p>Description:</p>
+							</div>
+							<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+								<p id="description"></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
+								<p>Diet Type:</p>
+							</div>
+							<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
+								<p id="diet_type"></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
+								<p>Restaurant:</p>
+							</div>
+							<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
+								<p id="restaurant"></p>
+							</div>
 						</div>
 					</div>
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
-                            <p>Description:</p>
-                        </div>
-                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                            <p id="description"></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
-                            <p>Diet Type:</p>
-                        </div>
-                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
-							<p id="diet_type"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
-            </div>
-        </div>
 
-        <div class="container text-center mt-2">
-            <div id="reviews_container">
-                <h3>REVIEWS</h3>
-                <div id="reviews"></div>
-                <br>
-                <h3>Statistics</h3>
-                <div id="stats"></div>
-            </div>
-        </div>
+					<h3 class="mt-3">Statistics</h3>
+					<div id="stats"></div>
+				</div>
+				<div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7"> 
+					
+					<div class="container">
+						<div id="reviews_container">
+							<h3>REVIEWS</h3>
+							<div id="reviews"></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+    	</div>
+
+
 
     </div>
 
