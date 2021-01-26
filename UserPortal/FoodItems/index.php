@@ -157,7 +157,7 @@
         </div>
 
         
-        <div class="more_filters" style="display: none;">
+        <div class="r_more_filters" style="display: none;">
             <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left my-auto">
                     <p>Healthy rating:</p>

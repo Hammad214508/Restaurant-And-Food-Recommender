@@ -289,7 +289,7 @@ $(document).ready(function(){
         }); 
 
         $("#r_more").click(function(){
-            $(".more_filters").slideToggle("slow");
+            $(".r_more_filters").slideToggle("slow");
          });
 
          $("#r_reset").click(function(){

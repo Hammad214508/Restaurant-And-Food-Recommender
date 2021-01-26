@@ -21,7 +21,7 @@
             <li id="nav-restaurants" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Restaurants"> Restaurants </a></li>
             <li id="nav-food-items" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/FoodItems"> Food Items </a></li>
             <!-- <li id="nav-recommendation" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Recommender/"> Recommended </a></li> -->
-            <li id="nav-connections" class="nav-item align-bottom" ><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Connections/"> <i class="fa fa-users"></i> </a></li>
+            <li id="nav-connections" class="nav-item align-bottom" ><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Connections/">Network <i class="fa fa-users"></i> </a></li>
 
             <li id="nav-logout" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/logout.php">Log Out <i class="fa fa-sign-out"></i> </a></li>
         </ul>
