@@ -20,7 +20,7 @@
             <li id="nav-usr-portal" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/"> <?php echo $_SESSION["logged_in"][0][0]["NAME"] ." ".$_SESSION["logged_in"][0][0]["SURNAME"] ;?> </a></li>
             <li id="nav-restaurants" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Restaurants"> Restaurants </a></li>
             <li id="nav-food-items" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/FoodItems"> Food Items </a></li>
-            <li id="nav-recommendation" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Recommender/"> Recommended </a></li>
+            <!-- <li id="nav-recommendation" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Recommender/"> Recommended </a></li> -->
             <li id="nav-connections" class="nav-item align-bottom" ><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Connections/"> <i class="fa fa-users"></i> </a></li>
 
             <li id="nav-logout" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/logout.php">Log Out <i class="fa fa-sign-out"></i> </a></li>

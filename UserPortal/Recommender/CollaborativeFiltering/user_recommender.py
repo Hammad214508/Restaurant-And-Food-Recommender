@@ -83,7 +83,8 @@ algo.fit(trainingSet)
 
 def get_data_to_recommend(parameters):
   if parameters[5] == "true":
-    available_query = "AND F.AVAILABLE = %s"
+    available_query = """AND F.AVAILABLE = %s
+                         AND NOW() BETWEEN RES.OPENING_TIME AND RES.CLOSING_TIME"""
   else:
     parameters = parameters[:-1]
     available_query = ""
@@ -99,7 +100,9 @@ def get_data_to_recommend(parameters):
                AND F.FILLING_RATING BETWEEN %s AND %s
                """+available_query+"""
                """
-                # AND NOW() BETWEEN RES.OPENING_TIME AND RES.CLOSING_TIME
+
+               
+
 
   mycursor.execute(sql, parameters)
 
