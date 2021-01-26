@@ -20,7 +20,7 @@ $(document).ready(function(){
               data = JSON.parse(data);
               if (!data.success){
                   $("#error").html("<b>ERROR CHECKING IF MANAGER EXISTS!</b>");
-                  $.fn.temporary_show("error");
+                  $.fn.temporary_show("#error");
               }else{
                   data = data.dataset;
                   if (data[0][0]["ISTHERE"] == "1"){
@@ -54,7 +54,7 @@ $(document).ready(function(){
               data = JSON.parse(data);
               if (!data.success){
                   $("#error").html("<b>ERROR REGISTERING THE MANAGER!</b>");
-                  $.fn.temporary_show("error");
+                  $.fn.temporary_show("#error");
               }else{
                   window.open("/Restaurant-And-Food-Recommender/Login/Manager/manager_login.php","_self")
               }

@@ -51,8 +51,7 @@
         </div>
 
     </div>
-    <!-- style="display:none" -->
-    <div id="recommended_rest_page" > 
+    <div id="recommended_rest_page" style="display:none" > 
         <div class="container-fluid">
             <div class="jumbotron">
                 <h1>Recommended Restaurants</h1>

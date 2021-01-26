@@ -19,11 +19,11 @@ $(document).ready(function(){
               data = JSON.parse(data);
               if (!data.success){
                   $("#error").html("<b>ERROR CHECKING IF MANAGER EXISTS!</b>");
-                  $.fn.temporary_show("error");
+                  $.fn.temporary_show("#error");
               }else{
                   data = data.dataset;
                   if (data[0][0]["ISTHERE"] == "0"){
-                      $.fn.temporary_show("account_not_exists")
+                      $("#account_not_exists").show();
                   }else{
                       $.fn.verify();
                   }
@@ -50,12 +50,12 @@ $(document).ready(function(){
               data = JSON.parse(data);
               if (!data.success){
                   $("#error").html("<b>ERROR LOGGING THE USER!</b>");
-                  $.fn.temporary_show("error");
+                  $.fn.temporary_show("#error");
               }else{
                   data = data.dataset
                   if (!data[0][0]["VALID"]){
                       $("#password_error").html("INCORRECT PASSWORD, PLEASE TRY AGAIN")
-                      $.fn.temporary_show("password_error")
+                      $.fn.temporary_show("#password_error")
                   }
                   else{
                       window.open("/Restaurant-And-Food-Recommender/ManagerPortal/","_self")

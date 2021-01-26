@@ -9,7 +9,7 @@ $(document).ready(function(){
 
     websocket.onerror = function(error) {
         $("#error").html("<b>ERROR WITH WEBSOCKET SERVER</b>");
-        $.fn.temporary_show("#error");    
+        $.fn.temporary_show("#error");
     };
 
 
@@ -131,13 +131,13 @@ $(document).ready(function(){
 
         $("#get_recom_btn").on("click", function(){
             users = $('input[type=checkbox]:checked').map(function(_, el) {return $(el).attr("ref");}).get();
-            
+
             $.each(users, function( index, value ){
                 var name = $("#name_"+value).html()
                 var surname = $("#surname_"+value).html()
                 users_data[value] = [name, surname]
             });
-           
+
             $.fn.get_group_recommedations(users);
             $.fn.websocket_response();
         })
@@ -147,7 +147,7 @@ $(document).ready(function(){
             $(".user_rm").show();;
             $(".crt_group").hide();
         })
-  
+
     }
 
     $.fn.remove_connection = function(user2){
@@ -232,7 +232,7 @@ $(document).ready(function(){
             '</div>'
         )
     }
-    
+
 
     $.fn.set_user_recommended_events = function(){
         $(".add-user").on("click", function(){
@@ -268,7 +268,7 @@ $(document).ready(function(){
         '    </div>  '+
         '</div>'
         )
- 
+
     }
 
     $.fn.connection_confirmation_events = function(uid){
@@ -418,7 +418,7 @@ $(document).ready(function(){
         websocket.send(
             JSON.stringify(
                 {
-                    action: 'group_recommender', 
+                    action: 'group_recommender',
                     "users": users,
                 }));
     }
@@ -433,22 +433,28 @@ $(document).ready(function(){
             }
             else{
                 $("#error").html("<b>ERROR GETTING RESTTAURANT RECOMMENDATIONS!</b>");
-                $.fn.temporary_show("#error");        
+                $.fn.temporary_show("#error");
             }
         };
     }
 
     $.fn.get_person_in_group = function(user){
-        return (users_data[user][0] + " " + users_data[user][1]);
+        return ("<p>"+users_data[user][0] + " " + users_data[user][1]+"</p>");
     }
 
     $.fn.restaurants_page_setup = function(){
         $("#connections_page").hide();
         $("#recommended_rest_page").show();
         parent = $("#group_people")
+        parent.empty();
         for (var user in users_data) {
             parent.append($.fn.get_person_in_group(user))
         }
+        parent.append('<button id="change_group" type="button" class="btn btn-secondary">Change Group</button>')
+        $("#change_group").on("click", function(){
+            $("#connections_page").show();
+            $("#recommended_rest_page").hide();
+        })
     }
 
 

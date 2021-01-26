@@ -19,11 +19,11 @@ $(document).ready(function(){
               data = JSON.parse(data);
               if (!data.success){
                   $("#error").html("<b>ERROR CHECKING IF USER EXISTS!</b>");
-                  $.fn.temporary_show("error");
+                  $.fn.temporary_show("#error");
               }else{
                   data = data.dataset;
                   if (data[0][0]["ISTHERE"] == "1"){
-                      $.fn.temporary_show("account_exists")
+                      $.fn.temporary_show("#error")
                   }else{
                       $.fn.register();
                   }
@@ -53,7 +53,7 @@ $(document).ready(function(){
               data = JSON.parse(data);
               if (!data.success){
                   $("#error").html("<b>ERROR REGISTERING THE USER!</b>");
-                  $.fn.temporary_show("error");
+                  $.fn.temporary_show("#error");
               }else{
                   window.open("/Restaurant-And-Food-Recommender/Login/User/user_login.php","_self")
               }

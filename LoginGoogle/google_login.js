@@ -17,7 +17,7 @@ $(document).ready(function(){
                 data = JSON.parse(data);
                 if (!data.success){
                     $("#error").html("<b>ERROR CHECKING IF USER EXISTS!</b>");
-                    $.fn.temporary_show("error");
+                    $.fn.temporary_show("#error");
                 }else{
                     data = data.dataset;
                     if (data[0][0]["ISTHERE"] == "1"){
