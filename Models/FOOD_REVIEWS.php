@@ -7,7 +7,7 @@ class FOOD_REVIEWS {
 
         $conn = new Connector();
 
-        $query = "SELECT FR.REVIEW, FR.RATING, FR.HEALTHY, FR.FILLING, U.NAME, U.SURNAME 
+        $query = "SELECT FR.REVIEW_ID, FR.REVIEW, FR.RATING, FR.HEALTHY, FR.FILLING, U.NAME, U.SURNAME 
                   FROM FOOD_REVIEWS FR
                   INNER JOIN USER U ON FR.USER_ID = U.USER_ID
                   WHERE FOOD_ID = :FOOD_ID;";

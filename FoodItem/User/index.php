@@ -4,6 +4,7 @@
     <title>Food Item</title>
 
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
+	<link rel="stylesheet" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/FoodItem/star.css">
 
 </head>
 
@@ -81,6 +82,7 @@
 							<div id="reviews"></div>
 						</div>
 					</div>
+
 				</div>
 
 			</div>
