@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var food_id;
-    var image_exists = false;
+    var user_id;
+    var name, surname;
     var healthy_rating, filling_rating, rating;
 
     $.fn.get_food_item_by_id = function(){
@@ -48,8 +49,7 @@ $(document).ready(function(){
                   if (data.length > 0){
                       $.fn.render_food_reviews(data[0]);
                   }else{
-                      
-                       $("#reviews").append("<h5>No reviews to show!</h5>")
+                      $("#reviews").append("<h5>No reviews to show!</h5>")
                   }
               }
           }
@@ -74,7 +74,6 @@ $(document).ready(function(){
                   data = data.dataset;
                   if (data.length > 0){
                       var image_name = data[0][0]["IMAGE_NAME"];
-                      image_exists = true;
                       $("#image").show();
                       $("#upload").show();
                       $("#file").val(image_name);
@@ -107,17 +106,69 @@ $(document).ready(function(){
     $.fn.render_food_reviews  = function(reviews){
         var parent = $("#reviews");
         parent.empty();
+        parent.append('<hr style="height:2px;border-width:0;color:gray;background-color:gray">'
+        )
         $.each(reviews, function(index, value ) {
-            $.fn.get_food_review_html(value)
-            parent.append($.fn.get_food_review_html(value));
-            $.fn.add_score($.fn.get_percentage(value["RATING"]), $("#stars_"+value["REVIEW_ID"]))
-
+            if (value["REVIEW"]){
+                parent.append($.fn.get_food_review_html(value));
+                $.fn.add_score($.fn.get_percentage(value["RATING"]), $("#stars_"+value["REVIEW_ID"]))
+            }
+  
         })
     }
 
-
     $.fn.get_percentage = function(rating){
-        return Math.ceil(((rating/5)*100)/5)*5;
+        return Math.ceil(((rating/5)*100)/10)*10;
+    }
+
+    $.fn.give_review_events = function(){
+        $('#rating_value').html($('#rating_slider').val());
+
+        $('#rating_slider').on('input change', function(){
+          $('#rating_value').html($('#rating_slider').val());
+        });
+
+        $("#submit_review").on("click", function(){
+            $.fn.add_review();
+        })
+
+        var user_name = $("#user_name").html().split(" ")
+        name = user_name[1]
+        surname = user_name[2]
+
+    }
+
+    $.fn.add_review = function(){
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/FoodItem/food_item_services.php",
+            method: "POST",
+            data:{
+                    "actionmode"	: "add_review",
+                    "FOOD_ID"       : food_id, 
+                    "USER_ID"       : user_id,
+                    "RATING"        : $('#rating_slider').val(), 
+                    "REVIEW"        : $("#review_txt").val()
+                },
+            success:function(data) {
+               data = JSON.parse(data);
+               if (!data.success){
+                   $("#error").html("<b>ERROR SAVING FOOD REVIEW!</b>");
+                   $.fn.temporary_show("#error");
+               }else{
+                    var parent = $("#reviews");
+                    var data = {}
+                    data["NAME"] = name;
+                    data["SURNAME"] = surname;
+                    data["REVIEW_ID"] = -1;
+                    data["REVIEW"] = $("#review_txt").val()
+                    parent.append($.fn.get_food_review_html(data));
+                    $.fn.add_score($.fn.get_percentage($('#rating_slider').val()), $("#stars_"+data["REVIEW_ID"]))
+                    $("#rating_slider").prop("disabled", true);
+                    $("#review_txt").prop("disabled", true);
+                    $("#submit_review").prop("disabled", true);
+               }
+           }
+         });
     }
 
 
@@ -155,10 +206,12 @@ $(document).ready(function(){
         var thispage = {};
         thispage.init = function(){
             food_id = $("#inp_hdn_food_id").length > 0 ? $("#inp_hdn_food_id").val() : "";
+            user_id = $("#inp_hdn_uid").length > 0 ? $("#inp_hdn_uid").val() : "";
             $.fn.get_food_item_by_id();
             $.fn.get_image_name();
             $.fn.render_food_stats()
             $.fn.get_food_reviews();
+            $.fn.give_review_events()
 
         };
         return thispage;

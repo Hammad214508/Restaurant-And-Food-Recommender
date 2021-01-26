@@ -79,7 +79,28 @@
 					<div class="container">
 						<div id="reviews_container">
 							<h3>REVIEWS</h3>
-							<div id="reviews"></div>
+							<div id="reviews" style="height:25em; overflow-y: scroll;"></div>
+						</div>
+					</div>
+
+					<div class="container mt-5">
+						<div id="review_form">
+							<h3>GIVE REVIEW</h3>
+							<div id="rating_div">
+								<p>Rating:</p>
+								<input id="rating_slider" class="border-0" type="range" min="0" max="5" step="0.25"/>
+								<span id="rating_value" class="font-weight-bold text-secondary"></span>
+							</div>
+							<!-- <p>Filling Rating:</p>
+							<p>Healthy Rating:</p> -->
+							<div id="review_msg_div">
+								<p>Review:</p> 
+								<textarea id="review_txt" rows="4" cols="50"></textarea>
+							</div>
+
+							<div class="mt-3 mb-2">
+								<button id="submit_review" type="button" class="btn btn-secondary">Send</button>
+							</div>
 						</div>
 					</div>
 
@@ -90,7 +111,6 @@
     	</div>
 
 
-
     </div>
 
 
@@ -98,6 +118,7 @@
 
 
 <input id="inp_hdn_food_id" style="display:none;" value="<?php echo $food_id ?>"></input>
+<input id="inp_hdn_uid" style="display:none" value="<?php echo $_SESSION["logged_in"][0][0]["USER_ID"] ?>"></input>
 
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>

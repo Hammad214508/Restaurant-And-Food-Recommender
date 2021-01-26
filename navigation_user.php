@@ -17,7 +17,7 @@
         </ul>
 
         <ul class="nav navbar-nav">
-            <li id="nav-usr-portal" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/"> <?php echo $_SESSION["logged_in"][0][0]["NAME"] ." ".$_SESSION["logged_in"][0][0]["SURNAME"] ;?> </a></li>
+            <li id="nav-usr-portal" class="nav-item"><a id="user_name" class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/"> <?php echo $_SESSION["logged_in"][0][0]["NAME"] ." ".$_SESSION["logged_in"][0][0]["SURNAME"] ;?> </a></li>
             <li id="nav-restaurants" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Restaurants"> Restaurants </a></li>
             <li id="nav-food-items" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/FoodItems"> Food Items </a></li>
             <!-- <li id="nav-recommendation" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Recommender/"> Recommended </a></li> -->

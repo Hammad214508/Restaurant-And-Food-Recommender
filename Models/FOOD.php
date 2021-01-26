@@ -110,4 +110,22 @@ class FOOD {
         return $conn->get_binded_data($query, $args);
     }
 
+
+    public function update_average_rating($food_id){
+        $args = array(
+            "FOOD_ID"=>$food_id, 
+            "FOOD_ID1"=>$food_id
+        );
+
+        $conn = new Connector();
+
+        $query = "UPDATE FOOD F
+                  SET AVG_RATING = (SELECT AVG(R.RATING) 
+                                    FROM RATINGS R
+                                    WHERE R.FOOD_ID = :FOOD_ID)
+                  WHERE F.FOOD_ID = :FOOD_ID1;";
+
+        return $conn->perform_transaction($query, $args);
+    }
+
 }

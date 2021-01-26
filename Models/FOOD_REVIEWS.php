@@ -16,5 +16,17 @@ class FOOD_REVIEWS {
     }
 
 
+    public function add_review($args){
+
+        $conn = new Connector();
+
+        $query = "INSERT INTO FOOD_REVIEWS(FOOD_ID, USER_ID, RATING, REVIEW, HEALTHY, FILLING)
+                  VALUES (:FOOD_ID, :USER_ID, :RATING, :REVIEW, :HEALTHY, :FILLING)";
+
+        return $conn->perform_transaction($query, $args);
+    }
+    
+
+
 
 }
