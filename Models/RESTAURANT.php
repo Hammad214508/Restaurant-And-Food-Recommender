@@ -70,4 +70,30 @@ class RESTAURANT {
         return $conn->get_binded_data($query, array());
     }
 
+
+    public function update_restaurant_rating($food_id){
+        $args = array(
+            "FOOD_ID"=>$food_id, 
+            "FOOD_ID1"=>$food_id
+        );
+
+        $conn = new Connector();
+
+        $query = "UPDATE RESTAURANT
+                  SET
+                    RATING = (SELECT ROUND(AVG(RATING), 2)
+                              FROM RATINGS R
+                              INNER JOIN FOOD F ON R.FOOD_ID = F.FOOD_ID 
+                              WHERE F.RESTAURANT_ID = (SELECT RESTAURANT_ID   
+                                                       FROM FOOD 
+                                                       WHERE FOOD_ID = :FOOD_ID)
+                             )
+
+                  WHERE RESTAURANT_ID = (SELECT RESTAURANT_ID   
+                                         FROM FOOD 
+                                         WHERE FOOD_ID = :FOOD_ID1);";
+
+        return $conn->perform_transaction($query, $args);
+    }
+
 }

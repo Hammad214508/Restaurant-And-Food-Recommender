@@ -97,9 +97,27 @@
 								<p>Review:</p> 
 								<textarea id="review_txt" rows="4" cols="50"></textarea>
 							</div>
+							
+							<div class="mt-2">
+								<i class="fa fa-filter" aria-hidden="true"></i><button id="more"class="btn btn-link">More</button>
+								<div class="more_filters row"> 
+								<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+									<p>Healthy rating:</p>
+									<input id="health_slider" class="border-0" type="range" min="0" max="5" step="0.25" />
+									<span id="health_value" class="font-weight-bold text-secondary"></span>
+								</div>
+								<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+									<p>Filling rating:</p>
+									<input id="filling_slider" class="border-0" type="range" min="0" max="5" step="0.25" />
+									<span id="filling_value" class="font-weight-bold text-secondary"></span>
+								</div>
+
+								</div>
+							</div>
+
 
 							<div class="mt-3 mb-2">
-								<button id="submit_review" type="button" class="btn btn-secondary">Send</button>
+								 <button id="submit_review" type="button" class="btn btn-secondary">Send</button>
 							</div>
 						</div>
 					</div>

@@ -201,12 +201,12 @@ $(document).ready(function(){
 
         $("#more").click(function(){
             $(".more_filters").slideToggle("slow");
-         });
+        });
 
-         $("#reset").click(function(){
+        $("#reset").click(function(){
             $.fn.restart_filters();
             $.fn.get_all_food_items();
-         });
+        });
     };
 
 

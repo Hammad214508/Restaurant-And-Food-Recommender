@@ -3,6 +3,7 @@
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/IMAGES.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/FOOD_REVIEWS.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/RATINGS.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/RESTAURANT.php');
 
 
     session_start();
@@ -17,8 +18,8 @@
 
     if($actionmode == "get_food_reviews"){
         $args["FOOD_ID"] = isset($_POST['FOOD_ID']) ? $_POST['FOOD_ID'] : NULL;
-
         $form_data = get_food_reviews($args);
+        // var_dump(update_food_stats($args["FOOD_ID"]));
     }
 
     if($actionmode == "save_image"){
@@ -47,15 +48,16 @@
         $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
         $args["RATING"] = isset($_POST['RATING']) ? $_POST['RATING'] : NULL;
         $args["REVIEW"] = isset($_POST['REVIEW']) ? $_POST['REVIEW'] : NULL;
-        $args["HEALTHY"] = isset($_POST['HEALTHY']) ? $_POST['HEALTHY'] : NULL;
-        $args["FILLING"] = isset($_POST['FILLING']) ? $_POST['FILLING'] : NULL;
+        $args["HEALTHY"] = (isset($_POST['HEALTHY']) && $_POST['HEALTHY'] != "") ? $_POST['HEALTHY'] : NULL;
+        $args["FILLING"] = (isset($_POST['FILLING']) && $_POST['HEALTHY'] != "") ? $_POST['FILLING'] : NULL;
 
         $rating["FOOD_ID"] = $args["FOOD_ID"];
         $rating["USER_ID"] = $args["USER_ID"];
         $rating["RATING"] = $args["RATING"];
 
         add_rating($rating);
-        var_dump(update_average_rating($args["FOOD_ID"]));
+        update_food_stats($args["FOOD_ID"]);
+        update_restaurant_rating($args["FOOD_ID"]);
         $form_data = add_review($args);
     }
 
@@ -93,9 +95,15 @@
         return $RATINGS -> add_rating($args);
     }
     
-    function update_average_rating($food_id){
+    function update_food_stats($food_id){
         $FOOD = new FOOD();
-        return $FOOD -> update_average_rating($food_id);
+        return $FOOD -> update_food_stats($food_id);
     }
+
+    function update_restaurant_rating($food_id){
+        $RESTAURANT = new RESTAURANT();
+        return $RESTAURANT -> update_restaurant_rating($food_id);
+    }
+    
 
 ?>

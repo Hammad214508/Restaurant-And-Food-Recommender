@@ -3,6 +3,7 @@ $(document).ready(function(){
     var user_id;
     var name, surname;
     var healthy_rating, filling_rating, rating;
+    var extra_filters = false;
 
     $.fn.get_food_item_by_id = function(){
         $.ajax({
@@ -94,6 +95,7 @@ $(document).ready(function(){
 
     };
 
+
     
     $.fn.render_food_stats  = function(){
         $("#stats").append(
@@ -128,9 +130,29 @@ $(document).ready(function(){
           $('#rating_value').html($('#rating_slider').val());
         });
 
+        $('#health_value').html($('#health_slider').val());
+
+        $('#health_slider').on('input change', function(){
+          $('#health_value').html($('#health_slider').val());
+        });
+
+        $('#filling_value').html($('#filling_slider').val());
+
+        $('#filling_slider').on('input change', function(){
+          $('#filling_value').html($('#filling_slider').val());
+        });
+
         $("#submit_review").on("click", function(){
             $.fn.add_review();
         })
+
+        $("#more").click(function(){
+            $(".more_filters").slideToggle("slow");
+            extra_filters = !extra_filters;
+        });
+
+        $(".more_filters").hide();
+
 
         var user_name = $("#user_name").html().split(" ")
         name = user_name[1]
@@ -139,6 +161,8 @@ $(document).ready(function(){
     }
 
     $.fn.add_review = function(){
+        var healthy = (extra_filters) ? $("#health_slider").val() : "";
+        var filling =  (extra_filters) ? $("#filling_slider").val() : "";
         $.ajax({
             url: "/Restaurant-And-Food-Recommender/FoodItem/food_item_services.php",
             method: "POST",
@@ -147,7 +171,9 @@ $(document).ready(function(){
                     "FOOD_ID"       : food_id, 
                     "USER_ID"       : user_id,
                     "RATING"        : $('#rating_slider').val(), 
-                    "REVIEW"        : $("#review_txt").val()
+                    "REVIEW"        : $("#review_txt").val(),
+                    "HEALTHY"       : healthy,
+                    "FILLING"       : filling
                 },
             success:function(data) {
                data = JSON.parse(data);

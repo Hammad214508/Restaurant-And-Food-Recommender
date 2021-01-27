@@ -111,19 +111,30 @@ class FOOD {
     }
 
 
-    public function update_average_rating($food_id){
+    public function update_food_stats($food_id){
         $args = array(
-            "FOOD_ID"=>$food_id, 
-            "FOOD_ID1"=>$food_id
+            "FOOD_ID"=> $food_id, 
+            "FOOD_ID1"=> $food_id,
+            "FOOD_ID2"=> $food_id,
+            "FOOD_ID3"=> $food_id
         );
 
         $conn = new Connector();
 
         $query = "UPDATE FOOD F
-                  SET AVG_RATING = (SELECT AVG(R.RATING) 
+                  SET AVG_RATING = (SELECT ROUND(AVG(R.RATING), 2)
                                     FROM RATINGS R
-                                    WHERE R.FOOD_ID = :FOOD_ID)
-                  WHERE F.FOOD_ID = :FOOD_ID1;";
+                                    WHERE R.FOOD_ID = :FOOD_ID),
+                     HEALTHY_RATING = (SELECT ROUND(AVG(FR.HEALTHY), 2)
+                                       FROM FOOD_REVIEWS FR
+                                       WHERE FR.FOOD_ID = :FOOD_ID1),
+                     FILLING_RATING = (SELECT ROUND(AVG(FR.FILLING), 2)
+                                       FROM FOOD_REVIEWS FR
+                                       WHERE FR.FOOD_ID = :FOOD_ID2)
+                  WHERE F.FOOD_ID = :FOOD_ID3;";
+
+        
+
 
         return $conn->perform_transaction($query, $args);
     }
