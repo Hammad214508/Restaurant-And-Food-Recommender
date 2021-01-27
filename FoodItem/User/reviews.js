@@ -153,7 +153,6 @@ $(document).ready(function(){
 
         $(".more_filters").hide();
 
-
         var user_name = $("#user_name").html().split(" ")
         name = user_name[1]
         surname = user_name[2]
@@ -197,7 +196,6 @@ $(document).ready(function(){
          });
     }
 
-
     $.fn.add_score = function(score, element){
         $("<span class='stars-container'>")
         .addClass("stars-" + score.toString())
@@ -205,15 +203,12 @@ $(document).ready(function(){
         .appendTo(element);
     }
 
-
-
     $.fn.get_food_review_html = function(review){
         return (
             '<p><i class="fa fa-comment" aria-hidden="true"></i> ' +review["NAME"] + ' ' + review["SURNAME"][0]+ '. <span id="stars_'+review["REVIEW_ID"]+'"></span></p> '+
             '<p>'+review["REVIEW"]+'</p>'+
             '<hr style="height:2px;border-width:0;color:gray;background-color:gray">'
         )
-
     }
 
     $.fn.get_diet_type = function(diet){

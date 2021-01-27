@@ -97,7 +97,6 @@ $(document).ready(function(){
     $.fn.new_food_form = function(){
         return (
             '<div class="row mt-4">'+
-                '<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>'+
                 '<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
                     $.fn.new_food_input("food_name_inp", "Name:", "Food Name" )+
                     $.fn.new_food_input("food_price", "Price:", "Food Price" )+
@@ -205,7 +204,6 @@ $(document).ready(function(){
     }
 
     $.fn.render_food_stats  = function(){
-        console.log("HERE");
         $("#stats").append(
             "<p>Rating: "+rating+"<p>"+
             "<p>Healthy: "+healthy_rating+"<p>"+
@@ -214,10 +212,36 @@ $(document).ready(function(){
     }
 
     $.fn.render_food_reviews  = function(reviews){
-        $.each(reviews, function( index, value ) {
-          $("#reviews").append("<p>" +value["REVIEW"] + "</p>")
-        });
+        var parent = $("#reviews");
+        parent.empty();
+        parent.append('<hr style="height:2px;border-width:0;color:gray;background-color:gray">'
+        )
+        $.each(reviews, function(index, value ) {
+            if (value["REVIEW"]){
+                parent.append($.fn.get_food_review_html(value));
+                $.fn.add_score($.fn.get_percentage(value["RATING"]), $("#stars_"+value["REVIEW_ID"]))
+            }
+  
+        })
+    }
 
+    $.fn.get_food_review_html = function(review){
+        return (
+            '<p><i class="fa fa-comment" aria-hidden="true"></i> ' +review["NAME"] + ' ' + review["SURNAME"][0]+ '. <span id="stars_'+review["REVIEW_ID"]+'"></span></p> '+
+            '<p>'+review["REVIEW"]+'</p>'+
+            '<hr style="height:2px;border-width:0;color:gray;background-color:gray">'
+        )
+    }
+
+    $.fn.add_score = function(score, element){
+        $("<span class='stars-container'>")
+        .addClass("stars-" + score.toString())
+        .text("★★★★★")
+        .appendTo(element);
+    }
+
+    $.fn.get_percentage = function(rating){
+        return Math.ceil(((rating/5)*100)/10)*10;
     }
 
     $.fn.image_preview = function(){
