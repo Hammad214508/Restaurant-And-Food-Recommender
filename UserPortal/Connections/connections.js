@@ -1,17 +1,23 @@
 $(document).ready(function(){
 
     var user_id;
+    var my_prof_rendered = false;
     var my_net_rendered = false;
     var find_rendered = false;
     var num_requests;
     var websocket = new WebSocket("ws://127.0.0.1:6789/");
     var users_data = {};
+    var titles = {};
+    titles["my_prof"] = ["Profile", "Manage your profile here"]
+    titles["my_net"] = ["Connections", "Manage your connections here"]
+    titles["find"] = ["People", "Connect with people here"]
+    titles["requests"] = ["Requests", "Manage your connections requests here"]
+
 
     websocket.onerror = function(error) {
         $("#error").html("<b>ERROR WITH WEBSOCKET SERVER</b>");
         $.fn.temporary_show("#error");
     };
-
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -22,6 +28,18 @@ $(document).ready(function(){
         $(".list-group-item").on('click', function(){
             $(".list-group-item.active").removeClass("active")
             $(this).addClass("active")
+            var id = $(this).attr("id");
+            $("#title").html(titles[id][0]);
+            $("#desc").html(titles[id][1]);
+        })
+
+        $("#my_prof").on('click', function(){
+            $(".connections_data").hide();
+            $("#my_prof_container").show();
+            if (!my_prof_rendered){
+                $.fn.get_profile_data();
+                my_prof_rendered = true;
+            }
         })
 
         $("#my_net").on('click', function(){
@@ -54,11 +72,131 @@ $(document).ready(function(){
             $(".crt_group").show();
         })
 
-        $("#my_net").trigger('click');
+        $("#my_prof").trigger('click');
         // $("#find").trigger('click');
         // $("#requests").trigger('click');
 
+    }
 
+    $.fn.get_profile_data = function(){
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+            method: "POST",
+            data:{
+                    "actionmode"	: "get_profile_data",
+                    "USER_ID"       : user_id,
+                },
+            success:function(data) {
+                 data = JSON.parse(data);
+                 if (!data.success){
+                     $("#error").html("<b>ERROR GETTING USER DATA!</b>");
+                     $.fn.temporary_show("#error");
+                 }else{
+                     data = data.dataset
+                     var parent = $("#my_prof_container");
+                     parent.empty()
+                     parent.append($.fn.render_user_profile(data[0][0]))
+                     $.fn.user_profile_events(data[0][0]);
+                 }
+             }
+         });
+    }
+
+
+    $.fn.render_user_profile = function(data){
+        return (
+            '<h3 class="text-center mb-4"> MY PROFILE</h3>'+
+            $.fn.user_data_input("name", "Name:", data["NAME"])+
+            $.fn.user_data_input("surname", "Surname:", data["SURNAME"])+
+            $.fn.user_diet_type()+
+            $.fn.save_button("save_user_data")
+        )
+    }
+
+    $.fn.user_data_input = function(id, label, value){
+        return (
+            '<div class="row">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
+            '        <p>'+label+'</p>'+
+            '    </div>'+
+            '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
+            '        <input id="'+id+'" type="text" class="form-control mb-3 prof_data" value="'+value+'"></input>'+
+            '    </div>'+
+                 $.fn.transaction_icons(id)+
+            '</div>'
+        )
+    }
+
+    $.fn.user_diet_type = function(){
+        return (
+            '<div class="row">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
+            '        <p>Diet Type:</p>'+
+            '    </div>'+
+            '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
+            '       <select class="form-control prof_data" id="diet_type">'+
+            '           <option value="1">Non Vegetarian</option>'+
+            '           <option value="2">Vegetarian</option>'+
+            '           <option value="3">Vegan</option>'+
+            '       </select>'+
+            '    </div>'+
+                 $.fn.transaction_icons("diet_type")+
+            '</div>'
+
+        )
+    }
+
+    $.fn.save_button = function(id){
+        return (
+            '<div class="row mt-3">'+
+            '    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>'+
+            '    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">'+
+            '        <button id="'+id+'" type="button" class="btn btn-secondary btn-lg">Save</button>'+
+            '    </div>'+
+                 $.fn.transaction_icons(id)+
+            '</div>'
+        )
+    }
+
+
+    $.fn.user_profile_events = function(data){
+        $("#diet_type").val(data["DIET_TYPE"])
+
+        $(".prof_data").on("change", function(){
+            $.fn.update_user_profile_data($(this).attr("id"));
+        })
+
+        $("#save_user_data").on("click", function(){
+            $.fn.temporary_show("#icons_save_user_data #tick");
+        });
+    }
+
+
+    $.fn.update_user_profile_data = function(field){
+        $.fn.temporary_show("#icons_"+field+" #loading");
+
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+            method: "POST",
+            data:{
+                    "actionmode"	: "update_user_profile_data",
+                    "USER_ID"       : user_id,
+                    "NAME"          : $("#name").val(),
+                    "SURNAME"       : $("#surname").val(),
+                    "DIET_TYPE"     : $("#diet_type").val(),
+                },
+            success:function(data) {
+                 $(".icon").hide();
+                 data = JSON.parse(data);
+                 if (!data.success){
+                     $("#error").html("<b>ERROR UPDATING USER DATA!</b>");
+                     $.fn.temporary_show("#error");
+                     $.fn.temporary_show("#icons_"+field+" #cross");
+                 }else{
+                     $.fn.temporary_show("#icons_"+field+" #tick");
+                 }
+             }
+         });
     }
 
 
@@ -95,6 +233,7 @@ $(document).ready(function(){
         for (var i = 0; i < data.length; i++){
             parent.append($.fn.get_user_template(data[i]));
         }
+
         $.fn.set_user_connections_events();
     }
 

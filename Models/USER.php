@@ -53,4 +53,34 @@ class USER {
 		return $conn->get_binded_data($query, $data);
 	}
 
+	public function get_profile_data($args){
+
+		$conn = new Connector();
+
+		$query = "SELECT NAME, SURNAME, EMAIL, DIET_TYPE
+				  FROM USER 
+				  WHERE USER_ID = :USER_ID;";
+
+		return $conn->get_binded_data($query, $args);
+	}
+
+	public function update_user_profile_data($args){
+
+		$conn = new Connector();
+
+		$query = "UPDATE USER 
+				  SET NAME =:NAME, 
+				      SURNAME = :SURNAME, 
+					  DIET_TYPE = :DIET_TYPE
+				  WHERE USER_ID = :USER_ID;";
+
+		return $conn->perform_transaction($query, $args);
+	}
+
+	
+
+
+
+	
+
 }

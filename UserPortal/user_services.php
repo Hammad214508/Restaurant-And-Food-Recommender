@@ -3,6 +3,7 @@
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/FOOD.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/CONNECTIONS.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/NOTIFICATIONS.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/USER.php');
 
     $actionmode = isset($_POST['actionmode']) ? $_POST['actionmode'] : NULL;
 
@@ -78,6 +79,20 @@
         }
     }
 
+    if($actionmode == "get_profile_data"){
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+
+        $form_data = get_profile_data($args);
+    }
+    
+    if($actionmode == "update_user_profile_data"){
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+        $args["NAME"] = isset($_POST['NAME']) ? $_POST['NAME'] : NULL;
+        $args["SURNAME"] = isset($_POST['SURNAME']) ? $_POST['SURNAME'] : NULL;
+        $args["DIET_TYPE"] = isset($_POST['DIET_TYPE']) ? $_POST['DIET_TYPE'] : NULL;
+
+        $form_data = update_user_profile_data($args);
+    }
 
     echo json_encode($form_data);
 
@@ -126,6 +141,15 @@
         return $CONNECTIONS -> add_connection($args);
     }
 
+    function get_profile_data($args){
+        $USER = new USER();
+        return $USER -> get_profile_data($args);
+    }
+
+    function update_user_profile_data($args){
+        $USER = new USER();
+        return $USER -> update_user_profile_data($args);
+    }
     
 
     
