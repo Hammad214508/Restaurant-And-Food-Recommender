@@ -58,7 +58,7 @@ class USER {
 		$conn = new Connector();
 
 		$query = "SELECT NAME, SURNAME, EMAIL, DIET_TYPE
-				  FROM USER 
+				  FROM USER
 				  WHERE USER_ID = :USER_ID;";
 
 		return $conn->get_binded_data($query, $args);
@@ -68,19 +68,19 @@ class USER {
 
 		$conn = new Connector();
 
-		$query = "UPDATE USER 
-				  SET NAME =:NAME, 
-				      SURNAME = :SURNAME, 
+		$query = "UPDATE USER
+				  SET NAME =:NAME,
+				      SURNAME = :SURNAME,
 					  DIET_TYPE = :DIET_TYPE
 				  WHERE USER_ID = :USER_ID;";
 
 		return $conn->perform_transaction($query, $args);
 	}
 
-	
 
 
 
-	
+
+
 
 }

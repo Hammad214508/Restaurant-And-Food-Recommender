@@ -54,7 +54,7 @@ $(document).ready(function(){
               }else{
                   data = data.dataset
                   if (data[0][0]["VALID"]){
-                      window.open("/Restaurant-And-Food-Recommender/UserPortal/","_self")
+                      window.open("/Restaurant-And-Food-Recommender/UserPortal/Profile","_self")
                   }else{
                       $("#password_error").html("INCORRECT PASSWORD, PLEASE TRY AGAIN")
                       $.fn.temporary_show("#password_error")

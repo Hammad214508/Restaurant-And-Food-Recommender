@@ -7,22 +7,26 @@ $(document).ready(function(){
     var num_requests;
     var websocket = new WebSocket("ws://127.0.0.1:6789/");
     var users_data = {};
+    var name = $("#user_name").html()
+    name = name.split(" ")
     var titles = {};
-    titles["my_prof"] = ["Profile", "Manage your profile here"]
+    titles["my_prof"] = [name[1] +" "+ name[3], "Manage your profile here"]
     titles["my_net"] = ["Connections", "Manage your connections here"]
     titles["find"] = ["People", "Connect with people here"]
     titles["requests"] = ["Requests", "Manage your connections requests here"]
+    var user_search = "";
 
+
+
+    $.fn.activate_nav_bar = function(){
+        $(".nav-item.active").removeClass("active");
+        $("#nav-usr-portal").addClass("active");
+    }
 
     websocket.onerror = function(error) {
         $("#error").html("<b>ERROR WITH WEBSOCKET SERVER</b>");
         $.fn.temporary_show("#error");
     };
-
-    $.fn.activate_nav_bar = function(){
-        $(".nav-item.active").removeClass("active");
-        $("#nav-connections").addClass("active");
-    }
 
     $.fn.main = function(){
         $(".list-group-item").on('click', function(){
@@ -58,6 +62,10 @@ $(document).ready(function(){
                 $.fn.get_recommended_users();
                 find_rendered = true;
             }
+            $("#search_text").on("keyup", function(e){
+                user_search = $(this).val();
+                $.fn.get_recommended_users();
+            }); 
         })
 
         $("#requests").on('click', function(){
@@ -68,8 +76,9 @@ $(document).ready(function(){
         $("#create_group").on("click", function(){
             $("#my_net").trigger('click');
             $("#connections").addClass("show_border")
-            $(".user_rm").hide();;
+            $(".user_rm").hide();
             $(".crt_group").show();
+
         })
 
         $("#my_prof").trigger('click');
@@ -315,6 +324,7 @@ $(document).ready(function(){
             data:{
                     "actionmode"	: "get_recommended_users",
                     "USER_ID"       : user_id,
+                    "SEARCH"        : user_search
                 },
             success:function(data) {
                  data = JSON.parse(data);
@@ -324,10 +334,10 @@ $(document).ready(function(){
                  }else{
                      data = data.dataset
                      var num_connections =  (data.length) ? data[0].length : 0;
-                     if (num_connections > 1){
+                     if (num_connections > 0){
                          $.fn.render_recommended_connections(data[0]);
                      }else{
-                         parent = $("#find_container")
+                         parent = $("#recommended_users")
                          parent.empty();
                          parent.append("<h1>NO USERS TO SHOW</h1>");
                      }
@@ -338,6 +348,7 @@ $(document).ready(function(){
 
     $.fn.render_recommended_connections = function(data){
         var parent = $("#recommended_users");
+        parent.empty();
         for (var i = 0; i < data.length; i++){
             if (data[i]["USER_ID"] != user_id){
                 parent.append($.fn.get_user_recommended_template(data[i]));
@@ -351,17 +362,17 @@ $(document).ready(function(){
             '<div id="container_'+data["USER_ID"]+'" class="container-fluid">'+
             '<div class="row mt-2">'+
             '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">'+
-            '        <div class="text-center">'+
+            '        <div>'+
                         data["NAME"]+
             '        </div>'+
             '    </div>'+
             '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">'+
-            '        <div class="text-center">'+
+            '        <div>'+
                         data["SURNAME"]+
             '        </div>'+
             '    </div>'+
             '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 user_rm">'+
-            '        <div id="icon_'+data["USER_ID"]+'" class="text-right">'+
+            '        <div id="icon_'+data["USER_ID"]+'" class="text-center">'+
             '            <i  class="fa fa-user-plus usr-icon add-user" ref="'+data["USER_ID"]+'"></i>'+
             '        </div>'+
             '    </div>'+

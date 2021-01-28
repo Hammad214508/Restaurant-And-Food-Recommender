@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 08, 2021 at 02:42 AM
+-- Generation Time: Jan 28, 2021 at 03:48 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -21,11 +21,33 @@ USE `database`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `CONNECTIONS`
+--
+
+DROP TABLE IF EXISTS `CONNECTIONS`;
+CREATE TABLE `CONNECTIONS` (
+  `CONNECTION_ID` int(11) NOT NULL,
+  `USER1` int(10) NOT NULL,
+  `USER2` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `CONNECTIONS`
+--
+
+INSERT INTO `CONNECTIONS` (`CONNECTION_ID`, `USER1`, `USER2`) VALUES
+(1, 2, 1),
+(2, 1, 2),
+(4, 3, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `DIET_TYPE`
 --
 
 DROP TABLE IF EXISTS `DIET_TYPE`;
-CREATE TABLE IF NOT EXISTS `DIET_TYPE` (
+CREATE TABLE `DIET_TYPE` (
   `DIET_ID` int(11) NOT NULL,
   `DIET_NAME` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -37,8 +59,8 @@ CREATE TABLE IF NOT EXISTS `DIET_TYPE` (
 --
 
 DROP TABLE IF EXISTS `FOOD`;
-CREATE TABLE IF NOT EXISTS `FOOD` (
-  `FOOD_ID` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `FOOD` (
+  `FOOD_ID` int(10) NOT NULL,
   `NAME` varchar(250) DEFAULT NULL,
   `PRICE` float DEFAULT NULL,
   `DESCRIPTION` varchar(250) DEFAULT NULL,
@@ -47,21 +69,20 @@ CREATE TABLE IF NOT EXISTS `FOOD` (
   `DIET_TYPE` varchar(250) DEFAULT NULL,
   `HEALTHY_RATING` float NOT NULL,
   `FILLING_RATING` float NOT NULL,
-  `AVG_RATING` float NOT NULL,
-  PRIMARY KEY (`FOOD_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+  `AVG_RATING` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `FOOD`
 --
 
 INSERT INTO `FOOD` (`FOOD_ID`, `NAME`, `PRICE`, `DESCRIPTION`, `RESTAURANT_ID`, `AVAILABLE`, `DIET_TYPE`, `HEALTHY_RATING`, `FILLING_RATING`, `AVG_RATING`) VALUES
-(1, 'Pizza ', 12, 'Nice Pizza', 1, 'false', '1', 2.5, 5, 5),
+(1, 'Pizza1', 12, 'Nice Pizza', 1, 'false', '1', 2.75, 2.3, 2.55),
 (2, 'cake', 19, 'good cake', 1, 'true', '2', 3.7, 1.8, 1),
 (3, 'Ice cream ', 1, 'This is ice cream description', 2, 'true', '3', 4.8, 2.9, 3),
 (4, 'Chips', 1.5, 'Nice chips', 1, 'true', '1', 2, 3.25, 2),
 (5, 'Burrito', 12, 'I don\'t know', 2, 'true', '1', 5, 1.5, 4),
-(6, 'banana', 100, 'big banana', 4, 'true', '1', 5, 1, 0);
+(6, 'banana', 100, 'big banana', 4, 'false', '1', 5, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -70,23 +91,36 @@ INSERT INTO `FOOD` (`FOOD_ID`, `NAME`, `PRICE`, `DESCRIPTION`, `RESTAURANT_ID`, 
 --
 
 DROP TABLE IF EXISTS `FOOD_REVIEWS`;
-CREATE TABLE IF NOT EXISTS `FOOD_REVIEWS` (
-  `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `FOOD_REVIEWS` (
+  `REVIEW_ID` int(10) NOT NULL,
   `FOOD_ID` int(10) NOT NULL,
   `USER_ID` int(10) NOT NULL,
+  `RATING` float DEFAULT NULL,
   `REVIEW` varchar(250) DEFAULT NULL,
   `HEALTHY` float DEFAULT NULL,
-  `FILLING` float DEFAULT NULL,
-  PRIMARY KEY (`REVIEW_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+  `FILLING` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `FOOD_REVIEWS`
 --
 
-INSERT INTO `FOOD_REVIEWS` (`REVIEW_ID`, `FOOD_ID`, `USER_ID`, `REVIEW`, `HEALTHY`, `FILLING`) VALUES
-(1, 1, 1, 'I like the pizza', 3.2, 1.2),
-(2, 1, 2, 'I  liked it', 2, 3);
+INSERT INTO `FOOD_REVIEWS` (`REVIEW_ID`, `FOOD_ID`, `USER_ID`, `RATING`, `REVIEW`, `HEALTHY`, `FILLING`) VALUES
+(1, 1, 1, 1.7, 'I like the pizza', 4, 1.2),
+(2, 1, 2, 4.5, 'I  liked it', 2, 3),
+(3, 1, 1, 4.5, 'Good pizza', NULL, NULL),
+(4, 1, 1, 1, 'jfdkljafkdljak;fdafa', NULL, NULL),
+(5, 1, 1, 3, 'This is my rewview', NULL, NULL),
+(6, 1, 1, 2.5, '', NULL, NULL),
+(7, 1, 1, 1, '', NULL, NULL),
+(8, 1, 1, 0, '', NULL, NULL),
+(9, 1, 1, 0, '', NULL, NULL),
+(10, 1, 1, 1.5, '', NULL, NULL),
+(11, 1, 1, 2.5, '', NULL, NULL),
+(12, 1, 1, 2.5, '', 2.5, 2.5),
+(13, 1, 1, 2.5, '', 2.5, 2.5),
+(14, 1, 1, 2.5, '', NULL, NULL),
+(15, 1, 1, 2.5, '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -95,7 +129,7 @@ INSERT INTO `FOOD_REVIEWS` (`REVIEW_ID`, `FOOD_ID`, `USER_ID`, `REVIEW`, `HEALTH
 --
 
 DROP TABLE IF EXISTS `IMAGES`;
-CREATE TABLE IF NOT EXISTS `IMAGES` (
+CREATE TABLE `IMAGES` (
   `ENTITY_ID` int(10) NOT NULL,
   `ENTITY_TYPE` varchar(250) NOT NULL,
   `IMAGE_NAME` varchar(250) NOT NULL
@@ -115,15 +149,14 @@ INSERT INTO `IMAGES` (`ENTITY_ID`, `ENTITY_TYPE`, `IMAGE_NAME`) VALUES
 --
 
 DROP TABLE IF EXISTS `MANAGER`;
-CREATE TABLE IF NOT EXISTS `MANAGER` (
-  `MANAGER_ID` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `MANAGER` (
+  `MANAGER_ID` int(10) NOT NULL,
   `NAME` varchar(250) NOT NULL,
   `SURNAME` varchar(250) NOT NULL,
   `EMAIL` varchar(250) NOT NULL,
   `PASSWORD` varchar(250) DEFAULT NULL,
-  `GOOGLE_LOGIN` varchar(250) NOT NULL,
-  PRIMARY KEY (`MANAGER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+  `GOOGLE_LOGIN` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `MANAGER`
@@ -138,15 +171,36 @@ INSERT INTO `MANAGER` (`MANAGER_ID`, `NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `GO
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `NOTIFICATIONS`
+--
+
+DROP TABLE IF EXISTS `NOTIFICATIONS`;
+CREATE TABLE `NOTIFICATIONS` (
+  `NOTIFICATION_ID` int(10) NOT NULL,
+  `TYPE` varchar(255) NOT NULL,
+  `FROM_UID` int(10) NOT NULL,
+  `TO_UID` int(10) NOT NULL,
+  `MESSAGE` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `NOTIFICATIONS`
+--
+
+INSERT INTO `NOTIFICATIONS` (`NOTIFICATION_ID`, `TYPE`, `FROM_UID`, `TO_UID`, `MESSAGE`) VALUES
+(5, 'connection_request', 1, 3, 'I want to be your friend');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `RATINGS`
 --
 
 DROP TABLE IF EXISTS `RATINGS`;
-CREATE TABLE IF NOT EXISTS `RATINGS` (
+CREATE TABLE `RATINGS` (
   `USER_ID` int(10) NOT NULL,
   `FOOD_ID` int(10) NOT NULL,
-  `RATING` int(10) NOT NULL,
-  PRIMARY KEY (`USER_ID`,`FOOD_ID`,`RATING`)
+  `RATING` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -154,6 +208,10 @@ CREATE TABLE IF NOT EXISTS `RATINGS` (
 --
 
 INSERT INTO `RATINGS` (`USER_ID`, `FOOD_ID`, `RATING`) VALUES
+(1, 1, 0),
+(1, 1, 1),
+(1, 1, 2),
+(1, 1, 3),
 (1, 3, 4),
 (1, 7, 5),
 (1, 16, 5),
@@ -322,8 +380,8 @@ INSERT INTO `RATINGS` (`USER_ID`, `FOOD_ID`, `RATING`) VALUES
 --
 
 DROP TABLE IF EXISTS `RESTAURANT`;
-CREATE TABLE IF NOT EXISTS `RESTAURANT` (
-  `RESTAURANT_ID` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `RESTAURANT` (
+  `RESTAURANT_ID` int(10) NOT NULL,
   `NAME` varchar(250) DEFAULT NULL,
   `EMAIL` varchar(250) DEFAULT NULL,
   `NUMBER` varchar(250) DEFAULT NULL,
@@ -332,17 +390,15 @@ CREATE TABLE IF NOT EXISTS `RESTAURANT` (
   `RATING` float DEFAULT NULL,
   `OPENING_TIME` time NOT NULL DEFAULT '08:00:00',
   `CLOSING_TIME` time NOT NULL DEFAULT '22:00:00',
-  `MANAGER_ID` int(10) NOT NULL,
-  PRIMARY KEY (`RESTAURANT_ID`),
-  UNIQUE KEY `NameIndex` (`NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+  `MANAGER_ID` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `RESTAURANT`
 --
 
 INSERT INTO `RESTAURANT` (`RESTAURANT_ID`, `NAME`, `EMAIL`, `NUMBER`, `ADDRESS`, `WEBSITE`, `RATING`, `OPENING_TIME`, `CLOSING_TIME`, `MANAGER_ID`) VALUES
-(1, 'My Restaurant', 'my@email', '07776846506', 'London', 'https://hammadmehmood.co.uk', 2.7, '08:00:00', '22:00:00', 1),
+(1, 'My Restaurant', 'my@email', '07776846506', 'London', 'https://hammadmehmood.co.uk', 2.96, '08:00:00', '22:00:00', 1),
 (2, 'Magan\'s restaurant', 'maganrestaurant@email', '1245647', 'Wembley', 'https://jaydipmagan.com/', 4.1, '02:00:00', '05:30:00', 2),
 (3, 'Anjali\'s restaurant', '', '', '', '', 3.8, '12:00:00', '05:30:00', 3),
 (4, 'Hammad restaurant ', 'hammad@email ', '80796567890', 'jhfkda;f', 'jdfkllfda', 1.69, '08:00:00', '22:00:00', 4);
@@ -354,21 +410,121 @@ INSERT INTO `RESTAURANT` (`RESTAURANT_ID`, `NAME`, `EMAIL`, `NUMBER`, `ADDRESS`,
 --
 
 DROP TABLE IF EXISTS `USER`;
-CREATE TABLE IF NOT EXISTS `USER` (
-  `USER_ID` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `USER` (
+  `USER_ID` int(10) NOT NULL,
   `NAME` varchar(250) NOT NULL,
   `SURNAME` varchar(250) NOT NULL,
   `EMAIL` varchar(250) NOT NULL,
   `PASSWORD` varchar(250) DEFAULT NULL,
   `GOOGLE_LOGIN` varchar(250) NOT NULL,
-  PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+  `DIET_TYPE` int(10) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `USER`
 --
 
-INSERT INTO `USER` (`USER_ID`, `NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `GOOGLE_LOGIN`) VALUES
-(1, 'Hammad', 'Muhammad', 'hammadmuhammad15@gmail.com', NULL, 'true'),
-(7, 'Aiza', 'Khan', 'aiza@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '');
+INSERT INTO `USER` (`USER_ID`, `NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `GOOGLE_LOGIN`, `DIET_TYPE`) VALUES
+(1, 'Hammad ', 'Muhammad', 'hammadmuhammad15@gmail.com', NULL, 'true', 1),
+(2, 'Aiza', 'Khan', 'aiza@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1),
+(3, 'Harsh', 'Patel', 'harsh_user@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `CONNECTIONS`
+--
+ALTER TABLE `CONNECTIONS`
+  ADD PRIMARY KEY (`CONNECTION_ID`);
+
+--
+-- Indexes for table `FOOD`
+--
+ALTER TABLE `FOOD`
+  ADD PRIMARY KEY (`FOOD_ID`);
+
+--
+-- Indexes for table `FOOD_REVIEWS`
+--
+ALTER TABLE `FOOD_REVIEWS`
+  ADD PRIMARY KEY (`REVIEW_ID`);
+
+--
+-- Indexes for table `MANAGER`
+--
+ALTER TABLE `MANAGER`
+  ADD PRIMARY KEY (`MANAGER_ID`);
+
+--
+-- Indexes for table `NOTIFICATIONS`
+--
+ALTER TABLE `NOTIFICATIONS`
+  ADD PRIMARY KEY (`NOTIFICATION_ID`);
+
+--
+-- Indexes for table `RATINGS`
+--
+ALTER TABLE `RATINGS`
+  ADD PRIMARY KEY (`USER_ID`,`FOOD_ID`,`RATING`);
+
+--
+-- Indexes for table `RESTAURANT`
+--
+ALTER TABLE `RESTAURANT`
+  ADD PRIMARY KEY (`RESTAURANT_ID`),
+  ADD UNIQUE KEY `NameIndex` (`NAME`);
+
+--
+-- Indexes for table `USER`
+--
+ALTER TABLE `USER`
+  ADD PRIMARY KEY (`USER_ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `CONNECTIONS`
+--
+ALTER TABLE `CONNECTIONS`
+  MODIFY `CONNECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `FOOD`
+--
+ALTER TABLE `FOOD`
+  MODIFY `FOOD_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `FOOD_REVIEWS`
+--
+ALTER TABLE `FOOD_REVIEWS`
+  MODIFY `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `MANAGER`
+--
+ALTER TABLE `MANAGER`
+  MODIFY `MANAGER_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `NOTIFICATIONS`
+--
+ALTER TABLE `NOTIFICATIONS`
+  MODIFY `NOTIFICATION_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `RESTAURANT`
+--
+ALTER TABLE `RESTAURANT`
+  MODIFY `RESTAURANT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `USER`
+--
+ALTER TABLE `USER`
+  MODIFY `USER_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;

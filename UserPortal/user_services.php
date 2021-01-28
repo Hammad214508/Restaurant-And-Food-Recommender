@@ -44,8 +44,9 @@
 
     if($actionmode == "get_recommended_users"){
         $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+        $search = isset($_POST['SEARCH']) ? $_POST['SEARCH'] : NULL;
 
-        $form_data = get_recommended_users($args);
+        $form_data = get_recommended_users($args, $search);
     }
 
     if($actionmode == "send_connection_request"){
@@ -116,9 +117,9 @@
         return $CONNECTIONS -> delete_connection($args);
     }
 
-    function get_recommended_users($args){
+    function get_recommended_users($args, $search){
         $CONNECTIONS = new CONNECTIONS();
-        return $CONNECTIONS -> get_recommended_users($args);
+        return $CONNECTIONS -> get_recommended_users($args, $search);
     }
 
     function send_connection_request($args){
