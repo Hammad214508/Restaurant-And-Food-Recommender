@@ -73,8 +73,6 @@ $(document).ready(function(){
         })
 
         $("#my_prof").trigger('click');
-        // $("#find").trigger('click');
-        // $("#requests").trigger('click');
 
     }
 

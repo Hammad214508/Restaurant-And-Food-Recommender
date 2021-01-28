@@ -3,12 +3,34 @@ $(document).ready(function(){
     var websocket = new WebSocket("ws://127.0.0.1:6789/");  
     var available = false;
     var food_item_search = "";
-    var sorting, filling_rating_filter, healthy_rating_filter;
-    var diet_type_filter =  1;
+    var sorting, filling_rating_filter, healthy_rating_filter, diet_type_filter ;
+    var default_diet_type;
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
         $("#nav-food-items").addClass("active");
+    }
+
+    $.fn.get_profile_data = function(){
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+            method: "POST",
+            data:{
+                    "actionmode"	: "get_profile_data",
+                    "USER_ID"       : user_id,
+                },
+            success:function(data) {
+                 data = JSON.parse(data);
+                 if (!data.success){
+                     $("#error").html("<b>ERROR GETTING USER DATA!</b>");
+                     $.fn.temporary_show("#error");
+                 }else{
+                     data = data.dataset[0][0];
+                     diet_type_filter = data["DIET_TYPE"];
+                     default_diet_type = data["DIET_TYPE"];
+                 }
+             }
+         });
     }
 
     $.fn.restart_filters = function(){
@@ -17,7 +39,7 @@ $(document).ready(function(){
         healthy_rating_filter = ""
         filling_rating_filter = ""
         sorting = ""
-        diet_type_filter = 1;
+        diet_type_filter = default_diet_type;
 
         $("#diet_type").val(diet_type_filter);
 
@@ -36,7 +58,7 @@ $(document).ready(function(){
         healthy_rating_filter = ""
         filling_rating_filter = ""
         sorting = ""
-        diet_type_filter = 1;
+        diet_type_filter = default_diet_type;
 
         $("#r_diet_type").val(diet_type_filter);
 
@@ -325,17 +347,14 @@ $(document).ready(function(){
         $.fn.add_event();
     }
 
-
-
-
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
             $.fn.activate_nav_bar();
             user_id = $("#inp_hdn_uid").val();
+            $.fn.get_profile_data();
             $.fn.get_all_food_items();
             $.fn.food_items_filter_events();
-
 
             $("#get_recom").on("click", function(){
                 $("#normal_food_items_page").hide();
