@@ -108,9 +108,44 @@
         $args["EVENT_ID"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
         $form_data = get_event_data($args);
     }
-    
-    
-    
+
+
+    if($actionmode == "update_event_data"){
+        $args["EVENT_ID"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
+        $args["EVENT_NAME"] = isset($_POST['EVENT_NAME']) ? $_POST['EVENT_NAME'] : NULL;
+        $args["EVENT_DATE"] = isset($_POST['EVENT_DATE']) ?  date('Y-m-d', strtotime($_POST['EVENT_DATE'])) : NULL;
+        $args["EVENT_TIME"] = isset($_POST['EVENT_TIME']) ? date('H:i:s', strtotime($_POST['EVENT_TIME'])) : NULL;
+
+        $form_data = update_event_data($args);
+    }
+
+
+
+    if($actionmode == "update_event_users"){
+        $action = isset($_POST['TYPE']) ? $_POST['TYPE'] : NULL;
+        $args["EVENT_ID"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+
+        if ($action == "insert"){
+            $form_data = insert_event_user($args);
+        }else{
+            $form_data = delete_event_user($args);
+        }
+    }
+
+    if($actionmode == "update_event_locations"){
+        $action = isset($_POST['TYPE']) ? $_POST['TYPE'] : NULL;
+        $args["EVENT_ID"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
+        $args["LOCATION"] = isset($_POST['LOCATION']) ? $_POST['LOCATION'] : NULL;
+
+        if ($action == "insert"){
+            $form_data = insert_event_location($args);
+        }else{
+            $form_data = delete_event_location($args);
+        }
+    }
+
+
 
     echo json_encode($form_data);
 
@@ -179,9 +214,34 @@
         return $EVENTS -> get_event_data($args);
     }
 
+    function update_event_data($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> update_event_data($args);
+    }
     
+    function insert_event_user($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> insert_event_user($args);
+    }
+
+    function delete_event_user($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> delete_event_user($args);
+    }
+
+    function insert_event_location($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> insert_event_location($args);
+    }
+
+    function delete_event_location($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> delete_event_location($args);
+    }
+
     
 
+    
 
     
 

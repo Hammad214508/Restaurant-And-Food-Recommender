@@ -3,6 +3,7 @@
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
     <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
     <link rel="stylesheet" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Practice/select2/select2.min.css">
+    <link rel="stylesheet" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/libraries/timepicker/jquery.timepicker.css">
 
 </head>
 <body>
@@ -51,5 +52,6 @@
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
 <script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Libraries/select2/select2.min.js"></script>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/libraries/timepicker/jquery.timepicker.min.js"></script>
 <script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Events/events.js"></script>
 </html>
