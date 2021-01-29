@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 28, 2021 at 03:48 PM
+-- Generation Time: Jan 29, 2021 at 01:23 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -51,6 +51,68 @@ CREATE TABLE `DIET_TYPE` (
   `DIET_ID` int(11) NOT NULL,
   `DIET_NAME` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `EVENTS`
+--
+
+DROP TABLE IF EXISTS `EVENTS`;
+CREATE TABLE `EVENTS` (
+  `EVENT_ID` int(10) NOT NULL,
+  `EVENT_NAME` varchar(250) NOT NULL,
+  `EVENT_TIME` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `EVENTS`
+--
+
+INSERT INTO `EVENTS` (`EVENT_ID`, `EVENT_NAME`, `EVENT_TIME`) VALUES
+(1, 'Graduate role celebration', '2021-02-14 19:04:02'),
+(2, 'Valentine\'s day', '2021-01-14 19:27:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `EVENT_LOCATIONS`
+--
+
+DROP TABLE IF EXISTS `EVENT_LOCATIONS`;
+CREATE TABLE `EVENT_LOCATIONS` (
+  `ID` int(10) NOT NULL,
+  `EVENT_ID` int(10) NOT NULL,
+  `LOCATION` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `EVENT_LOCATIONS`
+--
+
+INSERT INTO `EVENT_LOCATIONS` (`ID`, `EVENT_ID`, `LOCATION`) VALUES
+(1, 1, 'Domino\'s');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `EVENT_USERS`
+--
+
+DROP TABLE IF EXISTS `EVENT_USERS`;
+CREATE TABLE `EVENT_USERS` (
+  `ID` int(11) NOT NULL,
+  `EVENT_ID` int(11) NOT NULL,
+  `USER_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `EVENT_USERS`
+--
+
+INSERT INTO `EVENT_USERS` (`ID`, `EVENT_ID`, `USER_ID`) VALUES
+(1, 1, 1),
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -440,6 +502,24 @@ ALTER TABLE `CONNECTIONS`
   ADD PRIMARY KEY (`CONNECTION_ID`);
 
 --
+-- Indexes for table `EVENTS`
+--
+ALTER TABLE `EVENTS`
+  ADD PRIMARY KEY (`EVENT_ID`);
+
+--
+-- Indexes for table `EVENT_LOCATIONS`
+--
+ALTER TABLE `EVENT_LOCATIONS`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `EVENT_USERS`
+--
+ALTER TABLE `EVENT_USERS`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `FOOD`
 --
 ALTER TABLE `FOOD`
@@ -491,6 +571,24 @@ ALTER TABLE `USER`
 --
 ALTER TABLE `CONNECTIONS`
   MODIFY `CONNECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `EVENTS`
+--
+ALTER TABLE `EVENTS`
+  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `EVENT_LOCATIONS`
+--
+ALTER TABLE `EVENT_LOCATIONS`
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `EVENT_USERS`
+--
+ALTER TABLE `EVENT_USERS`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `FOOD`
