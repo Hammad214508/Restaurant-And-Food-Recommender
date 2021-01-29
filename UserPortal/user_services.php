@@ -4,7 +4,9 @@
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/CONNECTIONS.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/NOTIFICATIONS.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/USER.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/EVENTS.php');
 
+    
     $actionmode = isset($_POST['actionmode']) ? $_POST['actionmode'] : NULL;
 
     if($actionmode == "get_all_restaurants"){
@@ -95,6 +97,21 @@
         $form_data = update_user_profile_data($args);
     }
 
+
+    if($actionmode == "get_user_events"){
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+
+        $form_data = get_user_events($args);
+    }
+
+    if($actionmode == "get_event_data"){
+        $args["EVENT_ID"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
+        $form_data = get_event_data($args);
+    }
+    
+    
+    
+
     echo json_encode($form_data);
 
     function get_all_restaurants($args){
@@ -151,6 +168,21 @@
         $USER = new USER();
         return $USER -> update_user_profile_data($args);
     }
+
+    function get_user_events($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> get_user_events($args);
+    }
+
+    function get_event_data($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> get_event_data($args);
+    }
+
+    
+    
+
+
     
 
     

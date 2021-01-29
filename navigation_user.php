@@ -20,9 +20,7 @@
             <li id="nav-usr-portal" class="nav-item"><a id="user_name" class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Profile"> <?php echo $_SESSION["logged_in"][0][0]["NAME"] ." ".$_SESSION["logged_in"][0][0]["SURNAME"] ;?> </a></li>
             <li id="nav-restaurants" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Restaurants"> Restaurants </a></li>
             <li id="nav-food-items" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/FoodItems"> Food Items </a></li>
-            <li id="nav-food-items" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Events">Events <i class="fa fa-calendar" aria-hidden="true"></i></a></li>
-
-            
+            <li id="nav-events" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Events">Events <i class="fa fa-calendar" aria-hidden="true"></i></a></li>
 
             <!-- <li id="nav-recommendation" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Recommender/"> Recommended </a></li> -->
             <!-- <li id="nav-connections" class="nav-item align-bottom" ><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Connections/">Network <i class="fa fa-users"></i> </a></li> -->
