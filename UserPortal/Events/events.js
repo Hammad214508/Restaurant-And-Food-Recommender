@@ -55,8 +55,14 @@ $(document).ready(function(){
             $.fn.get_event_data(event_id);
         });
 
-        var first_event = $("#user_events")[0].firstChild.id
-        $("#"+first_event).trigger("click");
+        if (!current_event){
+            var first_event = $("#user_events")[0].firstChild.id
+            $("#"+first_event).trigger("click");
+        }else{
+            $("#edit").trigger("click");
+            $("#event_"+current_event).trigger("click");
+        }
+
         
     }
 
@@ -75,11 +81,54 @@ $(document).ready(function(){
                      $.fn.temporary_show("#error");
                  }else{
                      data = data.dataset[0][0];
+                     $.fn.render_event_display(data);
                      $.fn.render_event_data(data)
                      $.fn.event_data_events(data);
                  }
              }
          });
+    }
+
+    $.fn.render_event_display = function(data){
+        $("#display_name").empty()
+        $("#display_name").append('<h1>'+data["EVENT_NAME"]+'</h1>')
+
+        $("#display_date").empty()
+        $("#display_date").append(data["EVENT_DATE"])
+        $("#display_time").empty()
+        $("#display_time").append(data["EVENT_TIME"])
+
+        var locations = []
+
+        if (data["LOCATIONS"] != null){
+            locations = data["LOCATIONS"].split(",")
+        }
+        $("#locations").empty()
+        $.each(locations, function( index, value ){
+            $("#locations").append('<p>'+value+'</p>')
+        });
+
+        users = {};
+
+        var user_ids =  data["IDS"].split(",")
+        var user_names = data["USERS"].split(",")
+        for (var i=0; i < user_ids.length; i++){
+            users[user_ids[i]] = user_names[i]
+        }
+    
+        $('#people_invited').empty()
+        for (const [key, value] of Object.entries(users)) {
+            if (key != user_id){
+                $('#people_invited').append('<p>'+value+'</p>')
+            }
+        }
+
+        $("#edit").on("click", function(){
+            $("#display_event_container").hide();
+            $("#selected_event_container").show();
+        })
+        
+
     }
 
 
@@ -98,17 +147,24 @@ $(document).ready(function(){
         parent.append(
             '<h3 id="event_title" class="text-center mb-4">'+event_name+'</h3>'+
             $.fn.event_data_input("name", "Name:", event_name)+
-            $.fn.event_date_picker()+
+            $.fn.event_date_picker("event_date")+
             $.fn.event_time_picker("event_time", "Time:")+
-            $.fn.event_users_select2()+
+            $.fn.event_users_select2("users")+
             $.fn.event_locations()+
-            $.fn.locations_box()
+            $.fn.locations_box()+
+            '<div class="text-center"><button id="save" type="button" class="btn btn-secondary">Save</button></div>'
         )
     }
 
 
 
     $.fn.event_data_events = function(event){
+
+        $("#save").on("click", function(){
+            $.fn.get_event_data(current_event)
+            $("#selected_event_container").hide();
+            $("#display_event_container").show();
+        })
 
         $("#event_date").datepicker({ dateFormat: "dd-mm-yy" });
         $("#event_date").datepicker("setDate", event["EVENT_DATE"]);
@@ -167,7 +223,7 @@ $(document).ready(function(){
 
         parent = $("#locations_box")
         $.each(locations, function( index, value ){
-            parent.append('<li class="underline">'+value+' <i class="fa fa-times usr-icon" aria-hidden="true" ref="'+value+'"></i></li>')
+            parent.append('<li class="underline">'+value+' <i class="fa fa-times usr-icon rm" aria-hidden="true" ref="'+value+'"></i></li>')
         });
 
         $("#name").on("change", function(){
@@ -190,12 +246,8 @@ $(document).ready(function(){
             $.fn.update_event_users("delete", e.params.data.id);
         });
 
-        // $(".usr-icon").on("click", function(){
-        //     $.fn.update_event_locations("delete", $(this).attr("ref"));
-        //     $(this).parent().remove()
-        // })
 
-        $(document).on('click','.usr-icon', function(){
+        $(document).on('click','.rm', function(){
             $.fn.update_event_locations("delete", $(this).attr("ref"), $(this).parent());
         }) 
 
@@ -282,7 +334,7 @@ $(document).ready(function(){
                      if (type == "insert"){
                         $("#new_location").val("")
                         $("#locations_box").prepend(
-                           '<li class="underline">'+location+' <i class="fa fa-times usr-icon" aria-hidden="true" ref="'+location+'"></i></li>'
+                           '<li class="underline">'+location+' <i class="fa fa-times usr-icon rm" aria-hidden="true" ref="'+location+'"></i></li>'
                         )
                      }else{
                         parent.remove();
@@ -301,37 +353,37 @@ $(document).ready(function(){
             '        <p>'+label+'</p>'+
             '    </div>'+
             '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
-            '        <input id="'+id+'" type="text" class="form-control event_data" value="'+value+'"></input>'+
+            '        <input id="'+id+'" type="text" class="form-control event_data" value="'+value+'" style="width:23.3em"></input>'+
             '    </div>'+
                  $.fn.transaction_icons(id)+
             '</div>'
         )
     }
 
-    $.fn.event_date_picker = function(){
+    $.fn.event_date_picker = function(id){
         return (
             '<div class="row mb-3">'+
             '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
             '        <p>Date: </p>'+
             '    </div>'+
             '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
-            '        <input class="event_data form-control" type="text" id="event_date" style="width:23.3em;">'+
+            '        <input class="event_data form-control" type="text" id="'+id+'" style="width:23.3em;">'+
             '    </div>'+
-                 $.fn.transaction_icons("event_date")+
+                 $.fn.transaction_icons(id)+
             '</div>'
         )
     }
 
-    $.fn.event_users_select2 = function(){
+    $.fn.event_users_select2 = function(id){
         return (
             '<div class="row mb-3">'+
             '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
             '        <p>Users: </p>'+
             '    </div>'+
             '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
-            '       <select id="users" class="js-example-basic-multiple form-control" style="width:23.3em;" multiple="multiple"></select>'+
+            '       <select id="'+id+'" class="js-example-basic-multiple form-control" style="width:23.3em;" multiple="multiple"></select>'+
             '    </div>'+
-                 $.fn.transaction_icons("users")+
+                 $.fn.transaction_icons(id)+
             '</div>'
         )
     }
@@ -353,6 +405,7 @@ $(document).ready(function(){
         '</div>'
         )
     }
+
 
 
     $.fn.locations_box = function(){
@@ -381,6 +434,63 @@ $(document).ready(function(){
         )
     }
 
+  
+
+    $.fn.get_current_date = function(){
+        const dateObj = new Date();
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const month = dateObj.getMonth();
+        const year = dateObj.getFullYear();
+        return day  + '-'+ (parseInt(month)+1) + '-' + year;
+    }
+
+    $.fn.insert_new_event = function(){
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+            method: "POST",
+            data:{
+                    "actionmode"	: "insert_new_event",
+                    "EVENT_NAME"    : "New Event",
+                    "EVENT_DATE"    : $.fn.get_current_date(),
+                    "EVENT_TIME"    : "07:00 pm",
+                    "USER_ID"       : user_id
+                },
+            success:function(data) {
+                 data = JSON.parse(data);
+                 if (!data.success){
+                     $("#error").html("<b>ERROR CREATING NEW EVENT!</b>");
+                     $.fn.temporary_show("#error");
+                 }else{
+                    current_event = data.dataset["LAST_ID"];
+                 }
+             }
+         });
+    }
+
+
+    $.fn.delete_event = function(){
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+            method: "POST",
+            data:{
+                    "actionmode"	: "delete_event",
+                    "EVENT_ID"      : current_event,
+                },
+            success:function(data) {
+                 data = JSON.parse(data);
+                 if (!data.success){
+                     $("#error").html("<b>ERROR DELETING EVENT!</b>");
+                     $.fn.temporary_show("#error");
+                 }else{
+                    $("#event_"+current_event).remove();
+                    var first_event = $("#user_events")[0].firstChild.id
+                    $("#"+first_event).trigger("click");
+                 }
+             }
+         });
+    }
+
+
 
 
     var pageready = (function(){
@@ -389,6 +499,16 @@ $(document).ready(function(){
             $.fn.activate_nav_bar()
             user_id = $("#inp_hdn_uid").val();
             $.fn.get_user_events()
+            $("#new_event").on("click", function(){
+                $.fn.insert_new_event();
+                $.fn.get_user_events();
+            })
+
+            $(".delete").on("click", function(){
+                if (confirm("Are you sure you want to delte?")){
+                    $.fn.delete_event();
+                }
+            })
 
         };
         return thispage;

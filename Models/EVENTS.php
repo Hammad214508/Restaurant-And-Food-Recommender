@@ -20,7 +20,7 @@ class EVENTS {
 
         $conn = new Connector();
 
-        $query = "SELECT E.EVENT_ID, E.EVENT_NAME, DATE_FORMAT(E.EVENT_DATE, '%d-%m-%Y') EVENT_DATE, E.EVENT_TIME,  GROUP_CONCAT(U.USER_ID) AS IDS, GROUP_CONCAT(CONCAT(U.NAME, ' ', U.SURNAME)) AS USERS, GROUP_CONCAT(DISTINCT EL.LOCATION) AS LOCATIONS
+        $query = "SELECT E.EVENT_ID, E.EVENT_NAME, DATE_FORMAT(E.EVENT_DATE, '%d-%m-%Y') EVENT_DATE, E.EVENT_TIME,  GROUP_CONCAT(EU.USER_ID) AS IDS, GROUP_CONCAT(CONCAT(U.NAME, ' ', U.SURNAME)) AS USERS, GROUP_CONCAT(DISTINCT EL.LOCATION) AS LOCATIONS
                   FROM EVENTS E
                   INNER JOIN EVENT_USERS EU ON E.EVENT_ID = EU.EVENT_ID
                   LEFT JOIN EVENT_LOCATIONS EL ON E.EVENT_ID = EL.EVENT_ID
@@ -88,6 +88,33 @@ class EVENTS {
 
         return $conn->perform_transaction($query, $args);
     }
+
+    public function insert_new_event($args){
+
+        $conn = new Connector();
+
+        $query = "INSERT INTO EVENTS(EVENT_NAME, EVENT_DATE, EVENT_TIME)
+                  VALUES (:EVENT_NAME, :EVENT_DATE, :EVENT_TIME);";
+
+        return $conn->perform_transaction($query, $args);
+    }
+
+
+    public function delete_event($args){
+
+        $conn = new Connector();
+
+
+        $query = "DELETE FROM EVENTS WHERE EVENT_ID = :EVENT_ID1;
+                  DELETE FROM EVENT_LOCATIONS WHERE EVENT_ID = :EVENT_ID2;
+                  DELETE FROM EVENT_USERS WHERE EVENT_ID = :EVENT_ID3;";
+
+        return $conn->perform_transaction($query, $args);
+    }
+    
+
+
+    
 
 
     

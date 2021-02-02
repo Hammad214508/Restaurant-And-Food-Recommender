@@ -146,6 +146,28 @@
     }
 
 
+    if($actionmode == "insert_new_event"){
+        $args["EVENT_NAME"] = isset($_POST['EVENT_NAME']) ? $_POST['EVENT_NAME'] : NULL;
+        $args["EVENT_DATE"] = isset($_POST['EVENT_DATE']) ?  date('Y-m-d', strtotime($_POST['EVENT_DATE'])) : NULL;
+        $args["EVENT_TIME"] = isset($_POST['EVENT_TIME']) ? date('H:i:s', strtotime($_POST['EVENT_TIME'])) : NULL;
+        
+        $form_data = insert_new_event($args);
+
+        $new_args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+        $new_args["EVENT_ID"] = $form_data["dataset"]["LAST_ID"];
+        
+        insert_event_user($new_args);
+    }
+
+
+    if($actionmode == "delete_event"){
+        $args["EVENT_ID1"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
+        $args["EVENT_ID2"] = $args["EVENT_ID1"];
+        $args["EVENT_ID3"] = $args["EVENT_ID1"];
+
+        $form_data = delete_event($args);
+    }
+
 
     echo json_encode($form_data);
 
@@ -238,6 +260,19 @@
         $EVENTS = new EVENTS();
         return $EVENTS -> delete_event_location($args);
     }
+
+    function insert_new_event($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> insert_new_event($args);
+    }
+
+    function delete_event($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> delete_event($args);
+    }
+
+    
+    
 
     
 

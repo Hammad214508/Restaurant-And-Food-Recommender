@@ -10,7 +10,7 @@ class Connector{
 			$conn  = $database -> connection();
 			$stmt = $conn->prepare($query);
 			$res = $stmt->execute($data);
-			return array("success" => true, "dataset" => "Transaction went through successfully...");
+			return array("success" => true, "dataset" => array("LAST_ID" => $conn->lastInsertId(), "Transaction went through successfully..."));
 		} catch(PDOException $e) {
 			return array("success" => false, "dataset" => $e->getMessage());
 		}
