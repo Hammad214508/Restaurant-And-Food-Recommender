@@ -37,56 +37,42 @@
             <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
                 <div id="display_event_container" class="" style="padding: 0px 100px 100px 100px;">
                     <div class="row">
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8"> 
+                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-xs-9"> 
                             <div id="display_name"></div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 my-auto"><h1><i id="edit" class="fa fa-edit usr-icon"></i> <i class="fa fa-trash usr-icon delete" style="font-size: 42px; display:none;" aria-hidden="true"></i></h1></div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto text-left">
+                            <h1>
+                                <i id="edit" class="fa fa-edit usr-icon"></i> 
+                                <i class="fa fa-trash usr-icon delete" style="font-size: 42px; display:none;" aria-hidden="true"></i>
+                            </h1>
+                        </div>
                     </div>
 
                     <div class="row mt-2">
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"><h5>Date: </h5></div>
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1"><h5>Date:</h5></div>
                         <div id="display_date" class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1"><h5>Time:</h5></div>
+                        <div id="display_time" class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                     </div>
 
-                    <div class="row mt-2">
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"><h5>Time:</h5></div>
-                        <div id="display_time" class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-                    </div>
                     
                     <div class="row mt-3">
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
                             <h5>People Invited:</h5>
+                            <ul id="people_invited"></ul>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
                             <h5>Locations: <i id="vote" class="fa fa-envelope-o usr-icon" aria-hidden="true"></i></h5>
+                            <ul id="locations"></ul>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
-                            <div id="people_invited"></div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
-                            <div id="locations"></div>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                     </div>
 
                     <div class="row" id="num_votes_row">
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
-                             <h5>Number of Votes: <span id="display_num_votes"></span></h5> 
+                             <p style="font-size:12px;" class="ml-4">Number of Votes Allowed: <span id="display_num_votes"></span></p> 
                         </div>
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> </div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                     </div>
           
                 </div>

@@ -5,6 +5,8 @@ $(document).ready(function(){
     var locations;
     var vote_count;
     var all_votes = {};
+    var is_creator = false;
+    var my_votes = []
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -109,13 +111,28 @@ $(document).ready(function(){
     }
 
     $.fn.render_event_display = function(data){
+        is_creator =  data["CREATOR_ID"] == user_id;
         vote_count = data["NUM_VOTES"];
-        var c = $.fn.array_occcurrences(data["VOTES"].split(","))
-        a = c[0], b = c[1];
-        all_votes = {};
-        for (var i=0; i<a.length; i++){
-            all_votes[a[i]] = b[i]/2
+        votes_arr = []
+        my_votes = []
+
+        if (data["VOTES"]){
+            $.each(data["VOTES"].split(","), function( index, value ){
+                value = value.split("-");
+                if (value[0] == user_id){
+                    my_votes.push(value[1])
+                }
+                votes_arr.push(value[1])
+            });
+            
+            var c = $.fn.array_occcurrences(votes_arr)
+            a = c[0], b = c[1];
+            all_votes = {};
+            for (var i=0; i<a.length; i++){
+                all_votes[a[i]] = b[i]/2
+            }
         }
+
 
         $("#display_name").empty()
         $("#display_name").append('<h1>'+data["EVENT_NAME"]+'</h1>')
@@ -135,8 +152,8 @@ $(document).ready(function(){
         $("#locations").empty()
         $.each(locations, function( index, value ){
             vote_num = all_votes[value] ? all_votes[value] : 0
-
-            $("#locations").append('<p>'+value+' - '+vote_num+'</p>')
+            value = (my_votes.includes(value)) ? "<strong>"+value+"</strong>": value
+            $("#locations").append('<li>'+value+' - '+vote_num+'</li>')
         });
 
         users = {};
@@ -150,7 +167,7 @@ $(document).ready(function(){
         $('#people_invited').empty()
         for (const [key, value] of Object.entries(users)) {
             if (key != user_id){
-                $('#people_invited').append('<p>'+value+'</p>')
+                $('#people_invited').append('<li>'+value+'</li>')
             }
         }
 
@@ -175,7 +192,7 @@ $(document).ready(function(){
             users[user_ids[i]] = user_names[i]
         }
 
-        var voting_input = event["CREATOR_ID"] == user_id ?  $.fn.event_data_input("num_votes", "Number of Votes:", num_votes) : "";
+        var voting_input = is_creator ?  $.fn.event_data_input("num_votes", "Number of Votes:", num_votes) : "";
 
         parent.append(
             '<h3 id="event_title" class="text-center mb-4">'+event_name+'</h3>'+
@@ -194,7 +211,7 @@ $(document).ready(function(){
 
     $.fn.event_data_events = function(event){
 
-        if (event["CREATOR_ID"] == user_id){
+        if (is_creator){
             $(".delete").show();
         }else{
             $(".delete").hide();
@@ -311,7 +328,7 @@ $(document).ready(function(){
                     "EVENT_NAME"    : $("#name").val(),
                     "EVENT_DATE"    : $("#event_date").val(),
                     "EVENT_TIME"    : $("#event_time").val(),
-                    "NUM_VOTES"     : $("#num_votes").val(),
+                    "NUM_VOTES"     : is_creator ? $("#num_votes").val() : vote_count,
                 },
             success:function(data) {
                  $(".icon").hide();
@@ -322,7 +339,10 @@ $(document).ready(function(){
                      $.fn.temporary_show("#icons_"+field+" #cross");
                  }else{
                      $.fn.temporary_show("#icons_"+field+" #tick");
-                     vote_count = $("#num_votes").val();
+                     if (is_creator){
+                        vote_count = $("#num_votes").val();
+                        $("#display_num_votes").html(vote_count);
+                     }
                  }
              }
          });
@@ -575,7 +595,9 @@ $(document).ready(function(){
             $("#vote").on("click", function(){
                 $("#locations").empty()
                 $.each(locations, function( index, value ){
-                    $("#locations").append('<input class="location_checkbox" type="checkbox" value='+value.replace(/\s+/g, '_')+'> '+value+'</input><br>')
+                    var checked = (my_votes.includes(value)) ? "checked" : "";
+                    $("#locations").append('<input class="location_checkbox" type="checkbox" value='+value.replace(/\s+/g, '_')+' '+checked+'> '+value+'</input><br>')
+                 
                 });
 
                 $("#locations").append(
@@ -598,8 +620,6 @@ $(document).ready(function(){
                         $(this).prop('checked', false);
                     }
                 })
-
-                $("#num_votes_row").addClass("mt-3");
 
                 $(".location_checkbox").on("change", function(){
                     if ($('input[type=checkbox]:checked').length > vote_count) {
