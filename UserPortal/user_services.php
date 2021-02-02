@@ -115,7 +115,8 @@
         $args["EVENT_NAME"] = isset($_POST['EVENT_NAME']) ? $_POST['EVENT_NAME'] : NULL;
         $args["EVENT_DATE"] = isset($_POST['EVENT_DATE']) ?  date('Y-m-d', strtotime($_POST['EVENT_DATE'])) : NULL;
         $args["EVENT_TIME"] = isset($_POST['EVENT_TIME']) ? date('H:i:s', strtotime($_POST['EVENT_TIME'])) : NULL;
-
+        $args["NUM_VOTES"] = isset($_POST['NUM_VOTES']) ? $_POST['NUM_VOTES'] : NULL;
+        
         $form_data = update_event_data($args);
     }
 
@@ -150,10 +151,10 @@
         $args["EVENT_NAME"] = isset($_POST['EVENT_NAME']) ? $_POST['EVENT_NAME'] : NULL;
         $args["EVENT_DATE"] = isset($_POST['EVENT_DATE']) ?  date('Y-m-d', strtotime($_POST['EVENT_DATE'])) : NULL;
         $args["EVENT_TIME"] = isset($_POST['EVENT_TIME']) ? date('H:i:s', strtotime($_POST['EVENT_TIME'])) : NULL;
-        
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
         $form_data = insert_new_event($args);
 
-        $new_args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+        $new_args["USER_ID"] = $args["USER_ID"];
         $new_args["EVENT_ID"] = $form_data["dataset"]["LAST_ID"];
         
         insert_event_user($new_args);
@@ -167,6 +168,15 @@
 
         $form_data = delete_event($args);
     }
+
+    if($actionmode == "update_users_vote"){
+        $args["VOTES"] = isset($_POST['VOTES']) ? $_POST['VOTES'] : NULL;
+        $args["EVENT_ID"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+        
+        $form_data = update_users_vote($args);
+    }
+    
 
 
     echo json_encode($form_data);
@@ -271,7 +281,10 @@
         return $EVENTS -> delete_event($args);
     }
 
-    
+    function update_users_vote($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> update_users_vote($args);
+    }
     
 
     

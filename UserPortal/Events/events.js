@@ -2,6 +2,9 @@ $(document).ready(function(){
     var user_id;
     var users = {};
     var current_event;
+    var locations;
+    var vote_count;
+    var all_votes = {};
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -59,8 +62,9 @@ $(document).ready(function(){
             var first_event = $("#user_events")[0].firstChild.id
             $("#"+first_event).trigger("click");
         }else{
-            $("#edit").trigger("click");
             $("#event_"+current_event).trigger("click");
+            setTimeout(function(){ $("#edit").trigger("click");}, 500);
+
         }
 
         
@@ -89,23 +93,50 @@ $(document).ready(function(){
          });
     }
 
+    $.fn.array_occcurrences = function(arr) {
+        var a = [], b = [], prev;
+        arr.sort();
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i] !== prev) {
+            a.push(arr[i]);
+            b.push(1);
+          } else {
+            b[b.length - 1]++;
+          }
+          prev = arr[i];
+        }
+        return [a, b];
+    }
+
     $.fn.render_event_display = function(data){
+        vote_count = data["NUM_VOTES"];
+        var c = $.fn.array_occcurrences(data["VOTES"].split(","))
+        a = c[0], b = c[1];
+        all_votes = {};
+        for (var i=0; i<a.length; i++){
+            all_votes[a[i]] = b[i]/2
+        }
+
         $("#display_name").empty()
         $("#display_name").append('<h1>'+data["EVENT_NAME"]+'</h1>')
 
+        $("#display_num_votes").html(data["NUM_VOTES"])
+        
         $("#display_date").empty()
         $("#display_date").append(data["EVENT_DATE"])
         $("#display_time").empty()
         $("#display_time").append(data["EVENT_TIME"])
 
-        var locations = []
+        locations = []
 
         if (data["LOCATIONS"] != null){
             locations = data["LOCATIONS"].split(",")
         }
         $("#locations").empty()
         $.each(locations, function( index, value ){
-            $("#locations").append('<p>'+value+'</p>')
+            vote_num = all_votes[value] ? all_votes[value] : 0
+
+            $("#locations").append('<p>'+value+' - '+vote_num+'</p>')
         });
 
         users = {};
@@ -138,12 +169,14 @@ $(document).ready(function(){
         var user_ids =  event["IDS"].split(",")
         var user_names = event["USERS"].split(",")
         var event_name = event["EVENT_NAME"];
+        var num_votes = event["NUM_VOTES"];
 
         for (var i=0; i < user_ids.length; i++){
             users[user_ids[i]] = user_names[i]
         }
 
-        
+        var voting_input = event["CREATOR_ID"] == user_id ?  $.fn.event_data_input("num_votes", "Number of Votes:", num_votes) : "";
+
         parent.append(
             '<h3 id="event_title" class="text-center mb-4">'+event_name+'</h3>'+
             $.fn.event_data_input("name", "Name:", event_name)+
@@ -152,6 +185,7 @@ $(document).ready(function(){
             $.fn.event_users_select2("users")+
             $.fn.event_locations()+
             $.fn.locations_box()+
+            voting_input+
             '<div class="text-center"><button id="save" type="button" class="btn btn-secondary">Save</button></div>'
         )
     }
@@ -159,6 +193,12 @@ $(document).ready(function(){
 
 
     $.fn.event_data_events = function(event){
+
+        if (event["CREATOR_ID"] == user_id){
+            $(".delete").show();
+        }else{
+            $(".delete").hide();
+        }
 
         $("#save").on("click", function(){
             $.fn.get_event_data(current_event)
@@ -271,6 +311,7 @@ $(document).ready(function(){
                     "EVENT_NAME"    : $("#name").val(),
                     "EVENT_DATE"    : $("#event_date").val(),
                     "EVENT_TIME"    : $("#event_time").val(),
+                    "NUM_VOTES"     : $("#num_votes").val(),
                 },
             success:function(data) {
                  $(".icon").hide();
@@ -281,6 +322,7 @@ $(document).ready(function(){
                      $.fn.temporary_show("#icons_"+field+" #cross");
                  }else{
                      $.fn.temporary_show("#icons_"+field+" #tick");
+                     vote_count = $("#num_votes").val();
                  }
              }
          });
@@ -395,8 +437,8 @@ $(document).ready(function(){
         '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
         '        <p>Locations: </p>'+
         '    </div>'+
-        '    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">'+
-        '        <input id="new_location" type="text" class="form-control"></input>'+
+        '    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5" >'+
+        '        <input id="new_location" type="text" class="form-control" style="width:19em;"></input>'+
         '    </div>'+
         '    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2">'+
         '       <button id="add_locations" type="button" class="btn btn-secondary">Add</button>'+
@@ -490,7 +532,27 @@ $(document).ready(function(){
          });
     }
 
-
+    $.fn.update_users_vote = function(votes){
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+            method: "POST",
+            data:{
+                    "actionmode" : "update_users_vote",
+                    "EVENT_ID"   : current_event, 
+                    "USER_ID"    : user_id,
+                    "VOTES"      : votes.join(),
+                },
+            success:function(data) {
+                 data = JSON.parse(data);
+                 if (!data.success){
+                     $("#error").html("<b>ERROR STORING VOTES!</b>");
+                     $.fn.temporary_show("#error");
+                 }else{
+                    $("#event_"+current_event).trigger("click");
+                 }
+             }
+         });
+    }
 
 
     var pageready = (function(){
@@ -508,6 +570,43 @@ $(document).ready(function(){
                 if (confirm("Are you sure you want to delte?")){
                     $.fn.delete_event();
                 }
+            })
+
+            $("#vote").on("click", function(){
+                $("#locations").empty()
+                $.each(locations, function( index, value ){
+                    $("#locations").append('<input class="location_checkbox" type="checkbox" value='+value.replace(/\s+/g, '_')+'> '+value+'</input><br>')
+                });
+
+                $("#locations").append(
+                    '<button id="submit_vote" type="button" class="btn btn-sm btn-secondary mt-2">Vote</button>'
+                )
+
+                
+                $("#submit_vote").on("click", function(){
+                    var votes = [];
+                    $('input:checkbox.location_checkbox').each(function () {
+                        if (this.checked){
+                            votes.push($(this).val().replace(/_/g, ' '))
+                        }
+                   });
+                    $.fn.update_users_vote(votes);
+                })
+
+                $(".location_checkbox").on("change", function(){
+                    if ($('input[type=checkbox]:checked').length > vote_count) {
+                        $(this).prop('checked', false);
+                    }
+                })
+
+                $("#num_votes_row").addClass("mt-3");
+
+                $(".location_checkbox").on("change", function(){
+                    if ($('input[type=checkbox]:checked').length > vote_count) {
+                        $(this).prop('checked', false);
+                    }
+                })
+               
             })
 
         };

@@ -41,7 +41,7 @@
                         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8"> 
                             <div id="display_name"></div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 my-auto"><h1><i id="edit" class="fa fa-edit usr-icon"></i> <i class="fa fa-trash usr-icon delete" style="font-size: 42px" aria-hidden="true"></i></h1></div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 my-auto"><h1><i id="edit" class="fa fa-edit usr-icon"></i> <i class="fa fa-trash usr-icon delete" style="font-size: 42px; display:none;" aria-hidden="true"></i></h1></div>
                     </div>
 
                     <div class="row mt-2">
@@ -61,10 +61,10 @@
                     <div class="row mt-3">
                         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
-                            <h5 class="">People Invited:</h5>
+                            <h5>People Invited:</h5>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
-                            <h5 class="">Locations:</h5>
+                            <h5>Locations: <i id="vote" class="fa fa-envelope-o usr-icon" aria-hidden="true"></i></h5>
                         </div>
                         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                     </div>
@@ -77,7 +77,15 @@
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
                             <div id="locations"></div>
                         </div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                    </div>
 
+                    <div class="row" id="num_votes_row">
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
+                             <h5>Number of Votes: <span id="display_num_votes"></span></h5> 
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> </div>
                         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                     </div>
           

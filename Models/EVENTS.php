@@ -20,7 +20,9 @@ class EVENTS {
 
         $conn = new Connector();
 
-        $query = "SELECT E.EVENT_ID, E.EVENT_NAME, DATE_FORMAT(E.EVENT_DATE, '%d-%m-%Y') EVENT_DATE, E.EVENT_TIME,  GROUP_CONCAT(EU.USER_ID) AS IDS, GROUP_CONCAT(CONCAT(U.NAME, ' ', U.SURNAME)) AS USERS, GROUP_CONCAT(DISTINCT EL.LOCATION) AS LOCATIONS
+        $query = "SELECT E.EVENT_ID, E.CREATOR_ID, E.NUM_VOTES, E.EVENT_NAME, DATE_FORMAT(E.EVENT_DATE, '%d-%m-%Y') EVENT_DATE, 
+                         E.EVENT_TIME,  GROUP_CONCAT(EU.USER_ID) AS IDS, GROUP_CONCAT(CONCAT(U.NAME, ' ', U.SURNAME)) AS USERS, 
+                         GROUP_CONCAT(DISTINCT EL.LOCATION) AS LOCATIONS,  GROUP_CONCAT(EU.VOTES) AS VOTES
                   FROM EVENTS E
                   INNER JOIN EVENT_USERS EU ON E.EVENT_ID = EU.EVENT_ID
                   LEFT JOIN EVENT_LOCATIONS EL ON E.EVENT_ID = EL.EVENT_ID
@@ -38,7 +40,8 @@ class EVENTS {
         $query = "UPDATE EVENTS
                     SET EVENT_NAME = :EVENT_NAME,
                         EVENT_DATE = :EVENT_DATE, 
-                        EVENT_TIME = :EVENT_TIME
+                        EVENT_TIME = :EVENT_TIME,
+                        NUM_VOTES = :NUM_VOTES
                   WHERE EVENT_ID = :EVENT_ID;";
 
         return $conn->perform_transaction($query, $args);
@@ -93,8 +96,8 @@ class EVENTS {
 
         $conn = new Connector();
 
-        $query = "INSERT INTO EVENTS(EVENT_NAME, EVENT_DATE, EVENT_TIME)
-                  VALUES (:EVENT_NAME, :EVENT_DATE, :EVENT_TIME);";
+        $query = "INSERT INTO EVENTS(EVENT_NAME, EVENT_DATE, EVENT_TIME, CREATOR_ID)
+                  VALUES (:EVENT_NAME, :EVENT_DATE, :EVENT_TIME, :USER_ID);";
 
         return $conn->perform_transaction($query, $args);
     }
@@ -113,6 +116,18 @@ class EVENTS {
     }
     
 
+    public function update_users_vote($args){
+
+        $conn = new Connector();
+
+        $query = "UPDATE EVENT_USERS
+                  SET VOTES = :VOTES
+                  WHERE EVENT_ID = :EVENT_ID
+                        AND USER_ID = :USER_ID";
+
+        return $conn->perform_transaction($query, $args);
+    }
+    
 
     
 
