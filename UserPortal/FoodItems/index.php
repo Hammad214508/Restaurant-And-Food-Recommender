@@ -116,7 +116,7 @@
     <div id="recommended_food_items_page" style="display:none">
     <div class="container-fluid">
         <div class="jumbotron">
-            <h1>Recommender</h1>
+            <h1>Recommended Food Items</h1>
             <p>I can help you decide what to get</p>
             <button id="back" type="button" class="btn btn-secondary">Back</button>
 
@@ -177,13 +177,9 @@
             </div>
 
             <div class="row">
-
-
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 bottom-buffer text-left">
                     <button id="r_reset" type="button" class="btn btn-secondary btn-sm">Reset</button>
                 </div>
-
-
             </div>
 
         </div>
@@ -192,8 +188,8 @@
 
     <div id="r_food_items_container" class="container"></div>
 
-    <input id="inp_hdn_uid" style="display:none" value="<?php echo $_SESSION["logged_in"][0][0]["USER_ID"] ?>"></input>
     </div>
+    <input id="inp_hdn_uid" style="display:none" value="<?php echo $_SESSION["logged_in"][0][0]["USER_ID"] ?>"></input>
 
 
 </body>

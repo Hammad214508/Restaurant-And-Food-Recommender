@@ -1,7 +1,10 @@
 $(document).ready(function(){
+    var user_id;
     var rest_search = "";
     var sorting = "none";
     var open = false;
+    var websocket = new WebSocket("ws://127.0.0.1:6789/");  
+
     
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -129,12 +132,91 @@ $(document).ready(function(){
         return strTime;
     }
 
+
+    $.fn.render_recommended_restaurant_boxes = function(restaurants, order){
+        var parent = $("#r_restaurants_container");
+        parent.empty();
+        var i = 0;
+        for (var rest in order) {
+            if (i % 3 == 0){
+                var row = $("<div class='row'>");
+                parent.append(row);
+            }
+            var r_id = order[rest];
+            name = restaurants[r_id]["NAME"];
+            email = restaurants[r_id]["EMAIL"];
+            number = restaurants[r_id]["NUMBER"];
+            address = restaurants[r_id]["ADDRESS"];
+            rating = restaurants[r_id]["RATING"]
+            opens = $.fn.formatAMPM($.fn.string_time_to_date(restaurants[r_id]["OPENING_TIME"]));
+            closes = $.fn.formatAMPM($.fn.string_time_to_date(restaurants[r_id]["CLOSING_TIME"]));
+
+            var proj = $.fn.get_restaurant_box(name, email, number, address, rating, opens, closes, i);
+            row.append(proj);
+            i += 1;
+        }
+        $.fn.add_event();
+    }
+
+
+    $.fn.get_recommended_restaurants = function(){
+        websocket.send(
+            JSON.stringify(
+                {
+                    action: 'user_restaurant_recommender', 
+                    "user_id": user_id,
+                }));
+    }
+
+    $.fn.websocket_response = function(){
+        websocket.onmessage = function (event) {
+            data = JSON.parse(event.data);
+            if (data.type == "recommended_items"){
+                if (data["recommended"][1].length > 0){
+                    $.fn.render_recommended_restaurant_boxes(data["recommended"][0], data["recommended"][1]);
+                }else{
+                    parent = $("#r_restaurants_container");
+                    parent.empty();
+                    parent.append("<h1>NO RESTAURANTS</h1>");
+                }
+            }
+            else{
+                $("#error").html("<b>ERROR GETTING RESTAURANT RECOMMENDATIONS!</b>");
+                $.fn.temporary_show("#error");        
+            }
+        };
+    }
+
+    $.fn.websocket_open_and_error = function(){
+
+        websocket.onerror = function(error) {
+            $("#error").html("<b>ERROR WITH WEBSOCKET SERVER</b>");
+            $.fn.temporary_show("#error");    
+        };
+    }
+
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
+            user_id = $("#inp_hdn_uid").val();
             $.fn.activate_nav_bar();
             $.fn.get_all_restaurants();
             $.fn.restaurant_filter_events();
+
+            $("#get_recom").on("click", function(){
+                $("#normal_restaurants_page").hide();
+                $.fn.websocket_open_and_error();
+                $.fn.websocket_response();
+                $("#r_restaurant_page").show();
+                $.fn.get_recommended_restaurants();
+               
+            });
+
+
+            $("#back").on("click", function(){
+                $("#r_restaurant_page").hide();
+                $("#normal_restaurants_page").show();
+            })
 
         };
         return thispage;

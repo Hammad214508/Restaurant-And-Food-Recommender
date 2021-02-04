@@ -146,6 +146,25 @@ $(document).ready(function(){
         return [a, b];
     }
 
+    $.fn.formatAMPM = function(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+    }
+
+    $.fn.string_time_to_date = function(string){
+        var pieces = string.split(':')
+        var hour = parseInt(pieces[0], 10);
+        var minute = parseInt(pieces[1], 10);
+        var second = parseInt(pieces[2], 10);
+        return new Date(2000, 01, 02, hour, minute, second);
+    };
+
     $.fn.render_event_display = function(data){
         is_creator =  data["CREATOR_ID"] == user_id;
         vote_count = data["NUM_VOTES"];
@@ -165,7 +184,7 @@ $(document).ready(function(){
         $("#display_date").empty()
         $("#display_date").append(data["EVENT_DATE"])
         $("#display_time").empty()
-        $("#display_time").append(data["EVENT_TIME"])
+        $("#display_time").append($.fn.formatAMPM($.fn.string_time_to_date(data["EVENT_TIME"])))
 
         locations = []
 

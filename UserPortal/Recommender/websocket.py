@@ -54,9 +54,12 @@ async def handler(websocket, path):
     try:
         async for message in websocket:
             data = json.loads(message)
-            if data["action"] == "recommender":
+            if data["action"] == "user_food_recommender":
                 parameters = get_parameters_for_recommendation(data)
-                DATA["recommended"] = recommender.get_user_recommendations(int(data['user_id']), parameters)
+                DATA["recommended"] = recommender.get_user_food_recommendations(int(data['user_id']), parameters)
+                await send_response(websocket)
+            if data["action"] == "user_restaurant_recommender":
+                DATA["recommended"] = recommender.get_user_restaurant_recommendations(int(data['user_id']))
                 await send_response(websocket)
             elif data["action"] == "group_recommender":
                 DATA["recommended"]= group_recommender.get_recommended_restaurants(data["users"])

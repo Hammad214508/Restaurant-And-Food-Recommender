@@ -238,7 +238,7 @@ $(document).ready(function(){
         websocket.send(
             JSON.stringify(
                 {
-                    action: 'recommender', 
+                    action: 'user_food_recommender', 
                     "user_id": user_id,
                     "available": available,
                     "healthy_rating_filter": healthy_rating_filter,

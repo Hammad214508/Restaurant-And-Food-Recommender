@@ -78,7 +78,7 @@ trainingSet = training_data.build_full_trainset()
 algo.fit(trainingSet)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                COLLABORATIVE FILTERING                            "
+"            COLLABORATIVE FILTERING FOOD_ITEMS                     "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 def get_data_to_recommend(parameters):
@@ -109,7 +109,7 @@ def get_data_to_recommend(parameters):
   return mycursor.fetchall()
 
 
-def get_user_recommendations(user_id, parameters):
+def get_user_food_recommendations(user_id, parameters):
   food_ids = get_data_to_recommend(parameters)
   data = {}
   predictions = {}
@@ -122,6 +122,51 @@ def get_user_recommendations(user_id, parameters):
   sorted_by_preference = [k for k, v in sorted(predictions.items(), key=lambda item: item[1], reverse=True)]
   return data, sorted_by_preference
 
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"            COLLABORATIVE FILTERING RESTAURANTS                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+def get_all_restaurants():
+    sql = """SELECT  RESTAURANT_ID, NAME, EMAIL, NUMBER, ADDRESS, RATING, OPENING_TIME, CLOSING_TIME FROM RESTAURANT"""
+    mycursor.execute(sql)
+    return mycursor.fetchall()
+
+def get_restaurant_foods(restaurant_id):
+    parameters = (restaurant_id,)
+    sql = """
+          SELECT FOOD_ID
+          FROM FOOD 
+          WHERE RESTAURANT_ID = %s
+          """
+    mycursor.execute(sql, parameters)
+    return mycursor.fetchall()
+
+def get_rest_score(user_id, rest_foods):
+    predictions = {}
+    for food in rest_foods:
+        prediction = algo.predict(user_id, food[0])
+        predictions[food[0]] = prediction.est
+    sorted_ratings = [v for k, v in sorted(predictions.items(), key=lambda item: item[1], reverse=True)]
+    if sorted_ratings:
+        return sum(sorted_ratings[:3])/len(sorted_ratings[:3])
+    return 2.5
+
+
+def get_user_restaurant_recommendations(user_id):
+    restaurant_ids = get_all_restaurants()
+    rest_scores = {}    
+    data = {}
+    for rest in restaurant_ids:
+        rest_foods = get_restaurant_foods(rest[0])
+        rest_scores[rest[0]] = get_rest_score(user_id, rest_foods)
+        data[rest[0]] = { "P_RATING" :rest_scores[rest[0]], "RESTAURANT_ID" : rest[0], "NAME" : rest[1], 
+                          "EMAIL": rest[2], "NUMBER": rest[3], "ADDRESS": rest[4], "RATING": rest[5],
+                          "OPENING_TIME": str(rest[6]), "CLOSING_TIME": str(rest[7])
+                        }
+    sorted_ratings = [k for k, v in sorted(rest_scores.items(), key=lambda item: item[1], reverse=True)]
+    return data, sorted_ratings
 
 
 # https://realpython.com/build-recommendation-engine-collaborative-filtering/
