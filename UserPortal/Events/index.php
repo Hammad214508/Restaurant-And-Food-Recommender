@@ -43,7 +43,7 @@
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto text-left">
                             <h1>
                                 <i id="edit" class="fa fa-edit usr-icon"></i> 
-                                <i class="fa fa-trash usr-icon delete" style="font-size: 42px; display:none;" aria-hidden="true"></i>
+                                <i class="fa fa-trash usr-icon delete"  data-toggle="modal" data-target="#exampleModalCenter" style="font-size: 42px; display:none;" aria-hidden="true"></i>
                             </h1>
                         </div>
                     </div>
@@ -79,7 +79,26 @@
                 <div id="selected_event_container" class="" style="padding: 0px 100px 100px 100px; display:none"></div>                    
                 
                 </div>
+        </div>
 
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Event</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this event?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button id="delete_event" type="button" class="btn btn-primary">Delete Event</button>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 

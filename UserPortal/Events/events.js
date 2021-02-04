@@ -7,6 +7,7 @@ $(document).ready(function(){
     var all_votes = {};
     var is_creator = false;
     var my_votes = []
+    var all_votes_list = [];
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -57,6 +58,7 @@ $(document).ready(function(){
             $(this).addClass("active");
             var event_id = $(this).attr("ref")
             current_event = event_id;
+            $.fn.get_users_votes();
             $.fn.get_event_data(event_id);
         });
 
@@ -65,7 +67,7 @@ $(document).ready(function(){
             $("#"+first_event).trigger("click");
         }else{
             $("#event_"+current_event).trigger("click");
-            setTimeout(function(){ $("#edit").trigger("click");}, 500);
+            setTimeout(function(){ $("#edit").trigger("click");}, 50);
 
         }
 
@@ -95,6 +97,40 @@ $(document).ready(function(){
          });
     }
 
+    $.fn.get_users_votes = function(){
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+            method: "POST",
+            data:{
+                    "actionmode"	: "get_users_votes",
+                    "EVENT_ID"       : current_event,
+                },
+            success:function(data) {
+                 data = JSON.parse(data);
+                 if (!data.success){
+                     $("#error").html("<b>ERROR GETTING USER VOTES!</b>");
+                     $.fn.temporary_show("#error");
+                 }else{
+                    all_votes_list = []
+                    my_votes = []
+                     data = data.dataset[0];
+                     $.each(data, function( index, user ){
+                        if (user["VOTES"]){
+                            if (user["USER_ID"] == user_id){
+                                my_votes.push(user["VOTES"].split(","))
+                            }
+                            all_votes_list.push(user["VOTES"].split(","))
+                        }
+                    });
+                    my_votes = [].concat.apply([], my_votes);
+                    all_votes_list = [].concat.apply([], all_votes_list);
+
+                 }
+             }
+         });
+    }
+    
+
     $.fn.array_occcurrences = function(arr) {
         var a = [], b = [], prev;
         arr.sort();
@@ -113,24 +149,11 @@ $(document).ready(function(){
     $.fn.render_event_display = function(data){
         is_creator =  data["CREATOR_ID"] == user_id;
         vote_count = data["NUM_VOTES"];
-        votes_arr = []
-        my_votes = []
-
-        if (data["VOTES"]){
-            $.each(data["VOTES"].split(","), function( index, value ){
-                value = value.split("-");
-                if (value[0] == user_id){
-                    my_votes.push(value[1])
-                }
-                votes_arr.push(value[1])
-            });
-            
-            var c = $.fn.array_occcurrences(votes_arr)
-            a = c[0], b = c[1];
-            all_votes = {};
-            for (var i=0; i<a.length; i++){
-                all_votes[a[i]] = b[i]/2
-            }
+        var c = $.fn.array_occcurrences(all_votes_list)
+        a = c[0], b = c[1];
+        all_votes = {};
+        for (var i=0; i<a.length; i++){
+            all_votes[a[i]] = b[i]
         }
 
 
@@ -151,7 +174,7 @@ $(document).ready(function(){
         }
         $("#locations").empty()
         $.each(locations, function( index, value ){
-            vote_num = all_votes[value] ? all_votes[value] : 0
+            vote_num = (all_votes[value]) ? all_votes[value] : 0
             value = (my_votes.includes(value)) ? "<strong>"+value+"</strong>": value
             $("#locations").append('<li>'+value+' - '+vote_num+'</li>')
         });
@@ -218,6 +241,7 @@ $(document).ready(function(){
         }
 
         $("#save").on("click", function(){
+            $.fn.get_users_votes();
             $.fn.get_event_data(current_event)
             $("#selected_event_container").hide();
             $("#display_event_container").show();
@@ -314,6 +338,15 @@ $(document).ready(function(){
                 $.fn.update_event_locations("insert", loc, $(this).parent());
             }
         })
+
+        $("#new_location").on('keyup', function (e) {
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                if ($("#new_location").val()){
+                    var loc = $("#new_location").val().charAt(0).toUpperCase() + $("#new_location").val().slice(1)
+                    $.fn.update_event_locations("insert", loc, $(this).parent());
+                }
+            }
+        });
 
     }
 
@@ -586,10 +619,11 @@ $(document).ready(function(){
                 $.fn.get_user_events();
             })
 
-            $(".delete").on("click", function(){
-                if (confirm("Are you sure you want to delte?")){
-                    $.fn.delete_event();
-                }
+            $("#delete_event").on("click", function(){
+                $.fn.delete_event();
+                $("#exampleModalCenter").hide();
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
             })
 
             $("#vote").on("click", function(){

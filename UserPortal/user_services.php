@@ -169,6 +169,14 @@
         $form_data = delete_event($args);
     }
 
+    if($actionmode == "get_users_votes"){
+        $args["EVENT_ID"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
+
+        $form_data = get_users_votes($args);
+    }
+
+    
+
     if($actionmode == "update_users_vote"){
         $args["VOTES"] = isset($_POST['VOTES']) ? $_POST['VOTES'] : NULL;
         $args["EVENT_ID"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
@@ -281,6 +289,11 @@
         return $EVENTS -> delete_event($args);
     }
 
+    function get_users_votes($args){
+        $EVENTS = new EVENTS();
+        return $EVENTS -> get_users_votes($args);
+    }
+    
     function update_users_vote($args){
         $EVENTS = new EVENTS();
         return $EVENTS -> update_users_vote($args);

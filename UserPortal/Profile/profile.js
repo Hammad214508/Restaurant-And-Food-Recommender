@@ -260,7 +260,7 @@ $(document).ready(function(){
             '    </div>'+
             '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 user_rm">'+
             '        <div class="text-right">'+
-            '            <i class="fa fa-user-times usr-icon rm-user" ref="'+data["USER_ID"]+'"></i>'+
+            '            <i class="fa fa-user-times usr-icon rm-user" data-toggle="modal" data-target="#exampleModalCenter" ref="'+data["USER_ID"]+'"></i>'+
             '        </div>'+
             '    </div>'+
             '</div>'
@@ -269,11 +269,15 @@ $(document).ready(function(){
 
     $.fn.set_user_connections_events = function(){
         $(".rm-user").on("click", function(){
-            var del_id = $(this).attr("ref");
-            if (confirm("Are you sure you want to remove connection?")){
-                $.fn.remove_connection(del_id);
-            }
+            $("#delete_connection").attr("ref", $(this).attr("ref"));
         });
+
+        $("#delete_connection").on("click", function(){
+            $.fn.remove_connection($(this).attr("ref"));
+            $("#exampleModalCenter").hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        })
 
         $("#get_recom_btn").on("click", function(){
             users = $('input[type=checkbox]:checked').map(function(_, el) {return $(el).attr("ref");}).get();
