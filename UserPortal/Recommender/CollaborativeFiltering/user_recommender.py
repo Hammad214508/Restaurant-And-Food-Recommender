@@ -128,8 +128,13 @@ def get_user_food_recommendations(user_id, parameters):
 "            COLLABORATIVE FILTERING RESTAURANTS                    "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-def get_all_restaurants():
-    sql = """SELECT  RESTAURANT_ID, NAME, EMAIL, NUMBER, ADDRESS, RATING, OPENING_TIME, CLOSING_TIME FROM RESTAURANT"""
+def get_all_restaurants(parameters):
+    open_query = ""
+    if (parameters[0]):
+      open_query = "WHERE NOW() BETWEEN OPENING_TIME AND CLOSING_TIME"
+    
+    sql = """SELECT  RESTAURANT_ID, NAME, EMAIL, NUMBER, ADDRESS, RATING, OPENING_TIME, CLOSING_TIME
+            FROM RESTAURANT """ + open_query
     mycursor.execute(sql)
     return mycursor.fetchall()
 
@@ -154,8 +159,8 @@ def get_rest_score(user_id, rest_foods):
     return 2.5
 
 
-def get_user_restaurant_recommendations(user_id):
-    restaurant_ids = get_all_restaurants()
+def get_user_restaurant_recommendations(user_id, parameters):
+    restaurant_ids = get_all_restaurants(parameters)
     rest_scores = {}    
     data = {}
     for rest in restaurant_ids:

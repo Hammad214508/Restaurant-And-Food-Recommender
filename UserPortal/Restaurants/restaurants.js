@@ -3,6 +3,7 @@ $(document).ready(function(){
     var rest_search = "";
     var sorting = "none";
     var open = false;
+    var r_open = false;
     var websocket = new WebSocket("ws://127.0.0.1:6789/");  
 
     
@@ -158,13 +159,22 @@ $(document).ready(function(){
         $.fn.add_event();
     }
 
+    $.fn.recommended_restaurant_filter_events = function(){
+        // Open restaurants
+        $("#r_open_rest").on("change", function(){
+            r_open = $(this).prop("checked");
+            $.fn.get_recommended_restaurants()
+        });
+    };
+
 
     $.fn.get_recommended_restaurants = function(){
         websocket.send(
             JSON.stringify(
                 {
                     action: 'user_restaurant_recommender', 
-                    "user_id": user_id,
+                    "user_id": user_id, 
+                    "open" : r_open
                 }));
     }
 
@@ -195,6 +205,8 @@ $(document).ready(function(){
         };
     }
 
+
+
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
@@ -209,7 +221,8 @@ $(document).ready(function(){
                 $.fn.websocket_response();
                 $("#r_restaurant_page").show();
                 $.fn.get_recommended_restaurants();
-               
+                $.fn.recommended_restaurant_filter_events()
+            
             });
 
 
