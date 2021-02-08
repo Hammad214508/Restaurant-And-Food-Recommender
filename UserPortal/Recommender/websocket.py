@@ -2,7 +2,7 @@ import asyncio
 import json
 import logging
 import websockets
-import CollaborativeFiltering.user_recommender as recommender
+import CollaborativeFiltering.user_recommender as user_recommender
 import CollaborativeFiltering.group_recommender as group_recommender
 
 logging.basicConfig()
@@ -56,11 +56,11 @@ async def handler(websocket, path):
             data = json.loads(message)
             if data["action"] == "user_food_recommender":
                 parameters = get_parameters_for_recommendation(data)
-                DATA["recommended"] = recommender.get_user_food_recommendations(int(data['user_id']), parameters)
+                DATA["recommended"] = user_recommender.get_user_food_recommendations(int(data['user_id']), parameters)
                 await send_response(websocket)
             if data["action"] == "user_restaurant_recommender":
                 parameters = (data["open"],)
-                DATA["recommended"] = recommender.get_user_restaurant_recommendations(int(data['user_id']), parameters)
+                DATA["recommended"] = user_recommender.get_user_restaurant_recommendations(int(data['user_id']), parameters)
                 await send_response(websocket)
             elif data["action"] == "group_recommender":
                 DATA["recommended"]= group_recommender.get_recommended_restaurants(data["users"])
