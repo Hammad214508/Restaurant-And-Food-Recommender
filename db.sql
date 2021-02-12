@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 29, 2021 at 01:23 AM
+-- Generation Time: Feb 12, 2021 at 09:44 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -36,9 +36,12 @@ CREATE TABLE `CONNECTIONS` (
 --
 
 INSERT INTO `CONNECTIONS` (`CONNECTION_ID`, `USER1`, `USER2`) VALUES
-(1, 2, 1),
-(2, 1, 2),
-(4, 3, 1);
+(1, 3, 1),
+(2, 1, 3),
+(3, 1, 5),
+(4, 5, 1),
+(13, 1, 8),
+(14, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -62,16 +65,24 @@ DROP TABLE IF EXISTS `EVENTS`;
 CREATE TABLE `EVENTS` (
   `EVENT_ID` int(10) NOT NULL,
   `EVENT_NAME` varchar(250) NOT NULL,
-  `EVENT_TIME` datetime NOT NULL
+  `EVENT_DATE` date NOT NULL,
+  `EVENT_TIME` time NOT NULL,
+  `CREATOR_ID` int(10) NOT NULL,
+  `NUM_VOTES` int(10) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `EVENTS`
 --
 
-INSERT INTO `EVENTS` (`EVENT_ID`, `EVENT_NAME`, `EVENT_TIME`) VALUES
-(1, 'Graduate role celebration', '2021-02-14 19:04:02'),
-(2, 'Valentine\'s day', '2021-01-14 19:27:51');
+INSERT INTO `EVENTS` (`EVENT_ID`, `EVENT_NAME`, `EVENT_DATE`, `EVENT_TIME`, `CREATOR_ID`, `NUM_VOTES`) VALUES
+(2, 'Valentine\'s day', '0000-00-00', '00:00:00', 2, 1),
+(24, 'Event 4', '2021-02-01', '19:00:00', 2, 1),
+(36, 'graduation', '2021-02-11', '19:30:00', 2, 1),
+(37, 'Event 3', '2021-02-02', '19:00:00', 2, 1),
+(53, 'Event 4', '2021-02-04', '19:00:00', 1, 2),
+(54, 'Event 5', '2021-02-04', '19:00:00', 1, 2),
+(55, 'Event 6', '2021-02-07', '19:00:00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -91,7 +102,20 @@ CREATE TABLE `EVENT_LOCATIONS` (
 --
 
 INSERT INTO `EVENT_LOCATIONS` (`ID`, `EVENT_ID`, `LOCATION`) VALUES
-(1, 1, 'Domino\'s');
+(29, 13, 'Test'),
+(35, 37, 'A'),
+(36, 37, 'B'),
+(43, 53, 'A'),
+(44, 53, 'B'),
+(45, 53, 'C'),
+(46, 53, 'D'),
+(47, 54, 'A'),
+(48, 54, 'B'),
+(49, 54, 'C'),
+(50, 54, 'D'),
+(51, 54, 'E'),
+(52, 36, 'Uni'),
+(53, 36, 'Pizza hut');
 
 -- --------------------------------------------------------
 
@@ -103,16 +127,26 @@ DROP TABLE IF EXISTS `EVENT_USERS`;
 CREATE TABLE `EVENT_USERS` (
   `ID` int(11) NOT NULL,
   `EVENT_ID` int(11) NOT NULL,
-  `USER_ID` int(11) NOT NULL
+  `USER_ID` int(11) NOT NULL,
+  `VOTES` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `EVENT_USERS`
 --
 
-INSERT INTO `EVENT_USERS` (`ID`, `EVENT_ID`, `USER_ID`) VALUES
-(1, 1, 1),
-(2, 1, 2);
+INSERT INTO `EVENT_USERS` (`ID`, `EVENT_ID`, `USER_ID`, `VOTES`) VALUES
+(13, 13, 1, NULL),
+(15, 14, 1, NULL),
+(48, 36, 1, 'Uni'),
+(49, 37, 1, 'A'),
+(51, 36, 2, NULL),
+(74, 53, 1, 'A,D'),
+(75, 53, 3, NULL),
+(76, 54, 1, 'A,E'),
+(77, 55, 1, ''),
+(83, 36, 3, NULL),
+(84, 37, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -182,7 +216,8 @@ INSERT INTO `FOOD_REVIEWS` (`REVIEW_ID`, `FOOD_ID`, `USER_ID`, `RATING`, `REVIEW
 (12, 1, 1, 2.5, '', 2.5, 2.5),
 (13, 1, 1, 2.5, '', 2.5, 2.5),
 (14, 1, 1, 2.5, '', NULL, NULL),
-(15, 1, 1, 2.5, '', NULL, NULL);
+(15, 1, 1, 2.5, '', NULL, NULL),
+(16, 1, 1, 2.25, 'fa', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -250,7 +285,8 @@ CREATE TABLE `NOTIFICATIONS` (
 --
 
 INSERT INTO `NOTIFICATIONS` (`NOTIFICATION_ID`, `TYPE`, `FROM_UID`, `TO_UID`, `MESSAGE`) VALUES
-(5, 'connection_request', 1, 3, 'I want to be your friend');
+(1, 'connection_request', 7, 1, 'Sup bro'),
+(3, 'connection_request', 6, 1, 'I want to be friends');
 
 -- --------------------------------------------------------
 
@@ -489,7 +525,14 @@ CREATE TABLE `USER` (
 INSERT INTO `USER` (`USER_ID`, `NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `GOOGLE_LOGIN`, `DIET_TYPE`) VALUES
 (1, 'Hammad ', 'Muhammad', 'hammadmuhammad15@gmail.com', NULL, 'true', 1),
 (2, 'Aiza', 'Khan', 'aiza@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1),
-(3, 'Harsh', 'Patel', 'harsh_user@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1);
+(3, 'Harsh', 'Patel', 'harsh_user@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1),
+(4, 'Jaydip', 'Magan', 'magan@email.com', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 2),
+(5, 'Anjali', 'Shukla', 'anjali@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3),
+(6, 'Bhargav', 'Talluri', 'bhargav@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3),
+(7, 'Shanelie', 'Fernandez', 'shanelie@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 2),
+(8, 'Hardik', 'Poptani', 'hardik@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1),
+(9, 'Nikhil', 'Difficult', 'nikhil@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3),
+(10, 'Dhruva', 'Konidena', 'dhruva@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1);
 
 --
 -- Indexes for dumped tables
@@ -570,25 +613,25 @@ ALTER TABLE `USER`
 -- AUTO_INCREMENT for table `CONNECTIONS`
 --
 ALTER TABLE `CONNECTIONS`
-  MODIFY `CONNECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `CONNECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `EVENTS`
 --
 ALTER TABLE `EVENTS`
-  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `EVENT_LOCATIONS`
 --
 ALTER TABLE `EVENT_LOCATIONS`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `EVENT_USERS`
 --
 ALTER TABLE `EVENT_USERS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `FOOD`
@@ -600,7 +643,7 @@ ALTER TABLE `FOOD`
 -- AUTO_INCREMENT for table `FOOD_REVIEWS`
 --
 ALTER TABLE `FOOD_REVIEWS`
-  MODIFY `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `MANAGER`
@@ -612,7 +655,7 @@ ALTER TABLE `MANAGER`
 -- AUTO_INCREMENT for table `NOTIFICATIONS`
 --
 ALTER TABLE `NOTIFICATIONS`
-  MODIFY `NOTIFICATION_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `NOTIFICATION_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `RESTAURANT`
@@ -624,5 +667,5 @@ ALTER TABLE `RESTAURANT`
 -- AUTO_INCREMENT for table `USER`
 --
 ALTER TABLE `USER`
-  MODIFY `USER_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `USER_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
