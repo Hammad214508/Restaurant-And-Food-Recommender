@@ -34,7 +34,7 @@ $(document).ready(function(){
                     }else{
                         parent = $("#restaurants_container")
                         parent.empty();
-                        parent.append("<h1>NO RESTAURANTS</h1>");
+                        parent.append("<h3>NO RESTAURANTS</h3>");
                     }
                 }
             }
@@ -187,7 +187,7 @@ $(document).ready(function(){
                 }else{
                     parent = $("#r_restaurants_container");
                     parent.empty();
-                    parent.append("<h1>NO RESTAURANTS</h1>");
+                    parent.append("<h3>NO RESTAURANTS</h3>");
                 }
             }
             else{

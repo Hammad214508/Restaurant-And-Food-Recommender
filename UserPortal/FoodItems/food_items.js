@@ -96,7 +96,7 @@ $(document).ready(function(){
                     }else{
                         parent = $("#food_items_container");
                         parent.empty();
-                        parent.append("<h1>NO FOOD ITEMS</h1>");
+                        parent.append("<h3>NO FOOD ITEMS</h3>");
                     }
                 }
             }
@@ -256,7 +256,7 @@ $(document).ready(function(){
                 }else{
                     parent = $("#r_food_items_container");
                     parent.empty();
-                    parent.append("<h1>NO FOOD ITEMS</h1>");
+                    parent.append("<h3>NO FOOD ITEMS</h3>");
                 }
             }
             else{

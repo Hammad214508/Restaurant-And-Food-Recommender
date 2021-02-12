@@ -51,9 +51,9 @@ class CONNECTIONS {
 
 		$conn = new Connector();
 
-		$query = "INSERT INTO CONNECTIONS
+		$query = "INSERT INTO CONNECTIONS (USER1, USER2)
 				  VALUES (:MY_ID, :OTHER_ID),
-				  		 (:OTHER_ID1, :MY_ID1) ";
+				  		 (:OTHER_ID1, :MY_ID1);";
 						 
 		return $conn->perform_transaction($query, $args);
 	}	

@@ -227,7 +227,7 @@ $(document).ready(function(){
                     }else{
                         parent = $("#my_net_container")
                         parent.empty();
-                        parent.append("<h1>YOU HAVE NO CONNECTIONS</h1>");
+                        parent.append("<h3>YOU HAVE NO CONNECTIONS</h3>");
                     }
                 }
             }
@@ -237,8 +237,10 @@ $(document).ready(function(){
 
     $.fn.render_connections = function(data){
         var parent = $("#connections");
+        parent.append("<hr>")
         for (var i = 0; i < data.length; i++){
             parent.append($.fn.get_user_template(data[i]));
+            parent.append("<hr>")
         }
 
         $.fn.set_user_connections_events();
@@ -246,22 +248,18 @@ $(document).ready(function(){
 
     $.fn.get_user_template = function(data){
         return (
-            '<div id="my_net_user_'+data["USER_ID"]+'" class="row mt-2">'+
+            '<div id="my_net_user_'+data["USER_ID"]+'" class="row mt-2 p-3">'+
             '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 crt_group text-center" style="display:none">'+
             '        <div class="form-check">'+
             '            <input type="checkbox" class="user-checkbox form-check-input" type="checkbox" ref="'+data["USER_ID"]+'">'+
             '        </div>'+
             '    </div> '+
-            '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">'+
-            '            <p id="name_'+data["USER_ID"]+'">'+data["NAME"]+'</p>'+
-            '    </div>'+
-            '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">'+
-            '            <p id="surname_'+data["USER_ID"]+'">'+data["SURNAME"]+'</p>'+
+            '    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12 ">'+
+            '            <span id="name_'+data["USER_ID"]+'">'+data["NAME"]+'</span>'+
+            '            <span id="surname_'+data["USER_ID"]+'">'+data["SURNAME"]+'</span>'+
             '    </div>'+
             '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 user_rm">'+
-            '        <div class="text-right">'+
-            '            <i class="fa fa-user-times usr-icon rm-user" data-toggle="modal" data-target="#exampleModalCenter" ref="'+data["USER_ID"]+'"></i>'+
-            '        </div>'+
+            '           <i class="fa fa-user-times usr-icon rm-user" data-toggle="modal" data-target="#exampleModalCenter" ref="'+data["USER_ID"]+'"></i>'+
             '    </div>'+
             '</div>'
         )
@@ -343,7 +341,7 @@ $(document).ready(function(){
                      }else{
                          parent = $("#recommended_users")
                          parent.empty();
-                         parent.append("<h1>NO USERS TO SHOW</h1>");
+                         parent.append("<h3>NO USERS TO SHOW</h3>");
                      }
                  }
              }
@@ -353,10 +351,13 @@ $(document).ready(function(){
     $.fn.render_recommended_connections = function(data){
         var parent = $("#recommended_users");
         parent.empty();
+        parent.append("<hr>")
         for (var i = 0; i < data.length; i++){
             if (data[i]["USER_ID"] != user_id){
                 parent.append($.fn.get_user_recommended_template(data[i]));
+                parent.append("<hr>")
             }
+
         }
         $.fn.set_user_recommended_events();
     }
@@ -365,18 +366,11 @@ $(document).ready(function(){
         return (
             '<div id="container_'+data["USER_ID"]+'" class="container-fluid">'+
             '<div class="row mt-2">'+
-            '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">'+
-            '        <div>'+
-                        data["NAME"]+
-            '        </div>'+
-            '    </div>'+
-            '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">'+
-            '        <div>'+
-                        data["SURNAME"]+
-            '        </div>'+
+            '    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12">'+
+                    data["NAME"]+ ' ' + data["SURNAME"]+
             '    </div>'+
             '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 user_rm">'+
-            '        <div id="icon_'+data["USER_ID"]+'" class="text-center">'+
+            '        <div id="icon_'+data["USER_ID"]+'">'+
             '            <i  class="fa fa-user-plus usr-icon add-user" ref="'+data["USER_ID"]+'"></i>'+
             '        </div>'+
             '    </div>'+
@@ -397,24 +391,17 @@ $(document).ready(function(){
 
     $.fn.get_connection_confirmation = function(){
         return (
-        '    <div id="connection_confirmation" class="container mt-2">'+
+        ' <div id="connection_confirmation" class="container mt-2 mb-2">'+
         '    <div class="row mt-2">'+
-        '        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>'+
-        '        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
+        '        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">'+
         '            <textarea id="message" rows="4" cols="42" placeholder="Leave a message here..."></textarea>'+
         '        </div>'+
-        '        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>'+
         '    </div>'+
         '    <div class="container mt-2 mb-2">'+
         '        <div class="row">'+
-        '            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>'+
-        '            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">'+
-        '                <button id="send" type="button" class="btn btn-secondary">Send</button>'+
-        '            </div>'+
-        '            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">'+
+        '            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12 text-right">'+
         '                <button id="cancel" type="button" class="btn btn-secondary">Cancel</button>'+
-        '            </div>        '+
-        '            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>'+
+        '                <button id="send" type="button" class="btn btn-secondary">Send</button>'+
         '            </div>'+
         '        </div>'+
         '    </div>  '+
@@ -484,7 +471,7 @@ $(document).ready(function(){
                     }else{
                         parent = $("#requests_container")
                         parent.empty();
-                        parent.append("<h1>NO CONNECTION REQUESTS TO SHOW</h1>");
+                        parent.append('<h3>NO CONNECTION REQUESTS TO SHOW</h3');
                     }
                 }
              }
@@ -494,8 +481,10 @@ $(document).ready(function(){
     $.fn.render_connection_requests = function(data){
         var parent = $("#requests_container");
         for (var i = 0; i < data.length; i++){
+            parent.append("<hr>")
             parent.append($.fn.get_user_connection_request(data[i]));
         }
+        parent.append("<hr>")
         $.fn.set_user_connection_request_events();
     }
 
@@ -503,25 +492,22 @@ $(document).ready(function(){
         return (
             '<div id="request_'+data["USER_ID"]+'" class="container-fluid" >'+
             '<div class="row mt-2">'+
-            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">'+
-                        data["NAME"]+
+            '    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12">'+
+            '      <strong>'+data["NAME"]+ ' ' +  data["SURNAME"] +'</strong>'+
             '    </div>'+
-            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">'+
-                        data["SURNAME"]+
-            '    </div>'+
-            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 user_rm">'+
+            '    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-xs-12 user_rm">'+
             '        <div class="text-left">'+
             '            <i class="fa fa-user-plus usr-icon acc-user" ref="'+data["USER_ID"]+'"></i>'+
             '        </div>'+
             '    </div>'+
-            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 user_rm">'+
+            '    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-xs-12 user_rm">'+
             '        <div class="text-left">'+
             '            <i class="fa fa-user-times usr-icon rej-user" ref="'+data["USER_ID"]+'"></i>'+
             '        </div>'+
             '    </div>'+
             '</div>'+
-            '<div class="row mt-2 mb-2">'+
-            '    <textarea rows="4" cols="42">'+data["MESSAGE"]+'</textarea>'+
+            '<div class="row mt-2 mb-2 ml-1">'+
+            '   <p>'+data["MESSAGE"]+'</p>'+
             '</div>'+
             '</div>'
         )
