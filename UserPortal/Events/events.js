@@ -198,7 +198,7 @@ $(document).ready(function(){
         $("#locations").empty()
         $.each(locations, function( index, value ){
             vote_num = (all_votes[value]) ? all_votes[value] : 0
-            vote_num =  (my_votes.includes(value)) ? vote_num + '<i class="fa fa-check" aria-hidden="true" style="font-size:0.7em;"></i> ' : vote_num
+            vote_num =  (my_votes.includes(value)) ? vote_num + ' <i class="fa fa-check" aria-hidden="true" style="font-size:0.7em;"></i> ' : vote_num
             $("#locations").append('<li>'+value+' - '+vote_num+'</li>')
         });
 
@@ -249,7 +249,15 @@ $(document).ready(function(){
             $.fn.event_locations()+
             $.fn.locations_box()+
             voting_input+
-            '<div class="text-center"><button id="save" type="button" class="btn btn-secondary">Save</button></div>'
+            '<div class="row mb-3">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>'+
+            '    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center" >'+
+            '       <button id="save" type="button" class="btn btn-secondary">Save</button>'+
+            '       <button id="dl_event" type="button" class="btn btn-secondary delete">Delete</button>'+           
+            '    </div>'+
+            '</div>'
+
+
         )
     }
 
@@ -262,6 +270,10 @@ $(document).ready(function(){
         }else{
             $(".delete").hide();
         }
+
+        $("#dl_event").on("click", function(){
+            $("#trash").trigger("click");
+        })
 
         $("#save").on("click", function(){
             $.fn.get_users_votes();
@@ -713,7 +725,7 @@ $(document).ready(function(){
             $.fn.get_user_events();
             $("#new_event").on("click", function(){
                 $.fn.insert_new_event();
-                $.fn.get_user_events();
+                setTimeout(function() {$.fn.get_user_events();}, 200);               
             })
 
             $.fn.websocket_open_and_error();
@@ -725,8 +737,6 @@ $(document).ready(function(){
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
             })
-
-
 
             $("#vote").on("click", function(){
                 $.fn.vote_events()

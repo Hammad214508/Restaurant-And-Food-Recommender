@@ -43,7 +43,7 @@
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto text-left">
                             <h1>
                                 <i id="edit" class="fa fa-edit usr-icon"></i> 
-                                <i class="fa fa-trash usr-icon delete"  data-toggle="modal" data-target="#exampleModalCenter" style="font-size: 42px; display:none;" aria-hidden="true"></i>
+                                <i id="trash" class="fa fa-trash usr-icon delete"  data-toggle="modal" data-target="#exampleModalCenter" style="font-size: 42px; display:none;" aria-hidden="true"></i>
                             </h1>
                         </div>
                     </div>
@@ -54,6 +54,7 @@
                         <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1"><h5>Time:</h5></div>
                         <div id="display_time" class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                     </div>
+                    <hr>
 
                     
                     <div class="row mt-3">
@@ -62,6 +63,9 @@
                             <ul id="people_invited"></ul>
                         </div>
                     </div>
+                    <hr>
+
+
                     <div class="row">
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
                             <h5>Locations:</h5>
@@ -76,9 +80,11 @@
                              <p style="font-size:12px;" class="ml-4">Number of Votes Allowed: <span id="display_num_votes"></span></p> 
                         </div>
                     </div>
+                    <hr>
+
                     <div class="row" id="rec_rest_row">
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
-                            <h5>Recommended:</h5>
+                            <h5>Recommended Places:</h5>
                             <ul id="recommended_rest"></ul>
                         </div>
                     </div>

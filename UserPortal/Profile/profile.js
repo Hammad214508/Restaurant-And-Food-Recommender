@@ -75,9 +75,13 @@ $(document).ready(function(){
 
         $("#create_group").on("click", function(){
             $("#my_net").trigger('click');
-            $("#connections").addClass("show_border")
-            $(".user_rm").hide();
-            $(".crt_group").show();
+            setTimeout(function() {
+                $("#connections").addClass("show_border")
+                $(".user_rm").hide();
+                $(".crt_group").show();}
+                , 200);               
+
+            
 
         })
 
