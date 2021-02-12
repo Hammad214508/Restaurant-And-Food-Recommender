@@ -100,10 +100,7 @@ def get_data_to_recommend(parameters):
                AND F.FILLING_RATING BETWEEN %s AND %s
                """+available_query+"""
                """
-
                
-
-
   mycursor.execute(sql, parameters)
 
   return mycursor.fetchall()

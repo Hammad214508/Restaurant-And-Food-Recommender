@@ -64,14 +64,22 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
-                            <h5>Locations: <i id="vote" class="fa fa-envelope-o usr-icon" aria-hidden="true"></i></h5>
+                            <h5>Locations:</h5>
                             <ul id="locations"></ul>
                         </div>
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1"> 
+                            <span style="font-size: 0.5em;">Vote</span><i id="vote" class="fa fa-envelope-o usr-icon" aria-hidden="true"></i>
+                        </div>
                     </div>
-
                     <div class="row" id="num_votes_row">
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
                              <p style="font-size:12px;" class="ml-4">Number of Votes Allowed: <span id="display_num_votes"></span></p> 
+                        </div>
+                    </div>
+                    <div class="row" id="rec_rest_row">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
+                            <h5>Recommended:</h5>
+                            <ul id="recommended_rest"></ul>
                         </div>
                     </div>
           

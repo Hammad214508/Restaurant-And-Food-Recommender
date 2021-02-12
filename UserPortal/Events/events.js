@@ -8,6 +8,9 @@ $(document).ready(function(){
     var is_creator = false;
     var my_votes = []
     var all_votes_list = [];
+    var websocket = new WebSocket("ws://127.0.0.1:6789/");  
+    var recommended_rest = [];
+
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -68,7 +71,6 @@ $(document).ready(function(){
         }else{
             $("#event_"+current_event).trigger("click");
             setTimeout(function(){ $("#edit").trigger("click");}, 50);
-
         }
 
         
@@ -175,6 +177,8 @@ $(document).ready(function(){
             all_votes[a[i]] = b[i]
         }
 
+        $.fn.get_group_recommedations([data["IDS"]])
+
 
         $("#display_name").empty()
         $("#display_name").append('<h1>'+data["EVENT_NAME"]+'</h1>')
@@ -194,7 +198,7 @@ $(document).ready(function(){
         $("#locations").empty()
         $.each(locations, function( index, value ){
             vote_num = (all_votes[value]) ? all_votes[value] : 0
-            value = (my_votes.includes(value)) ? "<strong>"+value+"</strong>": value
+            vote_num =  (my_votes.includes(value)) ? vote_num + '<i class="fa fa-check" aria-hidden="true" style="font-size:0.7em;"></i> ' : vote_num
             $("#locations").append('<li>'+value+' - '+vote_num+'</li>')
         });
 
@@ -521,7 +525,6 @@ $(document).ready(function(){
     }
 
 
-
     $.fn.locations_box = function(){
         return (
             '<div class="row mb-3">'+
@@ -547,7 +550,6 @@ $(document).ready(function(){
 
         )
     }
-
   
 
     $.fn.get_current_date = function(){
@@ -626,17 +628,96 @@ $(document).ready(function(){
          });
     }
 
+    $.fn.vote_events = function(){
+        $("#locations").empty()
+        $.each(locations, function( index, value ){
+            var checked = (my_votes.includes(value)) ? "checked" : "";
+            $("#locations").append('<input class="location_checkbox" type="checkbox" value='+value.replace(/\s+/g, '_')+' '+checked+'> '+value+'</input><br>')
+         
+        });
+
+        $("#locations").append(
+            '<button id="submit_vote" type="button" class="btn btn-sm btn-secondary mt-2">Vote</button>'
+        )
+
+        $("#submit_vote").on("click", function(){
+            var votes = [];
+            $('input:checkbox.location_checkbox').each(function () {
+                if (this.checked){
+                    votes.push($(this).val().replace(/_/g, ' '))
+                }
+           });
+            $.fn.update_users_vote(votes);
+        })
+
+        $(".location_checkbox").on("change", function(){
+            if ($('input[type=checkbox]:checked').length > vote_count) {
+                $(this).prop('checked', false);
+            }
+        })
+
+        $(".location_checkbox").on("change", function(){
+            if ($('input[type=checkbox]:checked').length > vote_count) {
+                $(this).prop('checked', false);
+            }
+        })
+    }
+
+    $.fn.get_group_recommedations = function(users){
+        websocket.send(
+            JSON.stringify(
+                {
+                    action: 'group_recommender',
+                    "users": users,
+                }));
+    }
+
+    $.fn.websocket_response = function(){
+        websocket.onmessage = function (event) {
+            data = JSON.parse(event.data);
+            recommended_rest = [];
+            if (data.type == "recommended_items"){
+                $("#recommended_rest").empty()
+                if (data["recommended"][1].length > 0){
+                    $.each(data["recommended"][0] , function(index, val) { 
+                        if (index < 4){
+                            $("#recommended_rest").append("<li>"+val["NAME"]+"</li>")
+                        }
+                    });
+                    
+                }else{
+                    $("#rec_rest_row").hide();
+                }   
+            }
+            else{
+                $("#error").html("<b>ERROR GETTING RESTAURANT RECOMMENDATIONS!</b>");
+                $.fn.temporary_show("#error");        
+            }
+        };
+    }
+
+    $.fn.websocket_open_and_error = function(){
+
+        websocket.onerror = function(error) {
+            $("#error").html("<b>ERROR WITH WEBSOCKET SERVER</b>");
+            $.fn.temporary_show("#error");    
+        };
+    }
+
 
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
             $.fn.activate_nav_bar()
             user_id = $("#inp_hdn_uid").val();
-            $.fn.get_user_events()
+            $.fn.get_user_events();
             $("#new_event").on("click", function(){
                 $.fn.insert_new_event();
                 $.fn.get_user_events();
             })
+
+            $.fn.websocket_open_and_error();
+            $.fn.websocket_response();
 
             $("#delete_event").on("click", function(){
                 $.fn.delete_event();
@@ -645,40 +726,10 @@ $(document).ready(function(){
                 $('.modal-backdrop').remove();
             })
 
+
+
             $("#vote").on("click", function(){
-                $("#locations").empty()
-                $.each(locations, function( index, value ){
-                    var checked = (my_votes.includes(value)) ? "checked" : "";
-                    $("#locations").append('<input class="location_checkbox" type="checkbox" value='+value.replace(/\s+/g, '_')+' '+checked+'> '+value+'</input><br>')
-                 
-                });
-
-                $("#locations").append(
-                    '<button id="submit_vote" type="button" class="btn btn-sm btn-secondary mt-2">Vote</button>'
-                )
-
-                
-                $("#submit_vote").on("click", function(){
-                    var votes = [];
-                    $('input:checkbox.location_checkbox').each(function () {
-                        if (this.checked){
-                            votes.push($(this).val().replace(/_/g, ' '))
-                        }
-                   });
-                    $.fn.update_users_vote(votes);
-                })
-
-                $(".location_checkbox").on("change", function(){
-                    if ($('input[type=checkbox]:checked').length > vote_count) {
-                        $(this).prop('checked', false);
-                    }
-                })
-
-                $(".location_checkbox").on("change", function(){
-                    if ($('input[type=checkbox]:checked').length > vote_count) {
-                        $(this).prop('checked', false);
-                    }
-                })
+                $.fn.vote_events()
                
             })
 
