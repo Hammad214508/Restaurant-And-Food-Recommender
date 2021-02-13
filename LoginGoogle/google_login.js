@@ -43,12 +43,12 @@ $(document).ready(function(){
            success:function(data) {
               data = JSON.parse(data);
               if (!data.success){
-                   alert("ERROR VERYFYING");
+                   alert("ERROR VERIFYING");
               }else{
                   data = data.dataset
                   if (data[0][0]["VALID"]){
                       if (user_type == "USER"){
-                        window.open("/Restaurant-And-Food-Recommender/UserPortal/Profile", "_self");
+                        window.open("/Restaurant-And-Food-Recommender/UserPortal/InitialTraining", "_self");
                       }else{
                         window.open("/Restaurant-And-Food-Recommender/ManagerPortal/", "_self");
                       }

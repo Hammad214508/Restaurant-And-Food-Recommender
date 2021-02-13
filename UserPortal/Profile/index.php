@@ -8,6 +8,7 @@
     if(!$_SESSION["logged_in"][0][0]["USER_ID"]){
         header('location: /Restaurant-And-Food-Recommender/Login/User/user_login.php');
     }
+
     ?>
 
     <div class="container" >

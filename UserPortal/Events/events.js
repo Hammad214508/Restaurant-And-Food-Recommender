@@ -31,14 +31,19 @@ $(document).ready(function(){
                      $("#error").html("<b>ERROR GETTING USER EVENTS!</b>");
                      $.fn.temporary_show("#error");
                  }else{
-                     data = data.dataset[0];
-                     if (data.length > 0){
-                        $.fn.render_user_events(data)
-                        $.fn.user_events_events();
+                    //  console.log(data)
+                    if (data.dataset.length > 0){
+                        data = data.dataset[0];
+                        if (data.length > 0){
+                           $("#event_div").show();
+                           $.fn.render_user_events(data)
+                           $.fn.user_events_events();
+                        }
                      }else{
                         parent = $("#user_events")
                         parent.empty();
                         parent.append("<h5>You have no upcoming events</h5>")
+                        $("#event_div").hide();
                      }  
                  }
              }

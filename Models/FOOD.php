@@ -139,4 +139,19 @@ class FOOD {
         return $conn->perform_transaction($query, $args);
     }
 
+    public function get_random_items(){
+
+        $conn = new Connector();
+
+        $query = "SELECT F.FOOD_ID, F.NAME, F.DESCRIPTION, IM.IMAGE_NAME
+                  FROM FOOD F
+                  LEFT JOIN IMAGES IM ON F.FOOD_ID = ENTITY_ID
+                                         AND ENTITY_TYPE = 'FOOD'
+                  ORDER BY RAND()
+                  LIMIT 5;";
+
+        return $conn->get_binded_data($query, array());
+    }
+    
+
 }

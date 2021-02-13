@@ -78,6 +78,21 @@ class USER {
 	}
 
 
+	public function initial_training_done($args){
+
+		$conn = new Connector();
+
+		$query = "UPDATE USER
+				  SET INITIAL_TRAINING = 'true'
+				  WHERE USER_ID = :USER_ID;";
+
+		return $conn->perform_transaction($query, $args);
+	}
+
+
+	
+
+
 
 
 

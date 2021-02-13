@@ -5,6 +5,7 @@
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/NOTIFICATIONS.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/USER.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/EVENTS.php');
+    include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/RATINGS.php');
 
     
     $actionmode = isset($_POST['actionmode']) ? $_POST['actionmode'] : NULL;
@@ -175,8 +176,6 @@
         $form_data = get_users_votes($args);
     }
 
-    
-
     if($actionmode == "update_users_vote"){
         $args["VOTES"] = isset($_POST['VOTES']) ? $_POST['VOTES'] : NULL;
         $args["EVENT_ID"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
@@ -185,6 +184,24 @@
         $form_data = update_users_vote($args);
     }
     
+    if($actionmode == "get_random_items"){
+        
+        $form_data = get_random_items();
+    }
+
+    if($actionmode == "add_rating"){
+        $args["FOOD_ID"] = isset($_POST['FOOD_ID']) ? $_POST['FOOD_ID'] : NULL;;
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;;
+        $args["RATING"] = isset($_POST['RATING']) ? $_POST['RATING'] : NULL;;
+         
+        $form_data = add_rating($args);
+    }
+
+    if($actionmode == "initial_training_done"){
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;;
+         
+        $form_data = initial_training_done($args);
+    }
 
 
     echo json_encode($form_data);
@@ -299,18 +316,22 @@
         return $EVENTS -> update_users_vote($args);
     }
     
+    function get_random_items(){
+        $FOOD = new FOOD();
+        return $FOOD -> get_random_items();
+    }
 
+
+    function add_rating($args){
+        $RATINGS = new RATINGS();
+        return $RATINGS -> add_rating($args);
+    }
+
+    function initial_training_done($args){
+        $USER = new USER();
+        return $USER -> initial_training_done($args);
+    }
     
-
     
-
     
-
-    
-
-
-
-
-
-
 ?>

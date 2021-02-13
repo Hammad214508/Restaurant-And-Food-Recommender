@@ -34,8 +34,8 @@
 
             </div>
 
-            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                <div id="display_event_container" class="" style="padding: 0px 100px 100px 100px;">
+            <div id="event_div" class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                <div id="display_event_container" style="padding: 0px 100px 100px 100px;">
                     <div class="row">
                         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-xs-9"> 
                             <div id="display_name"></div>

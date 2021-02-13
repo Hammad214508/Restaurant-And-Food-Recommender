@@ -95,8 +95,6 @@ $(document).ready(function(){
 
     };
 
-
-    
     $.fn.render_food_stats  = function(){
         $("#stats").append(
             "<p>Rating: "+rating+"<p>"+

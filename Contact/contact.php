@@ -20,6 +20,7 @@
             <p>Contact us from here</p>
         </div>
     </div>
+    
     <div class="container" >
         <div class="col-md-5 mb-5 text-center" style="float: none; margin: 0 auto; border:1px solid black;  background-color:#e9ecef;">
             <h3 class="mt-3 text-center mb-3" style="font-size: 30px;"> Contact Form</h3>
