@@ -36,33 +36,37 @@
     <div class="container-fluid text-center">
         <h4>Estimate the ratings as per your preferences: </h4>
         <p id="count"> </p>
-        <div class="col-md-5 mb-5 text-center show_border" style="float: none; margin: 0 auto;">
-            
-            <h5 id="name"></h5>
-            <img id="image" src="" width="150px" height="150px" class="img-thumbnail" alt="Food item image"> 
-            <p id="description"></p>
+        <div class="col-md-5 mb-5 text-center" style="float: none; margin: 0 auto; ">
+            <div class="show_border" style="padding: 50px 50px 50px 50px;">
+                <h3 id="name"></h3>
+                <div style="height:250px; display: inline-block;">
+                    <img id="image" src="" class="img-thumbnail food_img" alt="Food item image"> 
+                </div>
+                <strong ><p id="description" class="mt-2"></p></strong>
 
-            <div class="text-center" style="margin: 0 auto;">
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12"></div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                        <div class="rating ml-4">
-                            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
-                            <label for="star5" >☆</label>
-                            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
-                            <label for="star4" >☆</label>
-                            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
-                            <label for="star3" >☆</label>
-                            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
-                            <label for="star2" >☆</label>
-                            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
-                            <label for="star1" >☆</label>
-                            <div class="clear"></div>
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12"></div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div class="rating">
+                                <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+                                <label for="star5" >☆</label>
+                                <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                                <label for="star4" >☆</label>
+                                <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                                <label for="star3" >☆</label>
+                                <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                                <label for="star2" >☆</label>
+                                <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                                <label for="star1" >☆</label>
+                                <div class="clear"></div>
+                            </div>
                         </div>
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12"></div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12"></div>
                 </div>
             </div>
+
 
 
         </div>

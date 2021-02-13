@@ -114,6 +114,7 @@ $(document).ready(function(){
             }
             var id = food_items[i]["FOOD_ID"];
             var name = food_items[i]["NAME"];
+            name = name.charAt(0).toUpperCase() + name.slice(1)
             var price = food_items[i]["PRICE"];
             var diet = $.fn.get_diet_type(food_items[i]["DIET_TYPE"]);
             var healthy_rating = food_items[i]["HEALTHY_RATING"]

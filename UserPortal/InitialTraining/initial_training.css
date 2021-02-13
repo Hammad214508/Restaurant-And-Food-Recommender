@@ -3,41 +3,43 @@
     display: none;
     }
 
-    .clear {
-    float: none;
-    clear: both;
-    }
+.clear {
+float: none;
+clear: both;
+}
 
-    .rating {
-        width: 90px;
-        unicode-bidi: bidi-override;
-        direction: rtl;
-    }
+.rating {
+    width:190px;
+    font-size:1.7rem;
 
-    .rating > label {
-        float: right;
-        display: inline;
-        padding: 0;
-        margin: 0;
-        position: relative;
-        width: 1.1em;
-        cursor: pointer;
-        color: #000;
-    }
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
 
-    .rating > label:hover,
-    .rating > label:hover ~ label,
-    .rating > input.radio-btn:checked ~ label {
-        color: transparent;
-    }
+.rating > label {
+    float: right;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.2em;
+    cursor: pointer;
+    color: #000;
+}
 
-    .rating > label:hover:before,
-    .rating > label:hover ~ label:before,
-    .rating > input.radio-btn:checked ~ label:before,
-    .rating > input.radio-btn:checked ~ label:before {
-        content: "\2605";
-        position: absolute;
-        left: 0;
-        color: #FFD700;
-    }
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+}
     

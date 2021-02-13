@@ -54,8 +54,10 @@ $(document).ready(function(){
         parent = $("#user_events")
         parent.empty();
         $.each(events , function(index, val) { 
+            var name = val["EVENT_NAME"].charAt(0).toUpperCase() + val["EVENT_NAME"].slice(1)
+
             parent.append(
-            '<div id="event_'+val["EVENT_ID"]+'" class="list-group-item list-group-item-dark" ref="'+val["EVENT_ID"]+'">'+val["EVENT_NAME"]+'</div>'
+            '<div id="event_'+val["EVENT_ID"]+'" class="list-group-item list-group-item-dark" ref="'+val["EVENT_ID"]+'">'+name+'</div>'
             )
         });
     }
@@ -186,7 +188,9 @@ $(document).ready(function(){
 
 
         $("#display_name").empty()
-        $("#display_name").append('<h1>'+data["EVENT_NAME"]+'</h1>')
+        var name = data["EVENT_NAME"].charAt(0).toUpperCase() + data["EVENT_NAME"].slice(1)
+
+        $("#display_name").append('<h1>'+name+'</h1>')
 
         $("#display_num_votes").html(data["NUM_VOTES"])
         

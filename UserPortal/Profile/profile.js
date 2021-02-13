@@ -9,8 +9,9 @@ $(document).ready(function(){
     var users_data = {};
     var name = $("#user_name").html()
     name = name.split(" ")
+    console.log(name)
     var titles = {};
-    titles["my_prof"] = [name[1] +" "+ name[3], "Manage your profile here"]
+    titles["my_prof"] = [name[1] +" "+ name[2], "Manage your profile here"]
     titles["my_net"] = ["Connections", "Manage your connections here"]
     titles["find"] = ["People", "Connect with people here"]
     titles["requests"] = ["Requests", "Manage your connections requests here"]
