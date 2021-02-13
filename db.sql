@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 13, 2021 at 05:54 PM
+-- Generation Time: Feb 13, 2021 at 10:31 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -138,7 +138,7 @@ CREATE TABLE `EVENT_USERS` (
 INSERT INTO `EVENT_USERS` (`ID`, `EVENT_ID`, `USER_ID`, `VOTES`) VALUES
 (13, 13, 1, NULL),
 (15, 14, 1, NULL),
-(48, 36, 1, 'Uni'),
+(48, 36, 1, 'Pizza hut'),
 (49, 37, 1, 'A'),
 (51, 36, 2, NULL),
 (74, 53, 1, 'A,D'),
@@ -173,12 +173,12 @@ CREATE TABLE `FOOD` (
 --
 
 INSERT INTO `FOOD` (`FOOD_ID`, `NAME`, `PRICE`, `DESCRIPTION`, `RESTAURANT_ID`, `AVAILABLE`, `DIET_TYPE`, `HEALTHY_RATING`, `FILLING_RATING`, `AVG_RATING`) VALUES
-(1, 'Pizza1', 12, 'Nice Pizza', 1, 'false', '1', 2.75, 2.3, 2.55),
+(1, 'Pizza', 12, 'Nice Pizza', 1, 'false', '1', 2.75, 2.3, 2.55),
 (2, 'cake', 19, 'good cake', 1, 'true', '2', 3.7, 1.8, 1),
 (3, 'Ice cream ', 1, 'This is ice cream description', 2, 'true', '3', 4.8, 2.9, 3),
 (4, 'Chips', 1.5, 'Nice chips', 1, 'true', '1', 2, 3.25, 2),
 (5, 'Burrito', 12, 'I don\'t know', 2, 'true', '1', 5, 1.5, 4),
-(6, 'banana', 100, 'big banana', 4, 'false', '1', 5, 1, 0);
+(6, 'banana', 100, 'big banana', 4, 'false', '2', 5, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -217,7 +217,8 @@ INSERT INTO `FOOD_REVIEWS` (`REVIEW_ID`, `FOOD_ID`, `USER_ID`, `RATING`, `REVIEW
 (13, 1, 1, 2.5, '', 2.5, 2.5),
 (14, 1, 1, 2.5, '', NULL, NULL),
 (15, 1, 1, 2.5, '', NULL, NULL),
-(16, 1, 1, 2.25, 'fa', NULL, NULL);
+(16, 1, 1, 2.25, 'fa', NULL, NULL),
+(17, 2, 1, 0.75, 'Very big cake, but I don\'t like it', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -227,6 +228,7 @@ INSERT INTO `FOOD_REVIEWS` (`REVIEW_ID`, `FOOD_ID`, `USER_ID`, `RATING`, `REVIEW
 
 DROP TABLE IF EXISTS `IMAGES`;
 CREATE TABLE `IMAGES` (
+  `IMAGE_ID` int(10) NOT NULL,
   `ENTITY_ID` int(10) NOT NULL,
   `ENTITY_TYPE` varchar(250) NOT NULL,
   `IMAGE_NAME` varchar(250) NOT NULL
@@ -236,8 +238,13 @@ CREATE TABLE `IMAGES` (
 -- Dumping data for table `IMAGES`
 --
 
-INSERT INTO `IMAGES` (`ENTITY_ID`, `ENTITY_TYPE`, `IMAGE_NAME`) VALUES
-(1, 'FOOD', 'pizza.jpg');
+INSERT INTO `IMAGES` (`IMAGE_ID`, `ENTITY_ID`, `ENTITY_TYPE`, `IMAGE_NAME`) VALUES
+(1, 1, 'FOOD', 'pizza.jpg'),
+(2, 2, 'FOOD', 'cake.jpg'),
+(3, 6, 'FOOD', 'banana.jpg'),
+(4, 3, 'FOOD', 'ice_cream.jpg'),
+(5, 4, 'FOOD', 'chips.jpg'),
+(6, 5, 'FOOD', 'burrito.jpg');
 
 -- --------------------------------------------------------
 
@@ -578,7 +585,40 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (269, 1, 6, 3),
 (270, 1, 5, 4),
 (271, 1, 3, 2),
-(272, 1, 1, 4);
+(272, 1, 1, 4),
+(273, 2, 2, 2),
+(274, 2, 4, 3),
+(275, 2, 6, 4),
+(276, 2, 3, 1),
+(277, 2, 5, 4),
+(278, 5, 6, 3),
+(279, 5, 4, 1),
+(280, 5, 5, 5),
+(281, 5, 1, 2),
+(282, 5, 2, 5),
+(283, 1, 2, 1),
+(284, 9, 5, 2),
+(285, 9, 4, 3),
+(286, 9, 6, 4),
+(287, 9, 6, 2),
+(288, 9, 1, 4),
+(289, 9, 4, 5),
+(290, 9, 5, 3),
+(291, 9, 3, 3),
+(292, 9, 2, 1),
+(293, 9, 6, 4),
+(294, 9, 6, 2),
+(295, 9, 1, 3),
+(296, 9, 5, 2),
+(297, 9, 2, 3),
+(298, 9, 4, 4),
+(299, 9, 1, 2),
+(300, 9, 3, 3),
+(301, 6, 2, 3),
+(302, 6, 5, 5),
+(303, 6, 6, 2),
+(304, 6, 1, 3),
+(305, 6, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -605,7 +645,7 @@ CREATE TABLE `RESTAURANT` (
 --
 
 INSERT INTO `RESTAURANT` (`RESTAURANT_ID`, `NAME`, `EMAIL`, `NUMBER`, `ADDRESS`, `WEBSITE`, `RATING`, `OPENING_TIME`, `CLOSING_TIME`, `MANAGER_ID`) VALUES
-(1, 'My Restaurant', 'my@email', '07776846506', 'London', 'https://hammadmehmood.co.uk', 2.96, '08:00:00', '22:00:00', 1),
+(1, 'My Restaurant', 'my@email', '07776846506', 'London', 'https://hammadmehmood.co.uk', 2.83, '08:00:00', '22:00:00', 1),
 (2, 'Magan\'s restaurant', 'maganrestaurant@email', '1245647', 'Wembley', 'https://jaydipmagan.com/', 4.1, '02:00:00', '05:30:00', 2),
 (3, 'Anjali\'s restaurant', '', '', '', '', 3.8, '12:00:00', '05:30:00', 3),
 (4, 'Hammad restaurant ', 'hammad@email ', '80796567890', 'jhfkda;f', 'jdfkllfda', 1.69, '08:00:00', '22:00:00', 4);
@@ -633,15 +673,15 @@ CREATE TABLE `USER` (
 --
 
 INSERT INTO `USER` (`USER_ID`, `NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `GOOGLE_LOGIN`, `DIET_TYPE`, `INITIAL_TRAINING`) VALUES
-(1, 'Hammad ', 'Muhammad', 'hammadmuhammad15@gmail.com', NULL, 'true', 1, 'true'),
-(2, 'Aiza', 'Khan', 'aiza@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1, 'false'),
+(1, 'Hammad', 'Muhammad', 'hammadmuhammad15@gmail.com', NULL, 'true', 1, 'true'),
+(2, 'Aiza', 'Khan', 'aiza@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1, 'true'),
 (3, 'Harsh', 'Patel', 'harsh_user@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1, 'false'),
 (4, 'Jaydip', 'Magan', 'magan@email.com', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 2, 'false'),
-(5, 'Anjali', 'Shukla', 'anjali@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3, 'false'),
-(6, 'Bhargav', 'Talluri', 'bhargav@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3, 'false'),
+(5, 'Anjali', 'Shukla', 'anjali@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3, 'true'),
+(6, 'Bhargav', 'Talluri', 'bhargav@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3, 'true'),
 (7, 'Shanelie', 'Fernandez', 'shanelie@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 2, 'false'),
 (8, 'Hardik', 'Poptani', 'hardik@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1, 'false'),
-(9, 'Nikhil', 'Difficult', 'nikhil@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3, 'false'),
+(9, 'Nikhil', 'Difficult', 'nikhil@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3, 'true'),
 (10, 'Dhruva', 'Konidena', 'dhruva@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1, 'false');
 
 --
@@ -683,6 +723,12 @@ ALTER TABLE `FOOD`
 --
 ALTER TABLE `FOOD_REVIEWS`
   ADD PRIMARY KEY (`REVIEW_ID`);
+
+--
+-- Indexes for table `IMAGES`
+--
+ALTER TABLE `IMAGES`
+  ADD PRIMARY KEY (`IMAGE_ID`);
 
 --
 -- Indexes for table `MANAGER`
@@ -729,19 +775,19 @@ ALTER TABLE `CONNECTIONS`
 -- AUTO_INCREMENT for table `EVENTS`
 --
 ALTER TABLE `EVENTS`
-  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `EVENT_LOCATIONS`
 --
 ALTER TABLE `EVENT_LOCATIONS`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `EVENT_USERS`
 --
 ALTER TABLE `EVENT_USERS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `FOOD`
@@ -753,7 +799,13 @@ ALTER TABLE `FOOD`
 -- AUTO_INCREMENT for table `FOOD_REVIEWS`
 --
 ALTER TABLE `FOOD_REVIEWS`
-  MODIFY `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `IMAGES`
+--
+ALTER TABLE `IMAGES`
+  MODIFY `IMAGE_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `MANAGER`
@@ -771,7 +823,7 @@ ALTER TABLE `NOTIFICATIONS`
 -- AUTO_INCREMENT for table `RATINGS`
 --
 ALTER TABLE `RATINGS`
-  MODIFY `RATING_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
+  MODIFY `RATING_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=306;
 
 --
 -- AUTO_INCREMENT for table `RESTAURANT`
