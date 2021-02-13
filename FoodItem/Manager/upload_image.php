@@ -32,7 +32,9 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     $error = true;
 
 }
+
 if (!($error)){
+
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
         $form_data  = array("success" => true, "dataset" => $_FILES["file"]["name"]);
     } else {

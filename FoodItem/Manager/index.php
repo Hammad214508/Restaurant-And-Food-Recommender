@@ -39,8 +39,8 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<img src="https://placehold.it/80x80" id="preview" class="img-thumbnail" style="display:none;">
-							<img id="image" src="" style="display:none;">
+							<img src="https://placehold.it/80x80" id="preview" class="img-thumbnail food_img" style="display:none;">
+							<img id="image" src="" style="display:none;" class="food_img">
 						</div>
 						<div class="form-group">
 							<input id="upload" type="submit" name="submit" value="Upload" class="btn btn-primary" style="display:none;">

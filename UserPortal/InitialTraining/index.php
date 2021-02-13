@@ -1,6 +1,8 @@
 <head>
     <title>Training</title>
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
+    <link rel="stylesheet" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/InitialTraining/initial_training.css">
+
 </head>
 <body>
     <?php
@@ -17,52 +19,6 @@
     }
 
     ?>
-
-    <style>
-
-        .hide {
-        display: none;
-        }
-
-        .clear {
-        float: none;
-        clear: both;
-        }
-
-        .rating {
-            width: 90px;
-            unicode-bidi: bidi-override;
-            direction: rtl;
-        }
-
-        .rating > label {
-            float: right;
-            display: inline;
-            padding: 0;
-            margin: 0;
-            position: relative;
-            width: 1.1em;
-            cursor: pointer;
-            color: #000;
-        }
-
-        .rating > label:hover,
-        .rating > label:hover ~ label,
-        .rating > input.radio-btn:checked ~ label {
-            color: transparent;
-        }
-
-        .rating > label:hover:before,
-        .rating > label:hover ~ label:before,
-        .rating > input.radio-btn:checked ~ label:before,
-        .rating > input.radio-btn:checked ~ label:before {
-            content: "\2605";
-            position: absolute;
-            left: 0;
-            color: #FFD700;
-        }
-
-    </style>
 
     <div class="container">
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>

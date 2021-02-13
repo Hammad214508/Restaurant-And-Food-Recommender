@@ -21,18 +21,18 @@
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
     </div>
 
-    <div class="container">
+    <div class="container mb-5">
 
         <div class="container mt-5">
 			<div class="row">
-				<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+				<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5" style="border-right: 0.5px solid grey;">
 					<h1 id="food_name"></h1>
 					<div id="image_div">
 						<div id="msg" style="display:none;"></div>
 						<form method="post" id="image-form" enctype="multipart/form-data" onSubmit="return false;">
 							<div class="mb-3">
-								<img src="https://placehold.it/80x80" id="preview" class="img-thumbnail" style="display:none;">
-								<img id="image" src="" style="display:none;">
+							<img id="image" src="" class="img-thumbnail food_img" style="display:none"> 
+
 							</div>
 						</form>
 					</div>
@@ -74,7 +74,7 @@
 					<h3 class="mt-3">Statistics</h3>
 					<div id="stats"></div>
 				</div>
-				<div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7"> 
+				<div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7 "> 
 					
 					<div class="container">
 						<div id="reviews_container">

@@ -96,3 +96,11 @@
 .underline:hover {
     text-decoration: underline;
 }
+
+.food_img {
+    display: block;
+    max-width:250px;
+    max-height:250px;
+    width: auto;
+    height: auto;
+  }
