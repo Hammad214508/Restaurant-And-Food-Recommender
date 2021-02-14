@@ -4,6 +4,8 @@ $(document).ready(function(){
     var name, surname;
     var healthy_rating, filling_rating, rating;
     var extra_filters = false;
+    var rest_lat, rest_long;
+    var min_distance = 100; //metres
 
     $.fn.get_food_item_by_id = function(){
         $.ajax({
@@ -25,6 +27,8 @@ $(document).ready(function(){
                         healthy_rating = data[0][0]["HEALTHY_RATING"];
                         filling_rating = data[0][0]["FILLING_RATING"];
                         rating = data[0][0]["AVG_RATING"];
+                        rest_lat = data[0][0]["LATITUDE"]
+                        rest_long = data[0][0]["LONGITUDE"]
                         $.fn.render_food_item(data[0][0]);
                   }
               }
@@ -120,6 +124,54 @@ $(document).ready(function(){
     $.fn.get_percentage = function(rating){
         return Math.ceil(((rating/5)*100)/10)*10;
     }
+     
+    $.fn.getLocation = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(checkPosition);
+        } else {
+            $("#error").html("<b>ERROR GETTING LOCATION!</b>");
+            $.fn.temporary_show("#error");
+            $.fn.disable_review_giver();
+        }
+    }
+
+    function checkPosition(position) {
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude; 
+        var distance = $.fn.calcCrow(latitude, longitude, rest_lat, rest_long)
+        if (distance > min_distance){
+            $.fn.disable_review_giver();
+        }
+    }
+
+    $.fn.calcCrow = function(lat1, lon1, lat2, lon2) {
+      var R = 6371000; // m
+      var dLat = $.fn.toRad(lat2-lat1);
+      var dLon = $.fn.toRad(lon2-lon1);
+      var lat1 = $.fn.toRad(lat1);
+      var lat2 = $.fn.toRad(lat2);
+
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      return d;
+    }
+
+    // Converts numeric degrees to radians
+    $.fn.toRad = function(Value) {
+        return Value * Math.PI / 180;
+    }
+
+    $.fn.disable_review_giver = function(){
+        $("#give_review_div").addClass("blur");
+        $("#rating_slider").prop("disabled", true);
+        $("#review_txt").prop("disabled", true);
+        $("#submit_review").prop("disabled", true);
+        $("#review_disable_msg").show();
+        $("#min_dist").html(min_distance);
+        
+    }
 
     $.fn.give_review_events = function(){
         $('#rating_value').html($('#rating_slider').val());
@@ -186,9 +238,7 @@ $(document).ready(function(){
                     data["REVIEW"] = $("#review_txt").val()
                     parent.append($.fn.get_food_review_html(data));
                     $.fn.add_score($.fn.get_percentage($('#rating_slider').val()), $("#stars_"+data["REVIEW_ID"]))
-                    $("#rating_slider").prop("disabled", true);
-                    $("#review_txt").prop("disabled", true);
-                    $("#submit_review").prop("disabled", true);
+                    $.fn.disable_review_giver()
                }
            }
          });
@@ -228,9 +278,10 @@ $(document).ready(function(){
             user_id = $("#inp_hdn_uid").length > 0 ? $("#inp_hdn_uid").val() : "";
             $.fn.get_food_item_by_id();
             $.fn.get_image_name();
-            $.fn.render_food_stats()
+            $.fn.render_food_stats();
             $.fn.get_food_reviews();
-            $.fn.give_review_events()
+            $.fn.give_review_events();
+            $.fn.getLocation();
 
         };
         return thispage;

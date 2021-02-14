@@ -79,11 +79,13 @@
 					<div class="container">
 						<div id="reviews_container">
 							<h3>REVIEWS</h3>
-							<div id="reviews" style="height:25em; overflow-y: scroll;"></div>
+							<div id="reviews" style="height:20em; overflow-y: scroll;"></div>
 						</div>
 					</div>
 
-					<div class="container mt-5">
+					<h5 id="review_disable_msg"  class="text-info mt-5 ml-3" style="display:none"> Need to be within <span id="min_dist"></span>m to leave a review</h5>
+
+					<div id="give_review_div" class="container mt-5">
 						<div id="review_form">
 							<h3>GIVE REVIEW</h3>
 							<div id="rating_div">
@@ -91,8 +93,6 @@
 								<input id="rating_slider" class="border-0" type="range" min="0" max="5" step="0.25"/>
 								<span id="rating_value" class="font-weight-bold text-secondary"></span>
 							</div>
-							<!-- <p>Filling Rating:</p>
-							<p>Healthy Rating:</p> -->
 							<div id="review_msg_div">
 								<p>Review:</p> 
 								<textarea id="review_txt" rows="4" cols="50"></textarea>

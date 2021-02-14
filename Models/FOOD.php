@@ -56,7 +56,7 @@ class FOOD {
 
         $conn = new Connector();
 
-        $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, F.AVG_RATING, R.NAME AS RESTAURANT_NAME
+        $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, F.AVG_RATING, R.NAME AS RESTAURANT_NAME, R.LATITUDE, R.LONGITUDE
                   FROM FOOD F
                   INNER JOIN RESTAURANT R ON F.RESTAURANT_ID = R.RESTAURANT_ID
                   WHERE FOOD_ID = :FOOD_ID;";
@@ -78,7 +78,6 @@ class FOOD {
                         AND NOW() BETWEEN R.OPENING_TIME AND R.CLOSING_TIME";
         }
 
-
         if ($args["FILLING_RATING"]){
             $query .= " AND F.FILLING_RATING BETWEEN ".($args['FILLING_RATING']-1)." AND ".($args['FILLING_RATING']+1);
         }
@@ -95,7 +94,6 @@ class FOOD {
             $query .= " ORDER BY AVG_RATING DESC";
         }
 
-
         if ($args["SORTING"] == "reviews"){
 
             $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, F.AVG_RATING, R.NAME AS RESTAURANT_NAME, COUNT(F.FOOD_ID) AS NUM_REVIEWS
@@ -105,7 +103,6 @@ class FOOD {
                       GROUP BY F.FOOD_ID
                       ORDER BY NUM_REVIEWS DESC";
         }
-
 
         return $conn->get_binded_data($query, $args);
     }
@@ -132,9 +129,6 @@ class FOOD {
                                        FROM FOOD_REVIEWS FR
                                        WHERE FR.FOOD_ID = :FOOD_ID2)
                   WHERE F.FOOD_ID = :FOOD_ID3;";
-
-        
-
 
         return $conn->perform_transaction($query, $args);
     }
