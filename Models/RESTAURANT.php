@@ -36,7 +36,9 @@ class RESTAURANT {
                     ADDRESS = :ADDRESS,
                     WEBSITE = :WEBSITE,
                     OPENING_TIME = :OPENING_TIME,
-                    CLOSING_TIME = :CLOSING_TIME
+                    CLOSING_TIME = :CLOSING_TIME,
+                    LATITUDE = :LATITUDE,
+                    LONGITUDE = :LONGITUDE
                   WHERE MANAGER_ID = :MANAGER_ID;";
 
         return $conn->perform_transaction($query, $args);

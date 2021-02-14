@@ -28,6 +28,9 @@
         $args["OPENING_TIME"] = isset($_POST['OPENING_TIME']) ? date('H:i:s', strtotime($_POST['OPENING_TIME'])) : NULL;
         $args["CLOSING_TIME"] = isset($_POST['CLOSING_TIME']) ? date('H:i:s', strtotime($_POST['CLOSING_TIME'])) : NULL;
         $args["MANAGER_ID"] = $_SESSION["logged_in"][0][0]["MANAGER_ID"];
+        
+        $args["LATITUDE"] = isset($_POST['LATITUDE']) && $_POST['LATITUDE'] != ""  ? $_POST['LATITUDE'] : NULL;
+        $args["LONGITUDE"] = isset($_POST['LONGITUDE']) && $_POST['LONGITUDE'] != "" ? $_POST['LONGITUDE'] : NULL;
 
         $form_data = update_restaurant($args);
     }

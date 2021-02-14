@@ -54,7 +54,8 @@ $(document).ready(function(){
             $.fn.rest_data_input("website", "Restaurant Website:", "Your Restaurant's Website" )+
             $.fn.rest_time_picker("open_time", "Opening Time:", "Opening Time")+
             $.fn.rest_time_picker("close_time", "Closing Time:", "Closing Time")+
-            $.fn.save_button("save_rest_data")
+            $.fn.location_checkbox()+
+            $.fn.location_picker()          
         )
     }
 
@@ -72,15 +73,14 @@ $(document).ready(function(){
         $("#contact").val(data["NUMBER"]);
         $("#address").val(data["ADDRESS"]);
         $("#website").val(data["WEBSITE"]);
+        $("#latitude").val(data["LATITUDE"])
+        $("#longitude").val(data["LONGITUDE"])
+
 
         $(".icon").hide();
 
         $(".rest_data").on("change", function(){
             $.fn.update_restaurant($(this).attr("id"));
-        });
-
-        $("#save_rest_data").on("click", function(){
-            $.fn.temporary_show("#icons_save_rest_data #tick");
         });
 
         $('#open_time').timepicker();
@@ -93,6 +93,81 @@ $(document).ready(function(){
         $('#close_time').timepicker('setTime', $.fn.string_time_to_date(data["CLOSING_TIME"]));
 
 
+        var map = document.getElementById('map');
+
+        navigator.geolocation.getCurrentPosition(function(position){
+            lat = position.coords.latitude;
+            lon = position.coords.longitude;
+            var lp = new locationPicker(map, {
+                setCurrentPosition: true,
+                lat: $("#latitude").val() ? $("#latitude").val() : lat,
+                lng:  $("#longitude").val() ?  $("#longitude").val() : lon
+              }, {
+                zoom: 15
+              });
+            
+            $("#confirmPosition").on("click", function(){
+                var location = lp.getMarkerPosition();
+                $("#latitude").val(location.lat)
+                $("#longitude").val(location.lng)
+                $.fn.update_restaurant($(this).attr("id"))
+            })
+          
+        })
+
+        if (data["LATITUDE"]){
+            $("#loc_checkbox").prop('checked', true)
+        }
+
+        if ($("#loc_checkbox").prop('checked')){
+            $(".loc").show();
+        }else{
+            $(".loc").hide();
+        }
+
+        $("#loc_checkbox").on("change", function(){
+            if ($(this).prop('checked')){
+                $(".loc").show();
+            }else{
+                $(".loc").hide();
+                $("#latitude").val("")
+                $("#longitude").val("")
+                $.fn.update_restaurant("confirmPosition")
+            }
+        })
+    }
+
+    $.fn.location_picker = function(){
+        return (
+        '<div class="row mt-3 loc" style="display:none">'+
+        '    <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-xs-11">'+
+        '        <div id="map" class="show_border mb-2 " style="width: 650px;  height:300px; position: relative; overflow: hidden;"></div>'+
+        '           <div class="row">'+
+        '               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-xs-3">'+
+        '                   <button id="confirmPosition" type="button" class="btn btn-secondary">Confirm</button>'+
+        '               </div>'+
+                        $.fn.transaction_icons("confirmPosition")+
+        '           </div>'+
+        '         </div>'+
+        '        <input id="latitude" style="display:none">'+
+        '        <input id="longitude" style="display:none">'+
+        '    </div>'+
+        '</div>'
+        )
+    }
+
+    $.fn.location_checkbox = function(){
+        return (
+            '<div class="row">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-2 col-xs-2 my-auto">'+
+            '       Specify location'+
+            '   </div>'+
+            '    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2">'+
+            '       <input id="loc_checkbox" class="form-control" type="checkbox">'+
+            '   </div>'+
+            '</div>'
+        )
+        
     }
 
 
@@ -111,7 +186,9 @@ $(document).ready(function(){
                    "ADDRESS"       : $("#address").val(),
                    "WEBSITE"       : $("#website").val(),
                    "OPENING_TIME"  : $("#open_time").val(),
-                   "CLOSING_TIME"  : $("#close_time").val()
+                   "CLOSING_TIME"  : $("#close_time").val(),
+                   "LATITUDE"      : $("#latitude").val(),
+                   "LONGITUDE"     : $("#longitude").val()
                },
            success:function(data) {
               $(".icon").hide();
@@ -146,18 +223,6 @@ $(document).ready(function(){
               }
             }
         });
-    }
-
-    $.fn.save_button = function(id){
-        return (
-            '<div class="row" id="row_'+id+'">'+
-            '    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>'+
-            '    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">'+
-            '        <button id="'+id+'" type="button" class="btn btn-secondary btn-lg">Save</button>'+
-            '    </div>'+
-                 $.fn.transaction_icons(id)+
-            '</div>'
-        )
     }
 
     $.fn.rest_data_input = function(id, label, placeholder){
