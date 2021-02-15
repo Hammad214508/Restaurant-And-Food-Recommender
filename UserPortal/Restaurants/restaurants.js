@@ -81,42 +81,14 @@ $(document).ready(function(){
     }
 
 
-    $.fn.get_distance = function(rest_lat, rest_long) {
+    $.fn.get_location = function() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position){
-                $.fn.checkPosition(position, rest_lat, rest_long);
-            });
+            navigator.geolocation.getCurrentPosition(function(position){});
         } else {
             $("#error").html("<b>ERROR GETTING LOCATION!</b>");
             $.fn.temporary_show("#error");
         }
     }
-
-    $.fn.checkPosition = function(position, rest_lat, rest_long) {
-        user_lat = position.coords.latitude;
-        user_lon = position.coords.longitude; 
-        
-        $.fn.calcCrow(user_lat, user_lon, rest_lat, rest_long)
-    }
-
-
-    $.fn.calcCrow = function(lat1, lon1, lat2, lon2) {
-        var R = 6371000; // m
-        var dLat = $.fn.toRad(lat2-lat1);
-        var dLon = $.fn.toRad(lon2-lon1);
-        var lat1 = $.fn.toRad(lat1);
-        var lat2 = $.fn.toRad(lat2);
-        var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-        var d = R * c;
-        return d;
-      }
-  
-      // Converts numeric degrees to radians
-      $.fn.toRad = function(Value) {
-          return Value * Math.PI / 180;
-      }
-
 
     $.fn.get_restaurant_box = function(name, email, number, address, rating, opens, closes, i){
         var template = (
@@ -269,6 +241,7 @@ $(document).ready(function(){
             $.fn.activate_nav_bar();
             $.fn.get_all_restaurants();
             $.fn.restaurant_filter_events();
+            $.fn.get_location()
 
             $("#get_recom").on("click", function(){
                 $("#normal_restaurants_page").hide();
