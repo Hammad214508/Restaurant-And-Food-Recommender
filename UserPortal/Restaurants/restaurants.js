@@ -2,11 +2,13 @@ $(document).ready(function(){
     var user_id;
     var rest_search = "";
     var sorting = "none";
+    var distance = -1;
     var open = false;
     var r_open = false;
-    var websocket = new WebSocket("ws://127.0.0.1:6789/");  
+    var websocket = new WebSocket("ws://127.0.0.1:6789/"); 
+    var user_lat, user_lon;
+    var distances = {1 : 786, 2: 1000, 3: 173, 4: 123, 5: 9823};
 
-    
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
         $("#nav-restaurants").addClass("active");
@@ -45,8 +47,10 @@ $(document).ready(function(){
         var num_restaurants = restaurants.length;
         var parent = $("#restaurants_container");
         parent.empty();
+        var count = 0;
+
         for(var i = 0; i < num_restaurants; i++){
-            if (i % 3 == 0){
+            if (count % 3 == 0){
                 var row = $("<div class='row'>");
                 parent.append(row);
             }
@@ -57,12 +61,62 @@ $(document).ready(function(){
             rating = restaurants[i]["RATING"]
             opens = $.fn.formatAMPM($.fn.string_time_to_date(restaurants[i]["OPENING_TIME"]));
             closes = $.fn.formatAMPM($.fn.string_time_to_date(restaurants[i]["CLOSING_TIME"]));
+            rest_lat = restaurants[i]["LATITUDE"]
+            rest_long = restaurants[i]["LONGITUDE"]
 
-            var proj = $.fn.get_restaurant_box(name, email, number, address, rating, opens, closes, i);
-            row.append(proj);
+            if (distance != -1){
+                if (distances[restaurants[i]["RESTAURANT_ID"]] < distance){
+                    var proj = $.fn.get_restaurant_box(name, email, number, address, rating, opens, closes, i);
+                    row.append(proj);
+                    count =+ 1
+                }
+            }else{
+                var proj = $.fn.get_restaurant_box(name, email, number, address, rating, opens, closes, i);
+                row.append(proj);
+                count =+ 1
+            }
+     
         }
         $.fn.add_event();
     }
+
+
+    $.fn.get_distance = function(rest_lat, rest_long) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position){
+                $.fn.checkPosition(position, rest_lat, rest_long);
+            });
+        } else {
+            $("#error").html("<b>ERROR GETTING LOCATION!</b>");
+            $.fn.temporary_show("#error");
+        }
+    }
+
+    $.fn.checkPosition = function(position, rest_lat, rest_long) {
+        user_lat = position.coords.latitude;
+        user_lon = position.coords.longitude; 
+        
+        $.fn.calcCrow(user_lat, user_lon, rest_lat, rest_long)
+    }
+
+
+    $.fn.calcCrow = function(lat1, lon1, lat2, lon2) {
+        var R = 6371000; // m
+        var dLat = $.fn.toRad(lat2-lat1);
+        var dLon = $.fn.toRad(lon2-lon1);
+        var lat1 = $.fn.toRad(lat1);
+        var lat2 = $.fn.toRad(lat2);
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c;
+        return d;
+      }
+  
+      // Converts numeric degrees to radians
+      $.fn.toRad = function(Value) {
+          return Value * Math.PI / 180;
+      }
+
 
     $.fn.get_restaurant_box = function(name, email, number, address, rating, opens, closes, i){
         var template = (
@@ -82,11 +136,6 @@ $(document).ready(function(){
     }
 
     $.fn.add_event = function(){
-        // $('.white-box').on('click',function() {
-        //     if ($(this).attr('href') != "undefined"){
-        //         window.location.href = $(this).attr('href');
-        //     }
-        // })
         $('.grey-box').hover(function(){
           $(this).css("background-color", "grey");
           }, function(){
@@ -110,6 +159,12 @@ $(document).ready(function(){
         // Sorting 
         $("#sorting").on("change", function(){
             sorting = $(this).val();
+            $.fn.get_all_restaurants();
+        }); 
+
+        // Distance 
+        $("#distance").on("change", function(){
+            distance = $(this).val();
             $.fn.get_all_restaurants();
         }); 
     };
