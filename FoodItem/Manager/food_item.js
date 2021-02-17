@@ -20,7 +20,6 @@ $(document).ready(function(){
               }else{
                     data = data.dataset
                     if (data.length > 0){
-                        console.log("assigning")
                         healthy_rating = data[0][0]["HEALTHY_RATING"];
                         filling_rating = data[0][0]["FILLING_RATING"];
                         rating = data[0][0]["AVG_RATING"];
@@ -97,7 +96,7 @@ $(document).ready(function(){
     $.fn.new_food_form = function(){
         return (
             '<div class="row mt-4">'+
-                '<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
+                '<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-10">'+
                     $.fn.new_food_input("food_name_inp", "Name:", "Food Name" )+
                     $.fn.new_food_input("food_price", "Price:", "Food Price" )+
                     '<div class="row">'+
@@ -127,7 +126,6 @@ $(document).ready(function(){
                     // '   <i id="save_tick" class="fa fa-check icon" style="font-size:2em;color:green; display:none;"></i>'+
                     // '</div>'+
                 '</div>'+
-                '<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>'+
             '</div>'
         );
     }
@@ -205,10 +203,14 @@ $(document).ready(function(){
 
     $.fn.render_food_stats  = function(){
         $("#stats").append(
-            "<p>Rating: "+rating+"<p>"+
-            "<p>Healthy: "+healthy_rating+"<p>"+
-            "<p>Filling: "+filling_rating+"<p>"
+            "<p>Rating: "+rating+" | <span id='rating1'></span><p>"+
+            "<p>Healthy: "+healthy_rating+" | <span id='health_rating1'></span><p>"+
+            "<p>Filling: "+filling_rating+" | <span id='filling_rating1'></span><p>"
         )
+        $.fn.add_score($.fn.get_percentage(rating), $("#rating1"))
+        $.fn.add_score($.fn.get_percentage(healthy_rating), $("#health_rating1"))
+        $.fn.add_score($.fn.get_percentage(filling_rating), $("#filling_rating1"))
+
     }
 
     $.fn.render_food_reviews  = function(reviews){
@@ -330,7 +332,6 @@ $(document).ready(function(){
             $.fn.image_upload();
             $.fn.get_image_name();
             $.fn.render_food_stats()
-            // $.fn.get_food_stats();
             $.fn.get_food_reviews();
 
 

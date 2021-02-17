@@ -39,7 +39,7 @@
 					<div id="food_data">
 						<div class="row">
 							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
-								<strong>Price:</strong>
+								<p><strong>Price:</strong></p>
 							</div>
 							<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">
 								<p id="price"></p>
@@ -47,7 +47,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
-								<strong>Description:</strong>
+								<p><strong>Description:</strong></p>
 							</div>
 							<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">
 								<p id="description"></p>
@@ -55,7 +55,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
-								<strong>Diet Type:</strong>
+								<p><strong>Diet Type:</strong></p>
 							</div>
 							<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
 								<p id="diet_type"></p>
@@ -63,7 +63,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
-								<strong>Restaurant:</strong>
+								<p><strong>Restaurant:</strong></p>
 							</div>
 							<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
 								<p id="restaurant"></p>

@@ -313,7 +313,7 @@ $(document).ready(function(){
             '<table class="table table-striped table-bordered">'+
             '   <thead class="thead-dark">'+
             '       <tr>'+
-            '       <th> Food Name </th>'+
+            '       <th> Name </th>'+
             '       <th> Price </th>'+
             '       <th> Description </th>'+
             '       <th> Available </th>'+
@@ -561,7 +561,7 @@ $(document).ready(function(){
             '<table class="table table-striped table-bordered">'+
             '   <thead class="thead-dark">'+
             '       <tr>'+
-            '       <th> Food Name </th>'+
+            '       <th> Name </th>'+
             '       <th> Price </th>'+
             '       <th> Description </th>'+
             '       </tr>'+

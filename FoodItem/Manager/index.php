@@ -21,12 +21,10 @@
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
     </div>
 
-	<div class="container">
-
-		<div class="row">
-			<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
-				<h1 id="food_name"></h1>
-				<div class="ml-2">
+	<div class="container-fluid">
+		<div class="row ml-2">
+			<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5" style="border-right: 0.5px solid grey;">
+				<h3 id="food_name"></h3>
 					<div id="msg" style="display:none;"></div>
 					<form method="post" id="image-form" enctype="multipart/form-data" onSubmit="return false;">
 						<div class="form-group" style="width:17em">
@@ -42,39 +40,26 @@
 							<img src="https://placehold.it/80x80" id="preview" class="img-thumbnail food_img" style="display:none;">
 							<img id="image" src="" style="display:none;" class="food_img">
 						</div>
-						<div class="form-group">
-							<input id="upload" type="submit" name="submit" value="Upload" class="btn btn-primary" style="display:none;">
+						<div class="form-group" >
+							<input id="upload" type="submit" name="submit" value="Upload" class="btn btn-secondary" style="display:none;">
 						</div>
 					</form>
-				</div>
-			</div>
 
-			<div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7">
-				<h2>Details</h2>
+				<h3 class="mt-5">Details</h3>
 				<div id="food_item_data"></div>
-
-
 			</div>
-		</div>
-	</div>
-	
-	<div class="container">
-		<div class="row">
-			<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 ml-3">
 				<h3>Statistics</h3>
 				<div id="stats"></div>
-			</div>
-			<div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7">
-				<div id="reviews_container">
-					<h3>REVIEWS</h3>
+
+				<div id="reviews_container" class="mt-5">
+					<h3>Reviews</h3>
 					<div id="reviews" style="height:25em; overflow-y: scroll;"></div>
 				</div>
 			</div>
-
 		</div>
 	</div>
-
-
 	
 
 </body>

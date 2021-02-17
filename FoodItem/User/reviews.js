@@ -139,11 +139,13 @@ $(document).ready(function(){
     }
 
     function checkPosition(position) {
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude; 
-        var distance = $.fn.calcCrow(latitude, longitude, rest_lat, rest_long)
-        if (distance > min_distance){
-            $.fn.disable_review_giver();
+        if (rest_lat){
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude; 
+            var distance = $.fn.calcCrow(latitude, longitude, rest_lat, rest_long)
+            if (distance > min_distance){
+                $.fn.disable_review_giver();
+            }
         }
     }
 
