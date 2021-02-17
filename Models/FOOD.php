@@ -68,9 +68,11 @@ class FOOD {
 
         $conn = new Connector();
 
-        $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, F.AVG_RATING, R.NAME AS RESTAURANT_NAME
+        $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, F.AVG_RATING, R.NAME AS RESTAURANT_NAME, IM.IMAGE_NAME
                   FROM FOOD F
                   INNER JOIN RESTAURANT R ON F.RESTAURANT_ID = R.RESTAURANT_ID
+                  LEFT JOIN IMAGES IM ON F.FOOD_ID = ENTITY_ID
+                                         AND ENTITY_TYPE = 'FOOD'
                   WHERE LOWER(F.NAME) LIKE '%".$args["SEARCH"]."%'";
 
         if ($args["AVAILABLE"]){
@@ -96,10 +98,12 @@ class FOOD {
 
         if ($args["SORTING"] == "reviews"){
 
-            $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, F.AVG_RATING, R.NAME AS RESTAURANT_NAME, COUNT(F.FOOD_ID) AS NUM_REVIEWS
-                      FROM FOOD F, RATINGS RT, RESTAURANT R
-                        WHERE R.RESTAURANT_ID = F.RESTAURANT_ID
-                        AND F.FOOD_ID = RT.FOOD_ID
+            $query = "SELECT F.FOOD_ID, F.NAME, F.PRICE, F.DESCRIPTION, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING, F.AVG_RATING, R.NAME AS RESTAURANT_NAME, COUNT(F.FOOD_ID) AS NUM_REVIEWS, IM.IMAGE_NAME
+                      FROM RATINGS RT, RESTAURANT R, FOOD F
+                      LEFT JOIN IMAGES IM ON F.FOOD_ID = IM.ENTITY_ID
+                                          AND IM.ENTITY_TYPE = 'FOOD'
+                      WHERE R.RESTAURANT_ID = F.RESTAURANT_ID  
+                            AND F.FOOD_ID = RT.FOOD_ID
                       GROUP BY F.FOOD_ID
                       ORDER BY NUM_REVIEWS DESC";
         }

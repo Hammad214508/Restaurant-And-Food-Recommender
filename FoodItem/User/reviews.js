@@ -99,19 +99,25 @@ $(document).ready(function(){
 
     };
 
+
     $.fn.render_food_stats  = function(){
         $("#stats").append(
-            "<p>Rating: "+rating+"<p>"+
-            "<p>Healthy: "+healthy_rating+"<p>"+
-            "<p>Filling: "+filling_rating+"<p>"
+            "<p id='overall_rating'><strong>Rating:</strong> "+rating+" | <p>"+
+            "<p id='healthy_rating'><strong>Healthy:</strong> "+healthy_rating+" | <p>"+
+            "<p id='filling_rating'><strong>Filling:</strong> "+filling_rating+" | <p>"
         )
+
+        $.fn.add_score($.fn.get_percentage(rating), $("#overall_rating"));
+        $.fn.add_score($.fn.get_percentage(healthy_rating), $("#healthy_rating"));
+        $.fn.add_score($.fn.get_percentage(filling_rating), $("#filling_rating"));
+
+
     }
 
     $.fn.render_food_reviews  = function(reviews){
         var parent = $("#reviews");
         parent.empty();
-        parent.append('<hr style="height:2px;border-width:0;color:gray;background-color:gray">'
-        )
+        parent.append('<hr style="height:2px;border-width:0;color:gray;background-color:gray">')
         $.each(reviews, function(index, value ) {
             if (value["REVIEW"]){
                 parent.append($.fn.get_food_review_html(value));
@@ -121,9 +127,6 @@ $(document).ready(function(){
         })
     }
 
-    $.fn.get_percentage = function(rating){
-        return Math.ceil(((rating/5)*100)/10)*10;
-    }
      
     $.fn.getLocation = function() {
         if (navigator.geolocation) {
@@ -242,6 +245,10 @@ $(document).ready(function(){
                }
            }
          });
+    }
+
+    $.fn.get_percentage = function(rating){
+        return Math.ceil(((rating/5)*100)/10)*10;
     }
 
     $.fn.add_score = function(score, element){

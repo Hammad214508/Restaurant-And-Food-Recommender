@@ -68,11 +68,13 @@ $(document).ready(function(){
                 if (distances[restaurants[i]["RESTAURANT_ID"]] < distance){
                     var proj = $.fn.get_restaurant_box(name, email, number, address, rating, opens, closes, i);
                     row.append(proj);
+                    $.fn.add_score($.fn.get_percentage(rating), $("#restaurant_"+i+" .rest_rating"))
                     count =+ 1
                 }
             }else{
                 var proj = $.fn.get_restaurant_box(name, email, number, address, rating, opens, closes, i);
                 row.append(proj);
+                $.fn.add_score($.fn.get_percentage(rating), $("#restaurant_"+i+" .rest_rating"))
                 count =+ 1
             }
      
@@ -80,6 +82,17 @@ $(document).ready(function(){
         $.fn.add_event();
     }
 
+    $.fn.get_percentage = function(rating){
+        return Math.ceil(((rating/5)*100)/10)*10;
+    }
+
+    $.fn.add_score = function(score, element){
+        element.empty()
+        $("<span class='stars-container1'>")
+        .addClass("stars-" + score.toString())
+        .text("★★★★★")
+        .appendTo(element);
+    }
 
     $.fn.get_location = function() {
         if (navigator.geolocation) {
@@ -98,9 +111,9 @@ $(document).ready(function(){
             "      <p><b>Email:</b> "+email+"</p>"+
             "      <p><b>Number:</b> "+number+"</p>"+
             "      <p><b>Address:</b> "+address+"</p>"+
-            "      <p><b>Rating:</b> "+rating+"</p>"+
-            "      <div class=\"times\">"+
-            "          <p><b>Open:</b> "+opens+" - "+closes+"</p>"+
+            "      <p><b>Rating:</b> "+rating+" | <span class='rest_rating'></span></p>"+
+            "      <div class=\"times p-2\">"+
+            "          <b>Open:</b> "+opens+" - "+closes+
             "      </div>"+
             "  </div>"+
             "</div>");
@@ -109,8 +122,8 @@ $(document).ready(function(){
 
     $.fn.add_event = function(){
         $('.grey-box').hover(function(){
-          $(this).css("background-color", "grey");
-          }, function(){
+            $(this).css("background-color", "#A0A0A0");
+        }, function(){
           $(this).css("background-color", "#DCDCDC");
         });
     };
@@ -181,6 +194,8 @@ $(document).ready(function(){
 
             var proj = $.fn.get_restaurant_box(name, email, number, address, rating, opens, closes, i);
             row.append(proj);
+            $.fn.add_score($.fn.get_percentage(rating), $("#restaurant_"+i+" .rest_rating"))
+
             i += 1;
         }
         $.fn.add_event();

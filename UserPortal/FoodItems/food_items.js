@@ -123,6 +123,8 @@ $(document).ready(function(){
             var restaurant_name = food_items[i]["RESTAURANT_NAME"]
             var proj = $.fn.get_food_item_box(id, name, price, diet, healthy_rating, filling_rating, rating, restaurant_name);
             row.append(proj);
+            $.fn.add_score($.fn.get_percentage(rating), $("#food_item_"+id+" .overall_rating"))
+
         }
         $.fn.add_event();
     }
@@ -131,19 +133,20 @@ $(document).ready(function(){
         var template = (
             "<div id='food_item_"+id+"' ref="+id+" class=\"col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12 bottom-buffer\">"+
             "  <div class=\"grey-box\" ref="+id+">" +
-            "      <h3>"+name+"</h3>"+
-            "      <p><b>Price:</b> "+price+"</p>"+
+            "      <div class='mb-3'><h3 style='display: inline;' class='mb-2'>"+name+"</h3> <span style='float:right' class='overall_rating'></span></div>"+
+            "      <p ><b>Price:</b> "+price+"</p>"+
             "      <p><b>Diet:</b> "+diet+"</p>"+
             "      <p><b>Healthy:</b> "+healthy_rating+"</p>"+
             "      <p><b>Filling:</b> "+filling_rating+"</p>"+
-            "      <p><b>Overall Rating:</b> "+rating+"</p>"+
-            "      <div class=\"times align-items-end\">"+
-            "          <p><b>Restaurant: </b>"+restaurant_name+" </p>"+
+            // "      <p class='overall_rating'><b>Overall Rating:</b> "+rating+" | </p>"+
+            "      <div class=\"times p-2\">"+
+            "          <b>Restaurant: </b>"+restaurant_name+
             "      </div>"+
             "  </div>"+
             "</div>");
         return $(template);
     }
+    // style='color:#8b0000;'
 
     $.fn.add_event = function(){
         $('.grey-box').on('click',function() {
@@ -153,7 +156,7 @@ $(document).ready(function(){
         });
 
         $('.grey-box').hover(function(){
-          $(this).css("background-color", "grey");
+          $(this).css("background-color", "#A0A0A0");
           }, function(){
           $(this).css("background-color", "#DCDCDC");
         });
@@ -342,10 +345,23 @@ $(document).ready(function(){
             var restaurant_name = recommended[item]["REST_NAME"]
             var proj = $.fn.get_food_item_box(id, name, price, diet, healthy_rating, filling_rating, rating, restaurant_name);
             row.append(proj);
+            $.fn.add_score($.fn.get_percentage(rating), $("#food_item_"+id+" .overall_rating"))
             i++;
         }); 
  
         $.fn.add_event();
+    }
+
+    $.fn.get_percentage = function(rating){
+        return Math.ceil(((rating/5)*100)/10)*10;
+    }
+
+    $.fn.add_score = function(score, element){
+        element.empty()
+        $("<span class='stars-container1'>")
+        .addClass("stars-" + score.toString())
+        .text("★★★★★")
+        .appendTo(element);
     }
 
     var pageready = (function(){
