@@ -2,7 +2,11 @@
   <div class="container-fluid">
 
     <div class="navbar-header">
-      <a class="navbar-brand" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/index.php">Online Food Order</a>
+      <a class="navbar-brand" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/index.php">
+      <!-- Online Food Order -->
+      <img style="max-width:100px; margin-top: -7px;" src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/logo.png">
+      </a>
+     
     </div>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,8 +15,8 @@
 
     <div id="main-menu" class="collapse navbar-collapse">
         <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0">
-            <li id="nav-home" class="nav-item active"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/index.php">Home</a></li>
-            <li id="nav-about" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/About/about.php">About</a></li>
+            <!-- <li id="nav-home" class="nav-item active"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/index.php">Home</a></li> -->
+            <!-- <li id="nav-about" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/About/about.php">About</a></li> -->
             <li id="nav-contact" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Contact/contact.php">Contact</a></li>
         </ul>
 

@@ -244,7 +244,12 @@ $(document).ready(function(){
                     data["REVIEW"] = $("#review_txt").val()
                     parent.append($.fn.get_food_review_html(data));
                     $.fn.add_score($.fn.get_percentage($('#rating_slider').val()), $("#stars_"+data["REVIEW_ID"]))
-                    $.fn.disable_review_giver()
+                    $("#rating_slider").prop("disabled", true);
+                    $("#review_txt").prop("disabled", true);
+                    $("#submit_review").prop("disabled", true);
+                    $("#more").prop("disabled", true);
+
+                    
                }
            }
          });
