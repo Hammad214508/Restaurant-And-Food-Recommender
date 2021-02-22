@@ -54,7 +54,8 @@ $(document).ready(function(){
                   if (data.length > 0){
                       $.fn.render_food_reviews(data[0]);
                   }else{
-                      $("#reviews").append("<h5>No reviews to show!</h5>")
+                      $("#reviews").hide();
+                      $("#no_reviews").show();
                   }
               }
           }

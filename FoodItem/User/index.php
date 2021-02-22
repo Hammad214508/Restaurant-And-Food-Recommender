@@ -46,8 +46,8 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">
-								<p><strong>Description:</strong></p>
+							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
+								<p><strong>Description: </strong></p>
 							</div>
 							<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">
 								<p id="description"></p>
@@ -80,6 +80,7 @@
 						<div id="reviews_container">
 							<h3>REVIEWS</h3>
 							<div id="reviews" style="height:20em; overflow-y: scroll;"></div>
+							<h5 id="no_reviews" style="display:none;">No reviews to show!</h5>
 						</div>
 					</div>
 

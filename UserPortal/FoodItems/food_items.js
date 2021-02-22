@@ -280,7 +280,7 @@ $(document).ready(function(){
 
     $.fn.recommended_filter_events = function(){
         // Available Food items
-        $("#r_available").on("change", function(){
+        $("#r_available").off("change").on("change", function(){
             available = $(this).prop("checked");
             $.fn.get_recommended_food_items();
         });
@@ -288,11 +288,11 @@ $(document).ready(function(){
         // Healthy rating 
         $('#r_health_value').html($('#r_health_slider').val());
 
-        $('#r_health_slider').on('input', function(){
+        $('#r_health_slider').off("input").on('input', function(){
           $('#r_health_value').html($('#r_health_slider').val());
         });
 
-        $('#r_health_slider').on('change', function(){
+        $('#r_health_slider').off("change").on('change', function(){
             healthy_rating_filter = $('#r_health_slider').val();
             $.fn.get_recommended_food_items();
         });
@@ -300,26 +300,26 @@ $(document).ready(function(){
         // Filling rating
         $('#r_filling_value').html($('#r_filling_slider').val());
 
-        $('#r_filling_slider').on('input', function(){
+        $('#r_filling_slider').off("input").on('input', function(){
           $('#r_filling_value').html($('#r_filling_slider').val());
         });
 
-        $('#r_filling_slider').on('change', function(){
+        $('#r_filling_slider').off("change").on('change', function(){
             filling_rating_filter = $('#r_filling_slider').val();
             $.fn.get_recommended_food_items();
         });
 
         // Diet type
-        $("#r_diet_type").on("change", function(){
+        $("#r_diet_type").off("change").on("change", function(){
             diet_type_filter = $(this).val();
             $.fn.get_recommended_food_items();
         }); 
 
-        $("#r_more").click(function(){
+        $("#r_more").off("click").on("click",function(){
             $(".r_more_filters").slideToggle("slow");
          });
 
-         $("#r_reset").click(function(){
+         $("#r_reset").off("click").on("click",function(){
             $.fn.restart_recommended_filters();
             $.fn.get_recommended_food_items();
          });
