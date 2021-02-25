@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 22, 2021 at 09:12 PM
+-- Generation Time: Feb 25, 2021 at 09:46 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -133,7 +133,8 @@ INSERT INTO `EVENT_USERS` (`ID`, `EVENT_ID`, `USER_ID`, `VOTES`) VALUES
 (49, 37, 1, 'A'),
 (51, 36, 2, NULL),
 (93, 36, 5, NULL),
-(94, 37, 5, NULL);
+(94, 37, 5, NULL),
+(101, 37, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -351,10 +352,10 @@ INSERT INTO `FOOD` (`FOOD_ID`, `NAME`, `PRICE`, `DESCRIPTION`, `RESTAURANT_ID`, 
 DROP TABLE IF EXISTS `FOOD_REVIEWS`;
 CREATE TABLE `FOOD_REVIEWS` (
   `REVIEW_ID` int(10) NOT NULL,
-  `FOOD_ID` int(10) NOT NULL,
-  `USER_ID` int(10) NOT NULL,
+  `FOOD_ID` int(10) DEFAULT NULL,
+  `USER_ID` int(10) DEFAULT NULL,
   `RATING` float DEFAULT NULL,
-  `REVIEW` varchar(250) DEFAULT NULL,
+  `REVIEW` varchar(1000) DEFAULT NULL,
   `HEALTHY` float DEFAULT NULL,
   `FILLING` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -364,25 +365,60 @@ CREATE TABLE `FOOD_REVIEWS` (
 --
 
 INSERT INTO `FOOD_REVIEWS` (`REVIEW_ID`, `FOOD_ID`, `USER_ID`, `RATING`, `REVIEW`, `HEALTHY`, `FILLING`) VALUES
-(1, 1, 1, 1.7, 'I like the pizza', 4, 1.2),
-(2, 1, 2, 4.5, 'I  liked it', 2, 3),
-(3, 1, 1, 4.5, 'Good pizza', NULL, NULL),
-(4, 1, 1, 1, 'jfdkljafkdljak;fdafa', NULL, NULL),
-(5, 1, 1, 3, 'This is my rewview', NULL, NULL),
-(6, 1, 1, 2.5, '', NULL, NULL),
-(7, 1, 1, 1, '', NULL, NULL),
-(8, 1, 1, 0, '', NULL, NULL),
-(9, 1, 1, 0, '', NULL, NULL),
-(10, 1, 1, 1.5, '', NULL, NULL),
-(11, 1, 1, 2.5, '', NULL, NULL),
-(12, 1, 1, 2.5, '', 2.5, 2.5),
-(13, 1, 1, 2.5, '', 2.5, 2.5),
-(14, 1, 1, 2.5, '', NULL, NULL),
-(15, 1, 1, 2.5, '', NULL, NULL),
-(16, 1, 1, 2.25, 'fa', NULL, NULL),
-(17, 2, 1, 0.75, 'Very big cake, but I don\'t like it', NULL, NULL),
-(18, 1, 1, 3.75, 'Review test', NULL, NULL),
-(19, 71, 1, 2.5, 'I love this pizza', NULL, NULL);
+(1, 1, 8, 1.84, 'I like the pizza', 4, 1.2),
+(2, 1, 1, 0.6, 'Makes a tasty, super easy meal, fast. ', 2, 3),
+(3, 1, 3, 2.49, 'Good pizza', NULL, NULL),
+(4, 28, 11, 0.66, 'I started my cat on Felidae Platinum about 3 weeks ago and she loves it. She\"s an older cat, somewhat overweight, and had a grouchy temperament. I first mixed it with her previous food and she figured out which was which -- she ate the Felidae and left the old food! She\"s now been on just the Felidae for about ten days now, off the old food entirely, and she is a much sweeter, happier cat. I think it must agree with her better or be more easily digested, or something. In any case, I am a happy purchaser of Felidae. I don\"t agree with the previous reviewer that cats don\"t like it. Clearly, mine does.', NULL, NULL),
+(5, 4, 2, 0.82, 'Makes a tasty, super easy meal, fast. BUT high in calories.<br /><br />The instructions say to saute the veggies first but I recommend cooking the chicken first. The chicken takes longer to cook and the raw chicken ontop of veggies just makes a slimy mess. I made it with snow peas and carrots only. I dont like the little corn.  Added some red pepper flakes for heat and served ontop of rice.  It came out wonderful! Dinner on the table in less than 30mins.', NULL, NULL),
+(6, 24, 10, 2.13, 'Don\'t buy just a few of these!  I order these by the case.  I can\"t even remember the first time I tasted an anchovy stuffed olive but I have tried several of the brands online and this brand is my favorite.', NULL, NULL),
+(7, 20, 10, 3.2, 'Makes a tasty, super easy meal, fast. BUT high in calories.', NULL, NULL),
+(8, 28, 8, 4.6, 'I so wish I would have read this review before purchasing TWO gallons of this oil for my health issues. It reeks like a chemical rubber smell.', NULL, NULL),
+(9, 19, 11, 3.4, 'Kettle chips are thicker and crunchier (though greasier at times) than other chips, and the honey dijon flavor is great. ', NULL, NULL),
+(10, 9, 10, 3.18, 'Kettle chips are thicker and crunchier (though greasier at times) than other chips, and the honey dijon flavor is great. ', NULL, NULL),
+(11, 18, 2, 0.71, 'Kettle chips are thicker and crunchier (though greasier at times) than other chips, and the honey dijon flavor is great.  ', NULL, NULL),
+(12, 1, 3, 3.99, 'Makes a tasty, super easy meal, fast. BUT high in calories.', 2.5, 2.5),
+(13, 11, 10, 2.85, 'Makes a tasty, super easy meal, fast. BUT high in calories.', 2.5, 2.5),
+(14, 22, 6, 2.26, 'Makes a tasty, super easy meal, fast. BUT high in calories.', NULL, NULL),
+(15, 15, 9, 2.77, 'Makes a tasty, super easy meal, fast. BUT high in calories.', NULL, NULL),
+(16, 10, 7, 2.06, 'Makes a tasty, super easy meal, fast. BUT high in calories.', NULL, NULL),
+(17, 4, 6, 2, 'Very big cake, but I don\'t like it', NULL, NULL),
+(18, 22, 10, 3.81, 'Review test', NULL, NULL),
+(19, 1, 8, 3.03, 'I love this pizza', NULL, NULL),
+(20, 18, 9, 3.76, 'Makes a tasty, super easy meal, fast. BUT high in calories.<br /><br />The instructions say to saute the veggies first but I recommend cooking the chicken first. The chicken takes longer to cook and the raw chicken ontop of veggies just makes a slimy mess. I made it with snow peas and carrots only. I dont like the little corn.  Added some red pepper flakes for heat and served ontop of rice.  It came out wonderful! Dinner on the table in less than 30mins.', NULL, NULL),
+(21, 14, 9, 4.67, 'I like this', NULL, NULL),
+(22, 18, 6, 2.1, 'Makes a tasty, super easy meal, fast. BUT high in calories.<br /><br />The instructions say to saute the veggies first but I recommend cooking the chicken first. The chicken takes longer to cook and the raw chicken ontop of veggies just makes a slimy mess. I made it with snow peas and carrots only. I dont like the little corn.  Added some red pepper flakes for heat and served ontop of rice.  It came out wonderful! Dinner on the table in less than 30mins.', NULL, NULL),
+(23, 15, 2, 1.5, 'I have bought several of the Vitality canned dog food products and have found them all to be of good quality. The product looks more like a stew than a processed meat and it smells better. My Labrador is finicky and she appreciates this product better than  most.', NULL, NULL),
+(24, 21, 5, 1.17, 'Product arrived labeled as Jumbo Salted Peanuts...the peanuts were actually small sized unsalted. Not sure if this was an error or if the vendor intended to represent the product as \"Jumbo\".', NULL, NULL),
+(25, 28, 4, 1.37, 'This is a confection that has been around a few centuries.  It is a light, pillowy citrus gelatin with nuts - in this case Filberts. And it is cut into tiny squares and then liberally coated with powdered sugar. ', NULL, NULL),
+(26, 17, 8, 3.31, 'If you are looking for the secret ingredient in Robitussin I believe I have found it.  I got this in addition to the Root Beer Extract I ordered (which was good) and made some cherry soda.  The flavor is very medicinal.', NULL, NULL),
+(27, 3, 6, 2.47, 'Great taffy at a great price.  There was a wide assortment of yummy taffy.  Delivery was very quick.  If your a taffy lover, this is a deal.', NULL, NULL),
+(28, 23, 3, 2.4, 'I got a wild hair for taffy and ordered this five pound bag. The taffy was all very enjoyable with many flavors: watermelon, root beer, melon, peppermint, grape, etc. My only complaint is there was a bit too much red/black licorice-flavored pieces (just not my particular favorites). Between me, my kids, and my husband, this lasted only two weeks! I would recommend this brand of taffy -- it was a delightful treat.', NULL, NULL),
+(29, 13, 10, 4.61, 'This saltwater taffy had great flavors and was very soft and chewy.  Each candy was individually wrapped well.  None of the candies were stuck together, which did happen in the expensive version, Fralinger\"s.  Would highly recommend this candy!  I served it at a beach-themed party and everyone loved it!', NULL, NULL),
+(30, 28, 8, 0.82, 'This taffy is so good.  It is very soft and chewy.  The flavors are amazing.  I would definitely recommend you buying it.  Very satisfying!!', NULL, NULL),
+(31, 10, 10, 0.3, 'Right now I\"m mostly just sprouting this so my cats can eat the grass. They love it. I rotate it around with Wheatgrass and Rye too', NULL, NULL),
+(32, 25, 2, 4.01, 'This is a very healthy dog food. Good for their digestion. Also good for small puppies. My dog eats her required amount at every feeding.', NULL, NULL),
+(33, 3, 3, 4.18, 'I don\"t know if it\"s the cactus or the tequila or just the unique combination of ingredients, but the flavour of this hot sauce makes it one of a kind!  We picked up a bottle once on a trip we were on and brought it back home with us and were totally blown away!  When we realized that we simply couldn\"t find it anywhere in our city we were bummed.<br /><br />Now, because of the magic of the internet, we have a case of the sauce and are ecstatic because of it.<br /><br />If you love hot sauce..I mean really love hot sauce, but don\"t want a sauce that tastelessly burns your throat, grab a bottle of Tequila Picante Gourmet de Inclan.  Just realize that once you taste it, you will never want to use any other sauce.<br /><br />Thank you for the personal, incredible service!', NULL, NULL),
+(34, 29, 10, 3.88, 'One of my boys needed to lose some weight and the other didn\"t.  I put this food on the floor for the chubby guy, and the protein-rich, no by-product food up higher where only my skinny boy can jump.  The higher food sits going stale.  They both really go for this food.  And my chubby boy has been losing about an ounce a week.', NULL, NULL),
+(35, 17, 4, 1.83, 'My cats have been happily eating Felidae Platinum for more than two years. I just got a new bag and the shape of the food is different. They tried the new food when I first put it in their bowls and now the bowls sit full and the kitties will not touch the food. I\"ve noticed similar reviews related to formula changes in the past. Unfortunately, I now need to find a new food that my cats will eat.', NULL, NULL),
+(36, 29, 4, 2.52, 'good flavor! these came securely packed... they were fresh and delicious! i love these Twizzlers!', NULL, NULL),
+(37, 4, 5, 2.12, 'The Strawberry Twizzlers are my guilty pleasure - yummy. Six pounds will be around for a while with my son and I.', NULL, NULL),
+(38, 21, 3, 3.02, 'My daughter loves twizzlers and this shipment of six pounds really hit the spot. It\"s exactly what you would expect...six packages of strawberry twizzlers.', NULL, NULL),
+(39, 3, 8, 3.75, 'My daughter loves twizzlers and this shipment of six pounds really hit the spot. It\"s exactly what you would expect...six packages of strawberry twizzlers.', NULL, NULL),
+(40, 12, 1, 4.69, 'I love eating them and they are good for watching TV and looking at movies! It is not too sweet. I like to transfer them to a zip lock baggie so they stay fresh so I can take my time eating them.', NULL, NULL),
+(41, 19, 10, 2.21, 'I am very satisfied with my Twizzler purchase.  I shared these with others and we have all enjoyed them.  I will definitely be ordering more.', NULL, NULL),
+(42, 28, 5, 1.99, 'Twizzlers, Strawberry my childhood favorite candy, made in Lancaster Pennsylvania by Y & S Candies, Inc. one of the oldest confectionery Firms in the United States, now a Subsidiary of the Hershey Company, the Company was established in 1845 as Young and Smylie, they also make Apple Licorice Twists, Green Color and Blue Raspberry Licorice Twists, I like them all<br /><br />I keep it in a dry cool place because is not recommended it to put it in the fridge. According to the Guinness Book of Records, the longest Licorice Twist ever made measured 1.200 Feet (370 M) and weighted 100 Pounds (45 Kg) and was made by Y & S Candies, Inc. This Record-Breaking Twist became a Guinness World Record on July 19, 1998. This Product is Kosher! Thank You', NULL, NULL),
+(43, 23, 4, 3.29, 'Candy was delivered very fast and was purchased at a reasonable price.  I was home bound and unable to get to a store so this was perfect for me.', NULL, NULL),
+(44, 2, 5, 0.48, 'Best cake I have ever had', NULL, NULL),
+(45, 28, 11, 2.54, 'I bought these for my husband who is currently overseas. He loves these, and apparently his staff likes them also.<br />There are generous amounts of Twizzlers in each 16-ounce bag, and this was well worth the price. <a href=\"http://www.amazon.com/gp/product/B001GVISJM\">Twizzlers, Strawberry, 16-Ounce Bags (Pack of 6)</a>', NULL, NULL),
+(46, 16, 6, 1.28, 'I can remember buying this candy as a kid and the quality hasn\"t dropped in all these years. Still a superb product you won\"t be disappointed with.', NULL, NULL),
+(47, 24, 7, 3.76, 'I love this candy.  After weight watchers I had to cut back but still have a craving for it.', NULL, NULL),
+(48, 12, 7, 4.96, 'I have lived out of the US for over 7 yrs now, and I so miss my Twizzlers!!  When I go back to visit or someone visits me, I always stock up.  All I can say is YUM!<br />Sell these in Mexico and you will have a faithful buyer, more often than I\"m able to buy them right now.', NULL, NULL),
+(49, 15, 11, 3.51, 'Product received is as advertised.', NULL, NULL),
+(50, 12, 3, 2.66, 'The candy is just red , No flavor . Just  plan and chewy .  I would never buy them again', NULL, NULL),
+(51, 14, 3, 2.79, 'I was so glad Amazon carried these batteries.  I have a hard time finding them elsewhere because they are such a unique size.  I need them for my garage door opener.<br />Great deal for the price.', NULL, NULL),
+(52, 3, 6, 0.95, 'I got this for my Mum who is not diabetic but needs to watch her sugar intake, and my father who simply chooses to limit unnecessary sugar intake - she\"s the one with the sweet tooth - they both LOVED these toffees, you would never guess that they\"re sugar-free and it\"s so great that you can eat them pretty much guilt free!  i was so impressed that i\"ve ordered some for myself (w dark chocolate) to take to the office so i\"ll eat them instead of snacking on sugary sweets.<br />These are just EXCELLENT!', NULL, NULL),
+(53, 4, 8, 1.4, 'I don\"t know if it\"s the cactus or the tequila or just the unique combination of ingredients, but the flavour of this hot sauce makes it one of a kind!  We picked up a bottle once on a trip we were on and brought it back home with us and were totally blown away!  When we realized that we simply couldn\"t find it anywhere in our city we were bummed.<br /><br />Now, because of the magic of the internet, we have a case of the sauce and are ecstatic because of it.<br /><br />If you love hot sauce..I mean really love hot sauce, but don\"t want a sauce that tastelessly burns your throat, grab a bottle of Tequila Picante Gourmet de Inclan.  Just realize that once you taste it, you will never want to use any other sauce.<br /><br />Thank you for the personal, incredible service!', NULL, NULL),
+(54, 9, 1, 4.13, 'I have never been a huge coffee fan. However, my mother purchased this little machine and talked me into trying the Latte Macciato. No Coffee Shop has a better one and I like most of the other products, too (as a usually non-coffee drinker!).<br />The little Dolche Guesto Machine is super easy to use and prepares a really good Coffee/Latte/Cappuccino/etc in less than a minute (if water is heated up). I would recommend the Dolce Gusto to anyone. Too good for the price and I\"am getting one myself! :)', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4154,7 +4190,10 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (3831, 9, 120, 4.4),
 (3832, 5, 80, 4.78),
 (3833, 5, 74, 3.33),
-(3834, 2, 103, 2.45);
+(3834, 2, 103, 2.45),
+(3835, 1, 5, 1.75),
+(3836, 1, 5, 2.5),
+(3837, 1, 5, 2.5);
 
 -- --------------------------------------------------------
 
@@ -4184,7 +4223,7 @@ CREATE TABLE `RESTAURANT` (
 
 INSERT INTO `RESTAURANT` (`RESTAURANT_ID`, `NAME`, `EMAIL`, `NUMBER`, `ADDRESS`, `WEBSITE`, `RATING`, `OPENING_TIME`, `CLOSING_TIME`, `MANAGER_ID`, `LATITUDE`, `LONGITUDE`) VALUES
 (1, 'Hammad restaurant ', 'hammad@email ', '807965678902', 'here', 'website.com', 2.88, '08:00:00', '22:30:00', 4, 51.53517805018943, -0.6256543750838659),
-(2, 'Magan\'s restaurant', 'maganrestaurant@email', '1245647', 'Wembley', 'https://jaydipmagan.com/', 4.1, '02:00:00', '05:30:00', 2, NULL, NULL),
+(2, 'Magan\'s restaurant', 'maganrestaurant@email', '1245647', 'Wembley', 'https://jaydipmagan.com/', 2.56, '02:00:00', '05:30:00', 2, NULL, NULL),
 (3, 'Anjali\'s restaurant', '', '', '', '', 3.5, '12:00:00', '05:30:00', 3, NULL, NULL),
 (4, 'My Restaurant', 'my@email', '07776846506', 'London', 'https://hammadmehmood.co.uk', 2.83, '08:00:00', '22:00:00', 1, NULL, NULL);
 
@@ -4313,19 +4352,19 @@ ALTER TABLE `CONNECTIONS`
 -- AUTO_INCREMENT for table `EVENTS`
 --
 ALTER TABLE `EVENTS`
-  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `EVENT_LOCATIONS`
 --
 ALTER TABLE `EVENT_LOCATIONS`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `EVENT_USERS`
 --
 ALTER TABLE `EVENT_USERS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `FOOD`
@@ -4337,7 +4376,7 @@ ALTER TABLE `FOOD`
 -- AUTO_INCREMENT for table `FOOD_REVIEWS`
 --
 ALTER TABLE `FOOD_REVIEWS`
-  MODIFY `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `IMAGES`
@@ -4361,7 +4400,7 @@ ALTER TABLE `NOTIFICATIONS`
 -- AUTO_INCREMENT for table `RATINGS`
 --
 ALTER TABLE `RATINGS`
-  MODIFY `RATING_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3835;
+  MODIFY `RATING_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3838;
 
 --
 -- AUTO_INCREMENT for table `RESTAURANT`

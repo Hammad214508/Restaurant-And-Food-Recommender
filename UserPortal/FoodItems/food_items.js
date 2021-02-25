@@ -232,6 +232,7 @@ $(document).ready(function(){
         $("#reset").click(function(){
             $.fn.restart_filters();
             $.fn.get_all_food_items();
+            $("#more").trigger("click")
         });
     };
 

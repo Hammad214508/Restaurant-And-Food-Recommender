@@ -2,7 +2,11 @@
   <div class="container-fluid">
 
     <div class="navbar-header">
-      <a class="navbar-brand" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/index.php">Online Food Order</a>
+      <a class="navbar-brand" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/index.php">
+      <!-- Online Food Order -->
+      <img style="max-width:100px; margin-top: -7px;" src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/logo.png">
+      </a>
+     
     </div>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
