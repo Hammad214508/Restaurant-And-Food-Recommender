@@ -9,7 +9,6 @@ $(document).ready(function(){
     var users_data = {};
     var name = $("#user_name").html()
     name = name.split(" ")
-    console.log(name)
     var titles = {};
     titles["my_prof"] = [name[1] +" "+ name[2], "Manage your profile here"]
     titles["my_net"] = ["Connections", "Manage your connections here"]
@@ -81,9 +80,10 @@ $(document).ready(function(){
                 $(".user_rm").hide();
                 $(".crt_group").show();}
                 , 200);               
+        })
 
-            
-
+        $("#teach").on("click", function(){
+            window.open("/Restaurant-And-Food-Recommender/UserPortal/InitialTraining?learn_more=true", "_self");
         })
 
         $("#my_prof").trigger('click');

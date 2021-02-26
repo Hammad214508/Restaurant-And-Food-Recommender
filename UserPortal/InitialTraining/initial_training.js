@@ -10,6 +10,7 @@ $(document).ready(function(){
            method: "POST",
            data:{
                    "actionmode"	   : "get_random_items",
+                   "USER_ID"       : user_id
                },
            success:function(data) {
                 data = JSON.parse(data);
@@ -29,7 +30,7 @@ $(document).ready(function(){
        $("#count").html(item_count+1 + " of " + total_count)
        $("#name").html(rand_items[item_count]["NAME"])
        if (rand_items[item_count]["IMAGE_NAME"]){
-            $("#image").attr("src", "/Restaurant-And-Food-Recommender/Images/"+rand_items[item_count]["IMAGE_NAME"]);
+            $("#image").attr("src", "/Restaurant-And-Food-Recommender/Images/FoodImages/"+rand_items[item_count]["IMAGE_NAME"]);
        }else{
             $("#image").attr("src", "");
        }
@@ -97,7 +98,7 @@ $(document).ready(function(){
                     $.fn.render_item()
                     $('input[name="star"]').removeAttr("checked");
                 }
-            
+
             })
 
 

@@ -185,8 +185,9 @@
     }
     
     if($actionmode == "get_random_items"){
-        
-        $form_data = get_random_items();
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;;
+
+        $form_data = get_random_items($args);
     }
 
     if($actionmode == "add_rating"){
@@ -316,9 +317,9 @@
         return $EVENTS -> update_users_vote($args);
     }
     
-    function get_random_items(){
+    function get_random_items($args){
         $FOOD = new FOOD();
-        return $FOOD -> get_random_items();
+        return $FOOD -> get_random_items($args);
     }
 
 

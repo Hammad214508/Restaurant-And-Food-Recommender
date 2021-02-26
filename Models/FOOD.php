@@ -137,7 +137,7 @@ class FOOD {
         return $conn->perform_transaction($query, $args);
     }
 
-    public function get_random_items(){
+    public function get_random_items($args){
 
         $conn = new Connector();
 
@@ -145,10 +145,15 @@ class FOOD {
                   FROM FOOD F
                   LEFT JOIN IMAGES IM ON F.FOOD_ID = ENTITY_ID
                                          AND ENTITY_TYPE = 'FOOD'
+                  WHERE F.FOOD_ID NOT IN (
+                      SELECT FOOD_ID 
+                      FROM RATINGS 
+                      WHERE USER_ID = :USER_ID
+                  )
                   ORDER BY RAND()
                   LIMIT 5;";
 
-        return $conn->get_binded_data($query, array());
+        return $conn->get_binded_data($query, $args);
     }
     
 

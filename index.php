@@ -8,7 +8,7 @@
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
 </head>
 
-<body style="background-image: url('img.png') ; background-repeat: no-repeat; background-position: 0% 120%; background-size: 27em 27em;">
+<body style="background-image: url('<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Images/OtherImages/img.png') ; background-repeat: no-repeat; background-position: 0% 120%; background-size: 27em 27em;">
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/navigation.php') ?>
     <div class="container-fluid mb-5">
     <div class="text-center black_font" style="margin-top:14em;">

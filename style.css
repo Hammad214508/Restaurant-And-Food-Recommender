@@ -112,3 +112,12 @@
     -ms-filter: blur(2px);
     filter: blur(2px);
 }
+
+.train_icon{
+    border:1px solid black; 
+    background-color:#c6c8ca;
+}
+
+.train_icon:hover{
+    background-color:grey;
+}

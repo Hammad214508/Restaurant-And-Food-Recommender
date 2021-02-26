@@ -20,6 +20,9 @@
             <div class="jumbotron">
                 <h1 id="title"></h1> 
                 <p id="desc"></p>
+                <button id="teach" class="btn btn-default train_icon">
+                    <img src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Images/OtherImages/ml_icon.png" width="30" />  Help me learn
+                </button>
             </div>
         </div>
 

@@ -4,7 +4,7 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/index.php">
       <!-- Online Food Order -->
-      <img style="max-width:100px; margin-top: -7px;" src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/logo.png">
+      <img style="max-width:100px; margin-top: -7px;" src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Images/OtherImages/logo.png">
       </a>
      
     </div>

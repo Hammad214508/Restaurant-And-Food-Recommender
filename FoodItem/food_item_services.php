@@ -31,7 +31,7 @@
         $form_data = save_image($args);
 
         // if ($args["IMAGE_EXISTS"] == "true" && $form_data["success"]){
-        //     unlink($_SERVER['DOCUMENT_ROOT']."/Restaurant-And-Food-Recommender/Images/".$args["IMAGE_NAME"]);
+        //     unlink($_SERVER['DOCUMENT_ROOT']."/Restaurant-And-Food-Recommender/Images/FoodImages/".$args["IMAGE_NAME"]);
         // }
 
     }
@@ -94,7 +94,7 @@
         $RATINGS = new RATINGS();
         return $RATINGS -> add_rating($args);
     }
-    
+
     function update_food_stats($food_id){
         $FOOD = new FOOD();
         return $FOOD -> update_food_stats($food_id);
@@ -104,6 +104,6 @@
         $RESTAURANT = new RESTAURANT();
         return $RESTAURANT -> update_restaurant_rating($food_id);
     }
-    
+
 
 ?>

@@ -78,7 +78,7 @@ $(document).ready(function(){
                       $("#image").show();
                       $("#upload").show();
                       $("#file").val(image_name);
-                      $("#image").attr("src", "/Restaurant-And-Food-Recommender/Images/"+image_name);
+                      $("#image").attr("src", "/Restaurant-And-Food-Recommender/Images/FoodImages/"+image_name);
 
                   }
               }

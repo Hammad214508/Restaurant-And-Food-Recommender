@@ -11,10 +11,11 @@
         header('location: /Restaurant-And-Food-Recommender/Login/User/user_login.php');
     }
 
-
-    if($_SESSION["logged_in"][0][0]["INITIAL_TRAINING"]){
-        if ($_SESSION["logged_in"][0][0]["INITIAL_TRAINING"] == "true"){
-            header('location: /Restaurant-And-Food-Recommender/UserPortal/Profile');
+    if (!($_GET)){
+        if($_SESSION["logged_in"][0][0]["INITIAL_TRAINING"]){
+            if ($_SESSION["logged_in"][0][0]["INITIAL_TRAINING"] == "true"){
+                header('location: /Restaurant-And-Food-Recommender/UserPortal/Profile');
+            }
         }
     }
 
