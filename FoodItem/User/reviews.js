@@ -286,6 +286,36 @@ $(document).ready(function(){
         return str_diet;
     }
 
+    $.fn.insert_user_rating = function(rating){
+        $.ajax({
+           url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+           method: "POST",
+           data:{
+                   "actionmode"	   : "add_rating",
+                   "FOOD_ID"       : food_id,
+                   "USER_ID"       : user_id,
+                   "RATING"        : rating
+               },
+           success:function(data) {
+                data = JSON.parse(data);
+                if (!data.success){
+                    $("#error").html("<b>ERROR INSERT RATING!</b>");
+                    $.fn.temporary_show("#error");
+                }else{
+                    $("#rating_given").show();
+                    $(".radio-btn").prop("disabled", true);
+                }
+            }
+        });
+    }
+
+    $.fn.give_rating = function(){
+        $(".radio-btn").on("change", function(){
+            var rating = $('input[name="star"]:checked').val()
+            $.fn.insert_user_rating(rating)
+        })
+    }
+
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
@@ -297,6 +327,7 @@ $(document).ready(function(){
             $.fn.get_food_reviews();
             $.fn.give_review_events();
             $.fn.getLocation();
+            $.fn.give_rating();
 
         };
         return thispage;

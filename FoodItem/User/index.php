@@ -5,6 +5,7 @@
 
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
 	<link rel="stylesheet" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/FoodItem/star.css">
+    <link rel="stylesheet" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/InitialTraining/initial_training.css">
 
 </head>
 
@@ -84,6 +85,34 @@
 						</div>
 					</div>
 
+					<div class="row mt-5 ml-1">
+						<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1">
+							<h5>Rating:</h5>
+						</div>
+						<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
+							<div class="rating" style="font-size:1.2rem;">
+								<input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+								<label for="star5" >☆</label>
+								<input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+								<label for="star4" >☆</label>
+								<input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+								<label for="star3" >☆</label>
+								<input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+								<label for="star2" >☆</label>
+								<input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+								<label for="star1" >☆</label>
+								<div class="clear"></div>
+							</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+							<span id="rating_given" style="color:green; font-size:14px; display:none;">Thank you for you feedback!</span>
+						</div>
+
+						
+					</div>
+
+					<hr>
+					
 					<h5 id="review_disable_msg"  class="text-info mt-5 ml-3" style="display:none"> Need to be within <span id="min_dist"></span>m to leave a review</h5>
 
 					<div id="give_review_div" class="container mt-5">
@@ -94,6 +123,7 @@
 								<input id="rating_slider" class="border-0" type="range" min="0" max="5" step="0.25"/>
 								<span id="rating_value" class="font-weight-bold text-secondary"></span>
 							</div>
+							
 							<div id="review_msg_div">
 								<p>Review:</p> 
 								<textarea id="review_txt" rows="4" cols="50"></textarea>
