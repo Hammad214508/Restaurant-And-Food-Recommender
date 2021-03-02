@@ -73,7 +73,8 @@ class FOOD {
                   INNER JOIN RESTAURANT R ON F.RESTAURANT_ID = R.RESTAURANT_ID
                   LEFT JOIN IMAGES IM ON F.FOOD_ID = ENTITY_ID
                                          AND ENTITY_TYPE = 'FOOD'
-                  WHERE LOWER(F.NAME) LIKE '%".$args["SEARCH"]."%'";
+                  WHERE LOWER(F.NAME) LIKE '%".$args["SEARCH"]."%'
+                  ORDER BY RAND()";
 
         if ($args["AVAILABLE"]){
             $query .= " AND F.AVAILABLE = 'true'

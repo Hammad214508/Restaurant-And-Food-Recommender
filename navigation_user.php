@@ -15,8 +15,6 @@
 
     <div id="main-menu" class="collapse navbar-collapse">
         <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0">
-            <!-- <li id="nav-home" class="nav-item active"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/index.php">Home</a></li> -->
-            <!-- <li id="nav-about" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/About/about.php">About</a></li> -->
             <li id="nav-contact" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Contact/contact.php">Contact</a></li>
         </ul>
 
@@ -26,12 +24,13 @@
             <li id="nav-food-items" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/FoodItems"> Food Items </a></li>
             <li id="nav-events" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Events">Events <i class="fa fa-calendar" aria-hidden="true"></i></a></li>
 
-            <!-- <li id="nav-recommendation" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Recommender/"> Recommended </a></li> -->
-            <!-- <li id="nav-connections" class="nav-item align-bottom" ><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/Connections/">Network <i class="fa fa-users"></i> </a></li> -->
-
             <li id="nav-logout" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Login/logout.php">Log Out <i class="fa fa-sign-out"></i> </a></li>
         </ul>
     </div>
 
   </div>
 </nav>
+
+<button onclick="topFunction()" id="scroll_top" title="Go to top">
+  <i class="fa fa-chevron-up" aria-hidden="true"></i>
+</button>

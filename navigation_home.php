@@ -15,8 +15,6 @@
 
     <div id="main-menu" class="collapse navbar-collapse">
         <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0">
-            <!-- <li id="nav-home" class="nav-item active"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/index.php">Home</a></li> -->
-            <!-- <li id="nav-about" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/About/about.php">About</a></li> -->
             <li id="nav-contact" class="nav-item"><a class="nav-link" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/Contact/contact.php">Contact</a></li>
         </ul>
 
@@ -41,3 +39,7 @@
 
   </div>
 </nav>
+
+<button onclick="topFunction()" id="scroll_top" title="Go to top">
+  <i class="fa fa-chevron-up" aria-hidden="true"></i>
+</button>

@@ -11,5 +11,6 @@ if(isset($_SESSION["logged_in"][0][0]["MANAGER_ID"]) || isset($_SESSION["logged_
 ?>
 
 <script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/js/my_functions.js"></script>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/js/scroll_to_top.js"></script>
 
 

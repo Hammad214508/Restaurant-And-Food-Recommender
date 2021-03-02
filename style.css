@@ -8,11 +8,6 @@
     color: DarkRed ;
 }
 
-/* .show_pass_pos{
-    position:absolute; 
-    left: 485px; 
-    top: 230px;
-} */
 
 .show_pass_pos{
     position:relative; 
@@ -120,4 +115,24 @@
 
 .train_icon:hover{
     background-color:grey;
+}
+
+#scroll_top{
+display: none;
+position: fixed;
+bottom: 20px;
+right: 30px;
+z-index: 99;
+border: none;
+outline: none;
+background-color: #6c757d;
+color: white;
+cursor: pointer;
+padding: 15px;
+border-radius: 10px;
+}
+  
+#scroll_top:hover {
+    background-color: #343a40;
+    color: white;
 }

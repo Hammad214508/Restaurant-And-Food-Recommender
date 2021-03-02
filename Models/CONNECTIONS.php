@@ -10,7 +10,8 @@ class CONNECTIONS {
 		$query = "SELECT U.USER_ID, U.NAME, U.SURNAME, U.EMAIL
 				  FROM  CONNECTIONS C
 				  INNER JOIN USER U ON U.USER_ID = C.USER2
-				  WHERE C.USER1 = :USER_ID";
+				  WHERE C.USER1 = :USER_ID
+				  ORDER BY U.SURNAME";
 
 		return $conn->get_binded_data($query, $args);
 	}
@@ -42,7 +43,8 @@ class CONNECTIONS {
 						 	WHERE USER1 = :USER_ID)
 						AND 
 							(LOWER(U.NAME) LIKE '%".$search."%' 
-							OR LOWER(U.SURNAME) LIKE '%".$search."%')";
+							OR LOWER(U.SURNAME) LIKE '%".$search."%')
+				  ORDER BY U.NAME";
 		
 		return $conn->get_binded_data($query, $args);
 	}

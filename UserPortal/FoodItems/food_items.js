@@ -323,6 +323,8 @@ $(document).ready(function(){
          $("#r_reset").off("click").on("click",function(){
             $.fn.restart_recommended_filters();
             $.fn.get_recommended_food_items();
+            $("#r_more").trigger("click")
+
          });
     };
 
