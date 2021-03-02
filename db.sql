@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 25, 2021 at 09:46 PM
+-- Generation Time: Mar 02, 2021 at 04:33 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -40,6 +40,14 @@ INSERT INTO `CONNECTIONS` (`CONNECTION_ID`, `USER1`, `USER2`) VALUES
 (2, 1, 3),
 (3, 1, 5),
 (4, 5, 1),
+(5, 1, 23),
+(6, 1, 14),
+(7, 1, 11),
+(8, 1, 33),
+(9, 23, 1),
+(10, 14, 1),
+(11, 11, 1),
+(12, 33, 1),
 (13, 1, 8),
 (14, 8, 1);
 
@@ -78,7 +86,7 @@ CREATE TABLE `EVENTS` (
 INSERT INTO `EVENTS` (`EVENT_ID`, `EVENT_NAME`, `EVENT_DATE`, `EVENT_TIME`, `CREATOR_ID`, `NUM_VOTES`) VALUES
 (2, 'Valentine\'s day', '0000-00-00', '00:00:00', 2, 1),
 (24, 'Event 4', '2021-02-01', '19:00:00', 2, 1),
-(36, 'graduation ', '2021-02-02', '16:00:00', 2, 1),
+(36, 'Graduation Celebration', '2021-02-02', '16:00:00', 2, 1),
 (37, 'Valentine\'s Day', '2021-02-14', '19:00:00', 2, 1);
 
 -- --------------------------------------------------------
@@ -102,11 +110,11 @@ INSERT INTO `EVENT_LOCATIONS` (`ID`, `EVENT_ID`, `LOCATION`) VALUES
 (29, 13, 'Test'),
 (35, 37, 'A'),
 (36, 37, 'B'),
-(52, 36, 'Uni'),
 (53, 36, 'Pizza hut'),
-(56, 36, 'New'),
 (57, 37, 'C'),
-(58, 37, 'D');
+(58, 37, 'D'),
+(75, 36, 'Varcity'),
+(76, 36, 'McDonald\'s');
 
 -- --------------------------------------------------------
 
@@ -131,10 +139,10 @@ INSERT INTO `EVENT_USERS` (`ID`, `EVENT_ID`, `USER_ID`, `VOTES`) VALUES
 (15, 14, 1, NULL),
 (48, 36, 1, 'Pizza hut'),
 (49, 37, 1, 'A'),
-(51, 36, 2, NULL),
-(93, 36, 5, NULL),
-(94, 37, 5, NULL),
-(101, 37, 3, NULL);
+(111, 36, 14, NULL),
+(112, 36, 33, NULL),
+(113, 37, 23, NULL),
+(114, 36, 23, NULL);
 
 -- --------------------------------------------------------
 
@@ -162,9 +170,9 @@ CREATE TABLE `FOOD` (
 
 INSERT INTO `FOOD` (`FOOD_ID`, `NAME`, `PRICE`, `DESCRIPTION`, `RESTAURANT_ID`, `AVAILABLE`, `DIET_TYPE`, `HEALTHY_RATING`, `FILLING_RATING`, `AVG_RATING`) VALUES
 (1, 'Pizza', 7.71, 'Cheese sauce (contains gluten), chicken, pepperoni, jalapeños and our signature triple cheese blend.', 1, 'false', '3', 2.09, 0.75, 2.39),
-(2, 'Cake', 4.56, 'Top this classic carrot cake with moreish icing and chopped walnuts or pecans. Serve as a sweet treat with a cup of tea any time of the day. ', 1, 'true', '2', 4.8, 2.09, 0.97),
+(2, 'Cake', 4.56, 'Top this classic carrot cake with moreish icing and chopped walnuts or pecans. Serve as a sweet treat with a cup of tea any time of the day. ', 1, 'false', '2', 4.8, 2.09, 0.97),
 (3, 'Ice cream ', 10.17, 'With just five ingredients, including vanilla and salt, this no-churn ice cream tastes pure and simple, with a fresh dairy flavor, unlike recipes based on canned milk', 2, 'true', '3', 3.46, 4.57, 2.65),
-(4, 'Chips', 5.7, 'Golden, crispy, triple cooked, thick cut chips.', 1, 'true', '1', 4.43, 4.39, 3.74),
+(4, 'Chips', 5.7, 'Golden, crispy, triple cooked, thick cut chips.', 1, 'false', '1', 4.43, 4.39, 3.74),
 (5, 'Burrito', 8.46, 'Got a hungry gang? Serve these seriously filling burritos, with beans, meat, potatoes, chillies, and thick salsa topping it all. ', 2, 'true', '1', 0.63, 1.71, 1.77),
 (6, 'Banana', 4.23, 'Natural and fresh bananas straight from the trees', 4, 'false', '2', 3.69, 3.34, 0.7),
 (7, 'Bacon burger', 6.24, 'Our classic burger topped with applewood smoked bacon and cheddar jack cheese', 1, 'true', '3', 3.27, 4.45, 2.63),
@@ -667,7 +675,7 @@ CREATE TABLE `NOTIFICATIONS` (
 --
 
 INSERT INTO `NOTIFICATIONS` (`NOTIFICATION_ID`, `TYPE`, `FROM_UID`, `TO_UID`, `MESSAGE`) VALUES
-(1, 'connection_request', 7, 1, 'Sup bro'),
+(1, 'connection_request', 16, 1, 'Hello!'),
 (3, 'connection_request', 6, 1, 'I want to be friends');
 
 -- --------------------------------------------------------
@@ -1168,7 +1176,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (810, 10, 161, 4.21),
 (811, 7, 44, 2.69),
 (812, 11, 47, 1.78),
-(813, 1, 2, 4.97),
 (814, 11, 133, 4.19),
 (815, 11, 82, 1.33),
 (816, 11, 19, 2.86),
@@ -1242,7 +1249,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (884, 11, 57, 2.94),
 (885, 1, 52, 1.91),
 (886, 1, 34, 3.59),
-(887, 1, 6, 0.22),
 (888, 2, 90, 0.52),
 (889, 1, 151, 0.41),
 (890, 11, 58, 4.27),
@@ -1502,7 +1508,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (1144, 9, 76, 3.39),
 (1145, 2, 118, 4.11),
 (1146, 2, 72, 2.26),
-(1147, 1, 8, 4.85),
 (1148, 8, 128, 1.81),
 (1149, 8, 67, 3.77),
 (1150, 8, 22, 2.81),
@@ -1539,7 +1544,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (1181, 2, 20, 0.75),
 (1182, 5, 127, 0.99),
 (1183, 10, 161, 3.7),
-(1184, 1, 3, 4.67),
 (1185, 10, 130, 4.94),
 (1186, 9, 5, 3.66),
 (1187, 7, 130, 4.16),
@@ -1739,7 +1743,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (1381, 6, 32, 2.17),
 (1382, 8, 170, 3.67),
 (1383, 10, 26, 0.48),
-(1384, 1, 2, 4.34),
 (1385, 4, 173, 4.15),
 (1386, 4, 175, 4.73),
 (1387, 10, 66, 1.46),
@@ -2308,7 +2311,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (1950, 10, 117, 3.64),
 (1951, 8, 74, 4.36),
 (1952, 2, 18, 0.34),
-(1953, 1, 1, 4.41),
 (1954, 5, 72, 3.8),
 (1955, 7, 141, 0.28),
 (1956, 11, 98, 4.32),
@@ -2361,7 +2363,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (2003, 4, 78, 0.76),
 (2004, 6, 168, 1.03),
 (2005, 3, 114, 1.91),
-(2006, 1, 3, 4.91),
 (2007, 10, 67, 1.23),
 (2008, 2, 164, 0.65),
 (2009, 11, 61, 4.13),
@@ -2375,7 +2376,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (2017, 3, 15, 3.1),
 (2018, 10, 74, 2.39),
 (2019, 2, 71, 2.24),
-(2020, 1, 9, 4.99),
 (2021, 10, 48, 3.83),
 (2022, 1, 164, 1.93),
 (2023, 3, 174, 0.66),
@@ -2604,7 +2604,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (2246, 11, 37, 0.43),
 (2247, 9, 150, 3.36),
 (2248, 10, 78, 2.37),
-(2249, 1, 4, 4.17),
 (2250, 2, 10, 4.68),
 (2251, 6, 139, 1.4),
 (2252, 2, 125, 0.62),
@@ -2653,7 +2652,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (2295, 8, 13, 1.56),
 (2296, 4, 153, 0.69),
 (2297, 2, 79, 3.3),
-(2298, 1, 5, 0.59),
 (2299, 6, 40, 2.8),
 (2300, 2, 4, 3.37),
 (2301, 4, 98, 3.77),
@@ -3197,7 +3195,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (2839, 7, 168, 4.8),
 (2840, 1, 51, 1.46),
 (2841, 7, 45, 1.75),
-(2842, 1, 5, 0.44),
 (2843, 4, 100, 3.27),
 (2844, 7, 32, 4.93),
 (2845, 5, 15, 0.92),
@@ -3287,8 +3284,7 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (2929, 5, 62, 2.54),
 (2930, 6, 7, 3.17),
 (2931, 1, 83, 0.37),
-(2932, 11, 139, 4.17);
-INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
+(2932, 11, 139, 4.17),
 (2933, 10, 155, 3.23),
 (2934, 8, 79, 0.71),
 (2935, 5, 113, 4.43),
@@ -3298,7 +3294,8 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (2939, 2, 29, 1.95),
 (2940, 6, 33, 2.5),
 (2941, 11, 47, 2.18),
-(2942, 5, 134, 2.27),
+(2942, 5, 134, 2.27);
+INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (2943, 1, 173, 2.84),
 (2944, 11, 41, 0.79),
 (2945, 2, 28, 1.93),
@@ -3341,7 +3338,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (2982, 4, 53, 2.56),
 (2983, 8, 165, 2.37),
 (2984, 8, 147, 0.48),
-(2985, 1, 5, 4.68),
 (2986, 7, 37, 1.06),
 (2987, 5, 111, 3.53),
 (2988, 8, 68, 3.9),
@@ -3649,7 +3645,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (3290, 1, 31, 3.2),
 (3291, 8, 102, 3.58),
 (3292, 10, 62, 0.03),
-(3293, 1, 8, 0.85),
 (3294, 9, 25, 2.45),
 (3295, 1, 137, 3.12),
 (3296, 10, 86, 3.76),
@@ -3674,7 +3669,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (3315, 11, 63, 4.19),
 (3316, 2, 52, 4.69),
 (3317, 10, 72, 2.26),
-(3318, 1, 2, 4.11),
 (3319, 1, 173, 2.57),
 (3320, 8, 2, 4.59),
 (3321, 7, 12, 3.15),
@@ -3759,7 +3753,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (3400, 5, 30, 3.15),
 (3401, 8, 67, 4.38),
 (3402, 4, 143, 0.42),
-(3403, 1, 9, 0.32),
 (3404, 2, 124, 4.44),
 (3405, 5, 51, 1.2),
 (3406, 4, 13, 1.37),
@@ -3770,7 +3763,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (3411, 2, 122, 0.29),
 (3412, 4, 38, 1.08),
 (3413, 6, 115, 3.98),
-(3414, 1, 6, 4.45),
 (3415, 5, 28, 3.37),
 (3416, 11, 96, 4.53),
 (3417, 11, 4, 1.28),
@@ -4123,7 +4115,6 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (3764, 9, 166, 1.42),
 (3765, 8, 91, 2.42),
 (3766, 11, 33, 0.63),
-(3767, 1, 9, 4.89),
 (3768, 9, 152, 4.55),
 (3769, 1, 91, 1.79),
 (3770, 4, 70, 0.23),
@@ -4191,9 +4182,39 @@ INSERT INTO `RATINGS` (`RATING_ID`, `USER_ID`, `FOOD_ID`, `RATING`) VALUES
 (3832, 5, 80, 4.78),
 (3833, 5, 74, 3.33),
 (3834, 2, 103, 2.45),
-(3835, 1, 5, 1.75),
-(3836, 1, 5, 2.5),
-(3837, 1, 5, 2.5);
+(3838, 1, 150, 3),
+(3839, 1, 115, 3),
+(3840, 1, 133, 3),
+(3841, 1, 65, 4),
+(3842, 1, 116, 2),
+(3843, 1, 17, 2),
+(3844, 1, 113, 4),
+(3845, 1, 108, 2),
+(3846, 1, 162, 5),
+(3847, 1, 122, 2),
+(3848, 4, 164, 2),
+(3849, 4, 122, 4),
+(3850, 4, 39, 2),
+(3851, 4, 169, 5),
+(3852, 4, 170, 1),
+(3853, 4, 148, 2),
+(3854, 4, 74, 3),
+(3855, 4, 158, 1),
+(3856, 4, 10, 5),
+(3857, 4, 93, 3),
+(3858, 1, 10, 2),
+(3860, 1, 159, 3),
+(3861, 1, 19, 4),
+(3862, 1, 174, 1),
+(3865, 1, 41, 3),
+(3866, 1, 179, 2),
+(3867, 1, 72, 3),
+(3868, 1, 58, 2),
+(3869, 1, 140, 5),
+(3871, 1, 67, 2),
+(3872, 1, 112, 3),
+(3874, 1, 86, 3),
+(3875, 1, 138, 4);
 
 -- --------------------------------------------------------
 
@@ -4222,7 +4243,7 @@ CREATE TABLE `RESTAURANT` (
 --
 
 INSERT INTO `RESTAURANT` (`RESTAURANT_ID`, `NAME`, `EMAIL`, `NUMBER`, `ADDRESS`, `WEBSITE`, `RATING`, `OPENING_TIME`, `CLOSING_TIME`, `MANAGER_ID`, `LATITUDE`, `LONGITUDE`) VALUES
-(1, 'Hammad restaurant ', 'hammad@email ', '807965678902', 'here', 'website.com', 2.88, '08:00:00', '22:30:00', 4, 51.53517805018943, -0.6256543750838659),
+(1, 'Hammad restaurant ', 'hammad@email ', '807965678902', 'here', 'website.com', 2.88, '08:00:00', '22:30:00', 4, 51.53517720297322, -0.625658502593143),
 (2, 'Magan\'s restaurant', 'maganrestaurant@email', '1245647', 'Wembley', 'https://jaydipmagan.com/', 2.56, '02:00:00', '05:30:00', 2, NULL, NULL),
 (3, 'Anjali\'s restaurant', '', '', '', '', 3.5, '12:00:00', '05:30:00', 3, NULL, NULL),
 (4, 'My Restaurant', 'my@email', '07776846506', 'London', 'https://hammadmehmood.co.uk', 2.83, '08:00:00', '22:00:00', 1, NULL, NULL);
@@ -4240,7 +4261,7 @@ CREATE TABLE `USER` (
   `SURNAME` varchar(250) NOT NULL,
   `EMAIL` varchar(250) NOT NULL,
   `PASSWORD` varchar(250) DEFAULT NULL,
-  `GOOGLE_LOGIN` varchar(250) NOT NULL,
+  `GOOGLE_LOGIN` varchar(250) DEFAULT NULL,
   `DIET_TYPE` int(10) NOT NULL DEFAULT 1,
   `INITIAL_TRAINING` varchar(100) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -4250,16 +4271,46 @@ CREATE TABLE `USER` (
 --
 
 INSERT INTO `USER` (`USER_ID`, `NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `GOOGLE_LOGIN`, `DIET_TYPE`, `INITIAL_TRAINING`) VALUES
-(1, 'Hammad', 'Muhammad', 'hammadmuhammad15@gmail.com', NULL, 'true', 1, 'true'),
-(2, 'Aiza', 'Khan', 'aiza@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1, 'true'),
-(3, 'Harsh', 'Patel', 'harsh_user@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1, 'false'),
-(4, 'Jaydip', 'Magan', 'magan@email.com', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 2, 'false'),
-(5, 'Anjali', 'Shukla', 'anjali@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3, 'false'),
-(6, 'Bhargav', 'Talluri', 'bhargav@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3, 'true'),
-(7, 'Shanelie', 'Fernandez', 'shanelie@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 2, 'false'),
-(8, 'Hardik', 'Poptani', 'hardik@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1, 'true'),
-(9, 'Nikhil', 'Difficult', 'nikhil@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 3, 'true'),
-(10, 'Dhruva', 'Konidena', 'dhruva@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', '', 1, 'false');
+(1, 'Hammad', 'Muhammad', 'hammadmuhammad15@gmail.com', NULL, 'true', 3, 'true'),
+(2, 'Aiza', 'Khan', 'aiza@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, 'true'),
+(3, 'Harsh', 'Patel', 'harsh_user@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, 'false'),
+(4, 'Jaydip', 'Magan', 'magan@email.com', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, 'true'),
+(5, 'Anjali', 'Shukla', 'anjali@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, 'false'),
+(6, 'Bhargav', 'Talluri', 'bhargav@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, 'true'),
+(7, 'Shanelie', 'Fernandez', 'shanelie@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, 'false'),
+(8, 'Hardik', 'Poptani', 'hardik@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, 'true'),
+(9, 'Nikhil', 'Difficult', 'nikhil@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, 'true'),
+(10, 'Dhruva', 'Konidena', 'dhruva@email', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, 'false'),
+(11, 'James', 'Grant', 'j.grant@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
+(12, 'Robert', 'Hawkins', 'r.hawkins@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
+(13, 'Lucia', 'Gibson', 'l.gibson@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1'),
+(14, 'Patrick', 'Casey', 'p.casey@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
+(15, 'George', 'Mitchell', 'g.mitchell@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
+(16, 'Darcy', 'Roberts', 'd.roberts@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
+(17, 'Lyndon', 'Grant', 'l.grant@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1'),
+(18, 'Emily', 'Armstrong', 'e.armstrong@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1'),
+(19, 'Patrick', 'Miller', 'p.miller@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
+(20, 'Roman', 'Hawkins', 'r.hawkins@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
+(21, 'Sarah', 'Turner', 's.turner@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
+(22, 'Jasmine', 'Allen', 'j.allen@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
+(23, 'Madaline', 'Craig', 'm.craig@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
+(24, 'Kelvin', 'Perry', 'k.perry@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
+(25, 'Aldus', 'Henderson', 'a.henderson@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1'),
+(26, 'Maya', 'Hill', 'm.hill@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
+(27, 'Tiana', 'Cole', 't.cole@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
+(28, 'George', 'Carroll', 'g.carroll@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1'),
+(29, 'Alexia', 'Stewart', 'a.stewart@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
+(30, 'Arnold', 'Roberts', 'a.roberts@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1'),
+(31, 'Brianna', 'Wells', 'b.wells@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
+(32, 'Roland', 'Holmes', 'r.holmes@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
+(33, 'Sophia', 'Owens', 's.owens@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
+(34, 'Audrey', 'Bailey', 'a.bailey@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
+(35, 'Vivian', 'Reed', 'v.reed@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1'),
+(36, 'Sienna', 'Stevens', 's.stevens@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1'),
+(37, 'Chester', 'Jones', 'c.jones@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
+(38, 'Naomi', 'Morris', 'n.morris@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
+(39, 'Agata', 'Martin', 'a.martin@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1'),
+(40, 'Valeria', 'Craig', 'v.craig@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1');
 
 --
 -- Indexes for dumped tables
@@ -4352,19 +4403,19 @@ ALTER TABLE `CONNECTIONS`
 -- AUTO_INCREMENT for table `EVENTS`
 --
 ALTER TABLE `EVENTS`
-  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `EVENT_LOCATIONS`
 --
 ALTER TABLE `EVENT_LOCATIONS`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `EVENT_USERS`
 --
 ALTER TABLE `EVENT_USERS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT for table `FOOD`
@@ -4400,7 +4451,7 @@ ALTER TABLE `NOTIFICATIONS`
 -- AUTO_INCREMENT for table `RATINGS`
 --
 ALTER TABLE `RATINGS`
-  MODIFY `RATING_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3838;
+  MODIFY `RATING_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3876;
 
 --
 -- AUTO_INCREMENT for table `RESTAURANT`
@@ -4412,5 +4463,5 @@ ALTER TABLE `RESTAURANT`
 -- AUTO_INCREMENT for table `USER`
 --
 ALTER TABLE `USER`
-  MODIFY `USER_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `USER_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 COMMIT;
