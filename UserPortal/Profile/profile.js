@@ -65,7 +65,7 @@ $(document).ready(function(){
             $("#search_text").on("keyup", function(e){
                 user_search = $(this).val();
                 $.fn.get_recommended_users();
-            }); 
+            });
         })
 
         $("#requests").on('click', function(){
@@ -79,7 +79,7 @@ $(document).ready(function(){
                 $("#connections").addClass("show_border")
                 $(".user_rm").hide();
                 $(".crt_group").show();}
-                , 200);               
+                , 200);
         })
 
         $("#teach").on("click", function(){
@@ -634,9 +634,9 @@ $(document).ready(function(){
             "      <p><b>Email:</b> "+email+"</p>"+
             "      <p><b>Number:</b> "+number+"</p>"+
             "      <p><b>Address:</b> "+address+"</p>"+
-            "      <p><b>Rating:</b> "+rating+"</p>"+
-            "      <div class=\"times\">"+
-            "          <p><b>Open:</b> "+opens+" - "+closes+"</p>"+
+            "      <p><b>Rating:</b> "+rating+" | <span class='rest_rating'></span></p>"+
+            "      <div class=\"times p-2\">"+
+            "          <b>Open:</b> "+opens+" - "+closes+
             "      </div>"+
             "  </div>"+
             "</div>");
