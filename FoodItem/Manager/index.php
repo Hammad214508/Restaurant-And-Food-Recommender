@@ -21,7 +21,7 @@
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
     </div>
 
-	<div class="container-fluid">
+	<div class="container-fluid mb-5">
 		<div class="row ml-2">
 			<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5" style="border-right: 0.5px solid grey;">
 				<h3 id="food_name"></h3>
