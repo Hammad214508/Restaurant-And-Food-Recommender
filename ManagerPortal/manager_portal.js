@@ -52,8 +52,21 @@ $(document).ready(function(){
             $.fn.rest_data_input("contact", "Contact Number:", "Your Restaurant's Number" )+
             $.fn.rest_data_input("address", "Restaurant Address:", "Your Restaurant's Address" )+
             $.fn.rest_data_input("website", "Restaurant Website:", "Your Restaurant's Website" )+
+            '<div class="row">'+
+            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">'+
+            '       Opening time'+
+            '    </div>'+
+            '    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 ">'+
             $.fn.rest_time_picker("open_time", "Opening Time:", "Opening Time")+
+            '     </div>'+
+            '    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 ">'+
             $.fn.rest_time_picker("close_time", "Closing Time:", "Closing Time")+
+            '     </div>'+
+            '    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 ">'+
+                $.fn.transaction_icons("open_time")+
+                $.fn.transaction_icons("close_time")+
+            '     </div>'+
+            '</div>'+
             $.fn.location_checkbox()+
             $.fn.location_picker()          
         )
@@ -242,13 +255,10 @@ $(document).ready(function(){
     $.fn.rest_time_picker = function(id, label, placeholder){
         return (
             '<div class="row">'+
-            '    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto">'+
-            '        <p>'+label+'</p>'+
+            '    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">'+
+            '        <input id="'+id+'" type="text" class="time ui-timepicker-input rest_data" autocomplete="off" placeholder="'+placeholder+'" style="width:6em;">'+
             '    </div>'+
-            '    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">'+
-            '        <input id="'+id+'" type="text" class="time ui-timepicker-input rest_data" autocomplete="off" placeholder="'+placeholder+'">'+
-            '    </div>'+
-                 $.fn.transaction_icons(id)+
+                //  $.fn.transaction_icons(id)+
             '</div>'
 
         )

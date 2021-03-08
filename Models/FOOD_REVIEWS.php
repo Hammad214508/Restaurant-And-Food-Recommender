@@ -25,6 +25,21 @@ class FOOD_REVIEWS {
 
         return $conn->perform_transaction($query, $args);
     }
+
+
+    public function check_daily_review_limit($args){
+
+        $conn = new Connector();
+
+        $query = "SELECT COUNT(*) AS NUM_REVIEWS
+                  FROM FOOD_REVIEWS
+                  WHERE USER_ID = :USER_ID 
+                        AND TIMESTAMP > DATE_SUB(NOW(), INTERVAL 24 HOUR);";
+
+        return $conn->get_binded_data($query, $args);
+    }
+
+    
     
 
 

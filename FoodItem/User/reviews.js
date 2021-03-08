@@ -176,7 +176,35 @@ $(document).ready(function(){
         $("#submit_review").prop("disabled", true);
         $("#review_disable_msg").show();
         $("#min_dist").html(min_distance);
+        $("#more").prop("disabled", true);
         
+    }
+
+    $.fn.check_daily_review_limit = function(){
+        $.ajax({
+            url: "/Restaurant-And-Food-Recommender/FoodItem/food_item_services.php",
+            method: "POST",
+            data:{
+                    "actionmode"	: "check_daily_review_limit",
+                    "USER_ID"       : user_id,
+                },
+            success:function(data) {
+               data = JSON.parse(data);
+               if (!data.success){
+                   $("#error").html("<b>ERROR GETTING USER REVIEWS!</b>");
+                   $.fn.temporary_show("#error");
+               }else{
+                   if (data.dataset[0][0]["NUM_REVIEWS"] > 5){
+                        $("#daily_review_limit").show();
+                        $("#give_review_div").addClass("blur");
+                        $("#rating_slider").prop("disabled", true);
+                        $("#review_txt").prop("disabled", true);
+                        $("#submit_review").prop("disabled", true);
+                        $("#more").prop("disabled", true);
+                   }
+               }
+           }
+         });
     }
 
     $.fn.give_review_events = function(){
@@ -325,6 +353,7 @@ $(document).ready(function(){
             $.fn.get_image_name();
             $.fn.render_food_stats();
             $.fn.get_food_reviews();
+            $.fn.check_daily_review_limit()
             $.fn.give_review_events();
             $.fn.getLocation();
             $.fn.give_rating();

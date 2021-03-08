@@ -61,6 +61,13 @@
         $form_data = add_review($args);
     }
 
+    if($actionmode == "check_daily_review_limit"){
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+
+        $form_data = check_daily_review_limit($args);
+    }
+    
+
 
     echo json_encode($form_data);
 
@@ -90,6 +97,11 @@
         return $FOOD_REVIEWS -> add_review($args);
     }
 
+    function check_daily_review_limit($args){
+        $FOOD_REVIEWS = new FOOD_REVIEWS();
+        return $FOOD_REVIEWS -> check_daily_review_limit($args);
+    }
+
     function add_rating($args){
         $RATINGS = new RATINGS();
         return $RATINGS -> add_rating($args);
@@ -104,6 +116,8 @@
         $RESTAURANT = new RESTAURANT();
         return $RESTAURANT -> update_restaurant_rating($food_id);
     }
+
+
 
 
 ?>

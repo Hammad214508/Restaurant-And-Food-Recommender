@@ -114,6 +114,7 @@
 					<hr>
 					
 					<h5 id="review_disable_msg"  class="text-info mt-5 ml-3" style="display:none"> Need to be within <span id="min_dist"></span>m to leave a review</h5>
+					<h5 id="daily_review_limit"  class="text-danger mt-5 ml-3" style="display:none"> Sorry! You are reached your maximum daily reviews </h5>
 
 					<div id="give_review_div" class="container mt-5">
 						<div id="review_form">
