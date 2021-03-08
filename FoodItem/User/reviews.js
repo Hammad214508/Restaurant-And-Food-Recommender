@@ -118,7 +118,7 @@ $(document).ready(function(){
     $.fn.render_food_reviews  = function(reviews){
         var parent = $("#reviews");
         parent.empty();
-        parent.append('<hr style="height:2px;border-width:0;color:gray;background-color:gray">')
+        // parent.append('<hr style="height:2px;border-width:0;color:gray;background-color:gray">')
         $.each(reviews, function(index, value ) {
             if (value["REVIEW"]){
                 parent.append($.fn.get_food_review_html(value));

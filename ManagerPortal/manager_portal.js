@@ -320,7 +320,8 @@ $(document).ready(function(){
 
     $.fn.get_table_template = function(){
         return (
-            '<table class="table table-striped table-bordered">'+
+            '<div style="height: 25em; overflow: scroll;">'+
+            '<table class="table table-striped table-bordered" >'+
             '   <thead class="thead-dark">'+
             '       <tr>'+
             '       <th> Name </th>'+
@@ -332,7 +333,9 @@ $(document).ready(function(){
             '   </thead>'+
             '   <tbody id="food_items">'+
             '   </tbody>'+
-            '</table>'
+            '</table>'+
+            '</div>'
+
         );
     }
 
@@ -568,6 +571,7 @@ $(document).ready(function(){
 
     $.fn.get_menu_template_template = function(){
         return (
+            '<div style="height: 25em; overflow: scroll;">'+
             '<table class="table table-striped table-bordered">'+
             '   <thead class="thead-dark">'+
             '       <tr>'+
@@ -578,7 +582,9 @@ $(document).ready(function(){
             '   </thead>'+
             '   <tbody id="today_menu">'+
             '   </tbody>'+
-            '</table>'
+            '</table>'+
+            '</div>'
+
         );
     }
 

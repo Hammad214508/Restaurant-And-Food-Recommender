@@ -27,7 +27,8 @@
         <div class="container mt-5">
 			<div class="row">
 				<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5" style="border-right: 0.5px solid grey;">
-					<h1 id="food_name"></h1>
+					<p id="food_name" class="display-3" style="font-family: Georgia, serif;"></p>
+					<hr>
 					<div id="image_div">
 						<div id="msg" style="display:none;"></div>
 						<form method="post" id="image-form" enctype="multipart/form-data" onSubmit="return false;">
@@ -72,20 +73,23 @@
 						</div>
 					</div>
 
-					<h3 class="mt-3">Statistics</h3>
+					<h3 class="mt-5">Statistics</h3>
 					<div id="stats"></div>
 				</div>
 				<div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7 "> 
 					
 					<div class="container">
 						<div id="reviews_container">
-							<h3>REVIEWS</h3>
+							<h3>Reviews</h3>
+							<hr>
 							<div id="reviews" style="height:20em; overflow-y: scroll;"></div>
 							<h5 id="no_reviews" style="display:none;">No reviews to show!</h5>
 						</div>
 					</div>
 
-					<div class="row mt-5 ml-1">
+					<hr class="mt-5">
+					<div class="row ml-1">
+						
 						<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-1">
 							<h5>Rating:</h5>
 						</div>
@@ -113,12 +117,12 @@
 
 					<hr>
 					
-					<h5 id="review_disable_msg"  class="text-info mt-5 ml-3" style="display:none"> Need to be within <span id="min_dist"></span>m to leave a review</h5>
+					<h5 id="review_disable_msg"  class="text-danger mt-5 ml-3" style="display:none">  Sorry! You need to be within <span id="min_dist"></span> metres to leave a review</h5>
 					<h5 id="daily_review_limit"  class="text-danger mt-5 ml-3" style="display:none"> Sorry! You are reached your maximum daily reviews </h5>
 
 					<div id="give_review_div" class="container mt-5">
 						<div id="review_form">
-							<h3>GIVE REVIEW</h3>
+							<h3>Give Review</h3>
 							<div id="rating_div">
 								<p>Rating:</p>
 								<input id="rating_slider" class="border-0" type="range" min="0" max="5" step="0.25"/>
