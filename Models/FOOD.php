@@ -94,8 +94,6 @@ class FOOD {
 
         if ($args["SORTING"] == "ratings"){
             $query .= " ORDER BY AVG_RATING DESC";
-        }else{
-            $query .= " ORDER BY RAND()";
         }
 
         if ($args["SORTING"] == "reviews"){
@@ -152,8 +150,9 @@ class FOOD {
                       FROM RATINGS 
                       WHERE USER_ID = :USER_ID
                   )
-                  ORDER BY RAND()
+                  ORDER BY F.FOOD_ID 
                   LIMIT 5;";
+                // RAND()
 
         return $conn->get_binded_data($query, $args);
     }

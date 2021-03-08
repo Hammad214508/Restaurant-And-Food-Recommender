@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 06, 2021 at 03:28 AM
+-- Generation Time: Mar 08, 2021 at 02:55 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -86,8 +86,9 @@ CREATE TABLE `EVENTS` (
 INSERT INTO `EVENTS` (`EVENT_ID`, `EVENT_NAME`, `EVENT_DATE`, `EVENT_TIME`, `CREATOR_ID`, `NUM_VOTES`) VALUES
 (2, 'Valentine\'s day', '0000-00-00', '00:00:00', 2, 1),
 (24, 'Event 4', '2021-02-01', '19:00:00', 2, 1),
-(36, 'Graduation Celebration', '2021-02-02', '16:00:00', 2, 1),
-(37, 'Valentine\'s Day', '2021-02-14', '19:00:00', 2, 1);
+(36, 'Graduation Celebration', '2021-07-03', '16:00:00', 2, 1),
+(37, 'Valentine\'s Day', '2021-02-14', '19:00:00', 2, 1),
+(77, 'name', '2021-03-08', '20:30:00', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -114,7 +115,11 @@ INSERT INTO `EVENT_LOCATIONS` (`ID`, `EVENT_ID`, `LOCATION`) VALUES
 (57, 37, 'C'),
 (58, 37, 'D'),
 (75, 36, 'Varcity'),
-(76, 36, 'McDonald\'s');
+(76, 36, 'McDonald\'s'),
+(85, 77, 'A'),
+(86, 77, 'B'),
+(87, 77, 'V'),
+(88, 77, 'D');
 
 -- --------------------------------------------------------
 
@@ -137,12 +142,15 @@ CREATE TABLE `EVENT_USERS` (
 INSERT INTO `EVENT_USERS` (`ID`, `EVENT_ID`, `USER_ID`, `VOTES`) VALUES
 (13, 13, 1, NULL),
 (15, 14, 1, NULL),
-(48, 36, 1, 'Pizza hut'),
+(48, 36, 1, 'Varcity'),
 (49, 37, 1, 'A'),
 (111, 36, 14, NULL),
 (112, 36, 33, NULL),
 (113, 37, 23, NULL),
-(114, 36, 23, NULL);
+(114, 36, 23, NULL),
+(122, 77, 1, 'A,V'),
+(123, 77, 3, NULL),
+(124, 77, 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -169,15 +177,15 @@ CREATE TABLE `FOOD` (
 --
 
 INSERT INTO `FOOD` (`FOOD_ID`, `NAME`, `PRICE`, `DESCRIPTION`, `RESTAURANT_ID`, `AVAILABLE`, `DIET_TYPE`, `HEALTHY_RATING`, `FILLING_RATING`, `AVG_RATING`) VALUES
-(1, 'Pizza', 7.71, 'Cheese sauce (contains gluten), chicken, pepperoni, jalapeños and our signature triple cheese blend.', 1, 'false', '3', 2.09, 0.75, 2.39),
+(1, 'Pizza', 7.71, 'Cheese sauce (contains gluten), chicken, pepperoni, jalapeños and our signature triple cheese blend.', 1, 'true', '2', 2.71, 2.12, 2.16),
 (2, 'Cake', 4.56, 'Top this classic carrot cake with moreish icing and chopped walnuts or pecans. Serve as a sweet treat with a cup of tea any time of the day. ', 1, 'false', '2', 4.8, 2.09, 0.97),
-(3, 'Ice cream ', 10.17, 'With just five ingredients, including vanilla and salt, this no-churn ice cream tastes pure and simple, with a fresh dairy flavor, unlike recipes based on canned milk', 2, 'true', '3', 3.46, 4.57, 2.65),
-(4, 'Chips', 5.7, 'Golden, crispy, triple cooked, thick cut chips.', 1, 'false', '1', 4.43, 4.39, 3.74),
-(5, 'Burrito', 8.46, 'Got a hungry gang? Serve these seriously filling burritos, with beans, meat, potatoes, chillies, and thick salsa topping it all. ', 2, 'true', '1', 0.63, 1.71, 1.77),
+(3, 'Burrito', 8.46, 'Got a hungry gang? Serve these seriously filling burritos, with beans, meat, potatoes, chillies, and thick salsa topping it all. ', 2, 'true', '1', 0.63, 1.71, 1.77),
+(4, 'Bacon burger', 6.24, 'Our classic burger topped with applewood smoked bacon and cheddar jack cheese', 1, 'false', '3', 3.27, 4.45, 2.63),
+(5, 'Chicken  Salad', 0.24, 'Grilled chicken over Romaine and Iceberg lettuce topped with croutons, shaved parmasan cheese and our Ceasar dressing', 1, 'false', '3', 1.64, 3.76, 4.07),
 (6, 'Banana', 4.23, 'Natural and fresh bananas straight from the trees', 4, 'false', '2', 3.69, 3.34, 0.7),
-(7, 'Bacon burger', 6.24, 'Our classic burger topped with applewood smoked bacon and cheddar jack cheese', 1, 'false', '3', 3.27, 4.45, 2.63),
+(7, 'Ice cream ', 10.17, 'With just five ingredients, including vanilla and salt, this no-churn ice cream tastes pure and simple, with a fresh dairy flavor, unlike recipes based on canned milk', 2, 'true', '3', 3.46, 4.57, 2.65),
 (8, 'Turkey Burger', 7.99, 'Turkey patty topped with swiss cheese and chipotle mayo', 1, 'false', '3', 4.68, 0.82, 4.74),
-(9, 'Chicken  Salad', 0.24, 'Grilled chicken over Romaine and Iceberg lettuce topped with croutons, shaved parmasan cheese and our Ceasar dressing', 1, 'false', '3', 1.64, 3.76, 4.07),
+(9, 'Chips', 5.7, 'Golden, crispy, triple cooked, thick cut chips.', 1, 'false', '1', 4.43, 4.39, 3.74),
 (10, 'Bag of Chips', 8.69, 'ruffles, cheetos, doritos, fritos, bbq', 2, 'true', '2', 4.14, 3.6, 0.66),
 (11, 'Cans of Soda', 0.75, 'pepsi, diet pepsi, mt. dew, root beer, orange, 7-up, dr. pepper, lemonade', 2, 'true', '3', 2.31, 4.66, 1.66),
 (12, '2 Liter of Soda', 9.13, 'pepsi, diet pepsi, mt. dew', 4, 'true', '1', 4.1, 0.82, 1.57),
@@ -1401,7 +1409,8 @@ CREATE TABLE `NOTIFICATIONS` (
 
 INSERT INTO `NOTIFICATIONS` (`NOTIFICATION_ID`, `TYPE`, `FROM_UID`, `TO_UID`, `MESSAGE`) VALUES
 (1, 'connection_request', 16, 1, 'Hello!'),
-(3, 'connection_request', 6, 1, 'I want to be friends');
+(3, 'connection_request', 6, 1, 'I want to be friends'),
+(16, 'connection_request', 1, 7, 'Hello');
 
 -- --------------------------------------------------------
 
@@ -4973,7 +4982,7 @@ CREATE TABLE `RESTAURANT` (
 --
 
 INSERT INTO `RESTAURANT` (`RESTAURANT_ID`, `NAME`, `EMAIL`, `NUMBER`, `ADDRESS`, `WEBSITE`, `RATING`, `OPENING_TIME`, `CLOSING_TIME`, `MANAGER_ID`, `LATITUDE`, `LONGITUDE`) VALUES
-(1, 'Hammad restaurant ', 'hammad@email ', '01782412348', 'London', 'website.com', 2.88, '08:00:00', '22:30:00', 4, 51.53468098822501, -0.6261025737492987),
+(1, 'Hammad Restaurant ', 'hammad@email ', '01782412348', 'London', 'website.com', 2.52, '08:00:00', '22:30:00', 4, 51.5346214798066, -0.6269608806340643),
 (2, 'Dinner in the Sky', 'dinnersky@email', '07846284628', 'Wembley', 'https://jaydipmagan.com/', 2.56, '02:00:00', '05:30:00', 2, 51, -0.6),
 (3, 'The Disaster Café', 'disastercafe@email', '07776846507', 'Oxford', '', 3.5, '12:00:00', '05:30:00', 3, NULL, NULL),
 (4, 'Meow Cat Cafe', 'my@email', '07776846506', 'London', 'https://hammadmehmood.co.uk', 2.83, '08:00:00', '22:00:00', 1, NULL, NULL),
@@ -5023,7 +5032,7 @@ INSERT INTO `USER` (`USER_ID`, `NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `GOOGLE_L
 (18, 'Emily', 'Armstrong', 'e.armstrong@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 1, '1'),
 (19, 'Patrick', 'Miller', 'p.miller@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
 (20, 'Roman', 'Hawkins', 'r.hawkins@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, '1'),
-(21, 'Sarah', 'Turner', 's.turner@randatmail.com', '$2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, 'true'),
+(21, 'Sarah', 'Turner', 's.turner@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 2, 'true'),
 (22, 'Jasmine', 'Allen', 'j.allen@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
 (23, 'Madaline', 'Craig', 'm.craig@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
 (24, 'Kelvin', 'Perry', 'k.perry@randatmail.com', ' $2y$10$JBB1J8sxvY3MG.uyuPPAXeIdH5o4U5cVgpn.PONALhW.6u2UovWi6', NULL, 3, '1'),
@@ -5135,31 +5144,31 @@ ALTER TABLE `CONNECTIONS`
 -- AUTO_INCREMENT for table `EVENTS`
 --
 ALTER TABLE `EVENTS`
-  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `EVENT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `EVENT_LOCATIONS`
 --
 ALTER TABLE `EVENT_LOCATIONS`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `EVENT_USERS`
 --
 ALTER TABLE `EVENT_USERS`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `FOOD`
 --
 ALTER TABLE `FOOD`
-  MODIFY `FOOD_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
+  MODIFY `FOOD_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 
 --
 -- AUTO_INCREMENT for table `FOOD_REVIEWS`
 --
 ALTER TABLE `FOOD_REVIEWS`
-  MODIFY `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=777;
+  MODIFY `REVIEW_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=778;
 
 --
 -- AUTO_INCREMENT for table `IMAGES`
@@ -5177,13 +5186,13 @@ ALTER TABLE `MANAGER`
 -- AUTO_INCREMENT for table `NOTIFICATIONS`
 --
 ALTER TABLE `NOTIFICATIONS`
-  MODIFY `NOTIFICATION_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `NOTIFICATION_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `RATINGS`
 --
 ALTER TABLE `RATINGS`
-  MODIFY `RATING_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3881;
+  MODIFY `RATING_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3917;
 
 --
 -- AUTO_INCREMENT for table `RESTAURANT`
