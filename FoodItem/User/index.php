@@ -118,11 +118,18 @@
 					<hr>
 					
 					<h5 id="review_disable_msg"  class="text-danger mt-5 ml-3" style="display:none">  Sorry! You need to be within <span id="min_dist"></span> metres to leave a review</h5>
-					<h5 id="daily_review_limit"  class="text-danger mt-5 ml-3" style="display:none"> Sorry! You are reached your maximum daily reviews </h5>
+					<h5 id="daily_review_limit"  class="text-danger mt-5 ml-3" style="display:none"> Sorry! You are reached your maximum daily reviews limit</h5>
 
 					<div id="give_review_div" class="container mt-5">
 						<div id="review_form">
-							<h3>Give Review</h3>
+							<div class="row">
+								<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
+									<h3>Give Review</h3>
+								</div>
+								<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 my-auto">
+									<span id="review_given" style="color:green; font-size:14px; display:none;">Thank you for you feedback!</span>
+								</div>
+							</div>
 							<div id="rating_div">
 								<p>Rating:</p>
 								<input id="rating_slider" class="border-0" type="range" min="0" max="5" step="0.25"/>

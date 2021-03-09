@@ -6,8 +6,7 @@ $(document).ready(function(){
     var open = false;
     var r_open = false;
     var websocket = new WebSocket("ws://127.0.0.1:6789/"); 
-    var user_lat, user_lon;
-    var distances = {1 : 786, 2: 1000, 3: 173, 4: 123, 5: 9823};
+    var distances = {1 : 786, 2: 1000, 3: 173, 4: 123, 5: 9823, 6:2013};
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");

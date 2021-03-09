@@ -38,7 +38,7 @@
                 <div id="display_event_container" style="padding: 0px 100px 100px 100px;">
                     <div class="row">
                         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-xs-9"> 
-                            <div id="display_name"></div>
+                            <div id="display_name" style="font-family: Georgia, serif;"></div>
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 my-auto text-left">
                             <h1>

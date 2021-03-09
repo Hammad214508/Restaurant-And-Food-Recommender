@@ -118,13 +118,11 @@ $(document).ready(function(){
     $.fn.render_food_reviews  = function(reviews){
         var parent = $("#reviews");
         parent.empty();
-        // parent.append('<hr style="height:2px;border-width:0;color:gray;background-color:gray">')
         $.each(reviews, function(index, value ) {
             if (value["REVIEW"]){
                 parent.append($.fn.get_food_review_html(value));
                 $.fn.add_score($.fn.get_percentage(value["RATING"]), $("#stars_"+value["REVIEW_ID"]))
             }
-  
         })
     }
 
@@ -276,6 +274,9 @@ $(document).ready(function(){
                     $("#review_txt").prop("disabled", true);
                     $("#submit_review").prop("disabled", true);
                     $("#more").prop("disabled", true);
+                    $("#health_slider").prop("disabled", true)
+                    $("#filling_slider").prop("disabled", true)
+                    $("#review_given").show();
 
                     
                }
