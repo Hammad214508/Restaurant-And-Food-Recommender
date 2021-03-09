@@ -53,16 +53,20 @@ async def handler(websocket, path):
     await register(websocket)
     try:
         async for message in websocket:
+            
             data = json.loads(message)
             if data["action"] == "user_food_recommender":
+                print("    -> REQUEST: FOOD RECOMMENDATIONS FOR USER "+data['user_id'])
                 parameters = get_parameters_for_recommendation(data)
                 DATA["recommended"] = user_recommender.get_user_food_recommendations(int(data['user_id']), parameters)
                 await send_response(websocket)
             elif data["action"] == "user_restaurant_recommender":
+                print("    -> REQUEST: RESTAURANT RECOMMENDATIONS FOR USER "+data['user_id'])
                 parameters = (data["open"],)
                 DATA["recommended"] = user_recommender.get_user_restaurant_recommendations(int(data['user_id']), parameters)
                 await send_response(websocket)
             elif data["action"] == "group_recommender":
+                print("    -> REQUEST: RESTAURANT RECOMMENDATIONS FOR USERS "+str(data['users']))
                 DATA["recommended"]= group_recommender.get_recommended_restaurants(data["users"])
                 await send_response(websocket)
             else:
@@ -72,6 +76,6 @@ async def handler(websocket, path):
 
 
 start_server = websockets.serve(handler, "localhost", 6789)
-
+print("\nCONNECTION SUCCESSFUL\n")
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
