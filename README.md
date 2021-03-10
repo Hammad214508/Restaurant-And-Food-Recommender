@@ -1,1 +1,1 @@
-# Web application for restauarant and food recommendation
+# Web Application for Restaurant and Food Recommendation

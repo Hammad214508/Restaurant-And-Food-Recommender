@@ -5,7 +5,7 @@ from train import training_data
 
 # data = Dataset.load_builtin("ml-100k") Load the movielens dataset
 sim_options = {
-    "name": ["msd", "cosine"],
+    "name": ["pearson", "msd", "cosine"],
     "min_support": [1, 2, 4, 5],
     "user_based": [False, True],
 }
