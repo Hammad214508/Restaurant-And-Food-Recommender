@@ -102,7 +102,7 @@ class FOOD {
                       FROM RATINGS RT, RESTAURANT R, FOOD F
                       LEFT JOIN IMAGES IM ON F.FOOD_ID = IM.ENTITY_ID
                                           AND IM.ENTITY_TYPE = 'FOOD'
-                      WHERE R.RESTAURANT_ID = F.RESTAURANT_ID  
+                      WHERE R.RESTAURANT_ID = F.RESTAURANT_ID
                             AND F.FOOD_ID = RT.FOOD_ID
                       GROUP BY F.FOOD_ID
                       ORDER BY NUM_REVIEWS DESC";
@@ -114,7 +114,7 @@ class FOOD {
 
     public function update_food_stats($food_id){
         $args = array(
-            "FOOD_ID"=> $food_id, 
+            "FOOD_ID"=> $food_id,
             "FOOD_ID1"=> $food_id,
             "FOOD_ID2"=> $food_id,
             "FOOD_ID3"=> $food_id
@@ -137,7 +137,7 @@ class FOOD {
         return $conn->perform_transaction($query, $args);
     }
 
-    public function get_random_items($args){
+    public function get_random_items($args, $num_items){
 
         $conn = new Connector();
 
@@ -146,16 +146,14 @@ class FOOD {
                   LEFT JOIN IMAGES IM ON F.FOOD_ID = ENTITY_ID
                                          AND ENTITY_TYPE = 'FOOD'
                   WHERE F.FOOD_ID NOT IN (
-                      SELECT FOOD_ID 
-                      FROM RATINGS 
+                      SELECT FOOD_ID
+                      FROM RATINGS
                       WHERE USER_ID = :USER_ID
                   )
-                  ORDER BY F.FOOD_ID 
-                  LIMIT 5;";
-                // RAND()
-
+                  ORDER BY RAND()
+                  LIMIT ".$num_items;
         return $conn->get_binded_data($query, $args);
     }
-    
+
 
 }

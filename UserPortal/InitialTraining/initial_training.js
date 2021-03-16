@@ -10,7 +10,9 @@ $(document).ready(function(){
            method: "POST",
            data:{
                    "actionmode"	   : "get_random_items",
-                   "USER_ID"       : user_id
+                   "USER_ID"       : user_id,
+                   "NUM_ITEMS"     : 5
+
                },
            success:function(data) {
                 data = JSON.parse(data);

@@ -7,7 +7,7 @@
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/EVENTS.php');
     include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/Models/RATINGS.php');
 
-    
+
     $actionmode = isset($_POST['actionmode']) ? $_POST['actionmode'] : NULL;
 
     if($actionmode == "get_all_restaurants"){
@@ -88,7 +88,7 @@
 
         $form_data = get_profile_data($args);
     }
-    
+
     if($actionmode == "update_user_profile_data"){
         $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
         $args["NAME"] = isset($_POST['NAME']) ? $_POST['NAME'] : NULL;
@@ -117,7 +117,7 @@
         $args["EVENT_DATE"] = isset($_POST['EVENT_DATE']) ?  date('Y-m-d', strtotime($_POST['EVENT_DATE'])) : NULL;
         $args["EVENT_TIME"] = isset($_POST['EVENT_TIME']) ? date('H:i:s', strtotime($_POST['EVENT_TIME'])) : NULL;
         $args["NUM_VOTES"] = isset($_POST['NUM_VOTES']) ? $_POST['NUM_VOTES'] : NULL;
-        
+
         $form_data = update_event_data($args);
     }
 
@@ -157,7 +157,7 @@
 
         $new_args["USER_ID"] = $args["USER_ID"];
         $new_args["EVENT_ID"] = $form_data["dataset"]["LAST_ID"];
-        
+
         insert_event_user($new_args);
     }
 
@@ -180,27 +180,28 @@
         $args["VOTES"] = isset($_POST['VOTES']) ? $_POST['VOTES'] : NULL;
         $args["EVENT_ID"] = isset($_POST['EVENT_ID']) ? $_POST['EVENT_ID'] : NULL;
         $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
-        
+
         $form_data = update_users_vote($args);
     }
-    
-    if($actionmode == "get_random_items"){
-        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;;
 
-        $form_data = get_random_items($args);
+    if($actionmode == "get_random_items"){
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+        // $args["NUM_ITEMS"] = isset($_POST['NUM_ITEMS']) ? (int)$_POST['NUM_ITEMS'] : NULL;
+        $num_items = isset($_POST['NUM_ITEMS']) ? (int)$_POST['NUM_ITEMS'] : NULL;
+        $form_data = get_random_items($args, $num_items);
     }
 
     if($actionmode == "add_rating"){
-        $args["FOOD_ID"] = isset($_POST['FOOD_ID']) ? $_POST['FOOD_ID'] : NULL;;
-        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;;
-        $args["RATING"] = isset($_POST['RATING']) ? $_POST['RATING'] : NULL;;
-         
+        $args["FOOD_ID"] = isset($_POST['FOOD_ID']) ? $_POST['FOOD_ID'] : NULL;
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+        $args["RATING"] = isset($_POST['RATING']) ? $_POST['RATING'] : NULL;
+
         $form_data = add_rating($args);
     }
 
     if($actionmode == "initial_training_done"){
-        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;;
-         
+        $args["USER_ID"] = isset($_POST['USER_ID']) ? $_POST['USER_ID'] : NULL;
+
         $form_data = initial_training_done($args);
     }
 
@@ -276,7 +277,7 @@
         $EVENTS = new EVENTS();
         return $EVENTS -> update_event_data($args);
     }
-    
+
     function insert_event_user($args){
         $EVENTS = new EVENTS();
         return $EVENTS -> insert_event_user($args);
@@ -311,15 +312,15 @@
         $EVENTS = new EVENTS();
         return $EVENTS -> get_users_votes($args);
     }
-    
+
     function update_users_vote($args){
         $EVENTS = new EVENTS();
         return $EVENTS -> update_users_vote($args);
     }
-    
-    function get_random_items($args){
+
+    function get_random_items($args, $num_items){
         $FOOD = new FOOD();
-        return $FOOD -> get_random_items($args);
+        return $FOOD -> get_random_items($args, $num_items);
     }
 
 
@@ -332,7 +333,7 @@
         $USER = new USER();
         return $USER -> initial_training_done($args);
     }
-    
-    
-    
+
+
+
 ?>
