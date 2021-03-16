@@ -2,6 +2,9 @@
     <title>Food Items</title>
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/header.php') ?>
     <link rel="stylesheet" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/FoodItem/star.css">
+    <link rel="stylesheet" href="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/libraries/spinning_wheel/wheel.css">
+
+
 
 </head>
 <body>
@@ -16,7 +19,12 @@
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
     </div>
 
-    <div id="normal_food_items_page"> 
+    <div id="chart" style="margin-left: 33%; z-index:1; display:none; margin-top: 100px;">
+
+    </div>
+
+
+    <div id="normal_food_items_page">
 
     <div class="container-fluid">
         <div class="jumbotron">
@@ -62,11 +70,11 @@
             <div id="more" class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 bottom-buffer text-right">
                 <button id="more" class="btn btn-link">More</button> <i class="fa fa-filter" aria-hidden="true"></i>
             </div>
-            
+
 
         </div>
 
-        
+
         <div class="more_filters" style="display: none;">
             <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left my-auto">
@@ -121,9 +129,12 @@
             <h1>Recommended Food Items</h1>
             <p>I can help you decide what to get</p>
             <button id="back" type="button" class="btn btn-secondary">Back</button>
+            <button id="wheel" type="button" class="btn btn-secondary">Pick an Item</button>
 
         </div>
     </div>
+
+
 
     <div class="container">
         <div class="row">
@@ -154,11 +165,11 @@
             <div id="r_more" class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 bottom-buffer text-right">
                 <button class="btn btn-link">More</button> <i class="fa fa-filter" aria-hidden="true"></i>
             </div>
-            
+
 
         </div>
 
-        
+
         <div class="r_more_filters" style="display: none;">
             <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left my-auto">
@@ -197,4 +208,6 @@
 </body>
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/Restaurant-And-Food-Recommender/footer.php') ?>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/libraries/spinning_wheel/wheel.js"></script>
 <script src="<?php global $basedir; ?>/Restaurant-And-Food-Recommender/UserPortal/FoodItems/food_items.js"></script>

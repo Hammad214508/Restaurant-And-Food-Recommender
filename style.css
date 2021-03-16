@@ -10,8 +10,8 @@
 
 
 .show_pass_pos{
-    position:relative; 
-    left: -76px; 
+    position:relative;
+    left: -76px;
 }
 
 .list-group-item-dark.active{
@@ -77,10 +77,10 @@
     background-color: #fa3e3e;
     border-radius: 2px;
     color: white;
-   
+
     padding: 1px 3px;
     font-size: 14px;
-    
+
     /* position: inline; Position the badge within the relatively positioned button */
     top: 0;
     right: 0;
@@ -107,8 +107,16 @@
     filter: blur(2px);
 }
 
+.blur_more{
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
+}
+
 .train_icon{
-    border:1px solid black; 
+    border:1px solid black;
     background-color:#c6c8ca;
 }
 
@@ -130,7 +138,7 @@
     padding: 15px;
     border-radius: 10px;
 }
-  
+
 #scroll_top:hover {
     background-color: #343a40;
     color: white;

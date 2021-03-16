@@ -1,0 +1,13 @@
+circle{
+  cursor: pointer;
+}
+.pointer{
+  cursor: pointer;
+}
+#chart{
+    position:absolute;
+    width:500px;
+    height:500px;
+    top:0;
+    left:0;
+}

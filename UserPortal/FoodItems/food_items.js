@@ -1,10 +1,11 @@
 $(document).ready(function(){
     var user_id;
-    var websocket = new WebSocket("ws://127.0.0.1:6789/");  
+    var websocket = new WebSocket("ws://127.0.0.1:6789/");
     var available = false;
     var food_item_search = "";
     var sorting, filling_rating_filter, healthy_rating_filter, diet_type_filter ;
     var default_diet_type;
+    var top_items = [];
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -71,7 +72,7 @@ $(document).ready(function(){
     }
 
     $.fn.get_all_food_items = function(){
-        
+
         $.ajax({
             url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
             method: "POST",
@@ -80,8 +81,8 @@ $(document).ready(function(){
                     "AVAILABLE"      : available,
                     "SEARCH"         : food_item_search,
                     "SORTING"        : sorting,
-                    "FILLING_RATING" : filling_rating_filter, 
-                    "HEALTHY_RATING" : healthy_rating_filter, 
+                    "FILLING_RATING" : filling_rating_filter,
+                    "HEALTHY_RATING" : healthy_rating_filter,
                     "DIET_TYPE"      : diet_type_filter
                 },
             success:function(data) {
@@ -119,7 +120,7 @@ $(document).ready(function(){
             var diet = $.fn.get_diet_type(food_items[i]["DIET_TYPE"]);
             var healthy_rating = food_items[i]["HEALTHY_RATING"]
             var filling_rating = food_items[i]["FILLING_RATING"]
-            var rating = food_items[i]["AVG_RATING"] 
+            var rating = food_items[i]["AVG_RATING"]
             var restaurant_name = food_items[i]["RESTAURANT_NAME"]
             var proj = $.fn.get_food_item_box(id, name, price, diet, healthy_rating, filling_rating, rating, restaurant_name);
             row.append(proj);
@@ -185,15 +186,15 @@ $(document).ready(function(){
         $("#search_text").on("keyup", function(e){
             food_item_search = $(this).val();
             $.fn.get_all_food_items();
-        }); 
+        });
 
-        // Sorting 
+        // Sorting
         $("#sorting").on("change", function(){
             sorting = $(this).val();
             $.fn.get_all_food_items();
-        }); 
+        });
 
-        // Healthy rating 
+        // Healthy rating
         $('#health_value').html($('#health_slider').val());
 
         $('#health_slider').on('input', function(){
@@ -215,15 +216,15 @@ $(document).ready(function(){
         $('#filling_slider').on('change', function(){
             filling_rating_filter = $('#filling_slider').val();
             $.fn.get_all_food_items();
-   
+
         });
 
         // Diet type
         $("#diet_type").on("change", function(){
             diet_type_filter = $(this).val();
             $.fn.get_all_food_items();
-    
-        }); 
+
+        });
 
         $("#more").click(function(){
             $(".more_filters").slideToggle("slow");
@@ -243,11 +244,11 @@ $(document).ready(function(){
         websocket.send(
             JSON.stringify(
                 {
-                    action: 'user_food_recommender', 
+                    action: 'user_food_recommender',
                     "user_id": user_id,
                     "available": available,
                     "healthy_rating_filter": healthy_rating_filter,
-                    "filling_rating_filter": filling_rating_filter, 
+                    "filling_rating_filter": filling_rating_filter,
                     "diet_type_filter" : diet_type_filter
                 }));
     }
@@ -266,7 +267,7 @@ $(document).ready(function(){
             }
             else{
                 $("#error").html("<b>ERROR GETTING FOOD RECOMMENDATIONS!</b>");
-                $.fn.temporary_show("#error");        
+                $.fn.temporary_show("#error");
             }
         };
     }
@@ -275,7 +276,7 @@ $(document).ready(function(){
 
         websocket.onerror = function(error) {
             $("#error").html("<b>ERROR WITH WEBSOCKET SERVER</b>");
-            $.fn.temporary_show("#error");    
+            $.fn.temporary_show("#error");
         };
     }
 
@@ -286,7 +287,7 @@ $(document).ready(function(){
             $.fn.get_recommended_food_items();
         });
 
-        // Healthy rating 
+        // Healthy rating
         $('#r_health_value').html($('#r_health_slider').val());
 
         $('#r_health_slider').off("input").on('input', function(){
@@ -314,7 +315,7 @@ $(document).ready(function(){
         $("#r_diet_type").off("change").on("change", function(){
             diet_type_filter = $(this).val();
             $.fn.get_recommended_food_items();
-        }); 
+        });
 
         $("#r_more").off("click").on("click",function(){
             $(".r_more_filters").slideToggle("slow");
@@ -333,10 +334,14 @@ $(document).ready(function(){
         parent.empty();
         var i = 0;
         var row;
+        top_items = []
         order.forEach(function(item) {
             if (i % 3 == 0){
                 row = $("<div class='row'>");
                 parent.append(row);
+            }
+            if (i < 6){
+              top_items.push({"label": recommended[item]["NAME"],  "ID":recommended[item]["ID"]});
             }
             var id = recommended[item]["ID"];
             var name = recommended[item]["NAME"];
@@ -344,14 +349,14 @@ $(document).ready(function(){
             var diet = $.fn.get_diet_type(recommended[item]["DIET"]);
             var healthy_rating = recommended[item]["HEALTHY"]
             var filling_rating = recommended[item]["FILLING"]
-            var rating = recommended[item]["AVG_RATING"] 
+            var rating = recommended[item]["AVG_RATING"]
             var restaurant_name = recommended[item]["REST_NAME"]
             var proj = $.fn.get_food_item_box(id, name, price, diet, healthy_rating, filling_rating, rating, restaurant_name);
             row.append(proj);
             $.fn.add_score($.fn.get_percentage(rating), $("#food_item_"+id+" .overall_rating"))
             i++;
-        }); 
- 
+        });
+
         $.fn.add_event();
     }
 
@@ -383,12 +388,22 @@ $(document).ready(function(){
                 $("#recommended_food_items_page").show();
                 $.fn.restart_recommended_filters();
                 $.fn.get_recommended_food_items();
-                $.fn.recommended_filter_events();                
+                $.fn.recommended_filter_events();
             });
 
             $("#back").on("click", function(){
                 $("#recommended_food_items_page").hide();
                 $("#normal_food_items_page").show();
+            })
+
+            $("#wheel").on("click", function(){
+                $("#chart").show();
+                $("#recommended_food_items_page").addClass("blur_more")
+                Wheel(top_items);
+                $("#close_chart").on("click", function(){
+                  $("#chart").hide();
+                  $("#recommended_food_items_page").removeClass("blur_more")
+                })
             })
 
         };
@@ -398,4 +413,3 @@ $(document).ready(function(){
     pageready.init();
 
 });
- 
