@@ -67,11 +67,6 @@ function Wheel(items){
                   .duration(5000)
                   .attrTween("transform", rotTween)
                   .each("end", function(){
-
-                      /* Get the result value from object "data" */
-                      console.log(data[picked])
-
-
                       /* Comment the below line for restrict spin to sngle time */
                       container.on("click", spin);
                   });

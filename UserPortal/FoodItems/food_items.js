@@ -6,6 +6,7 @@ $(document).ready(function(){
     var sorting, filling_rating_filter, healthy_rating_filter, diet_type_filter ;
     var default_diet_type;
     var top_items = [];
+    var random_items;
 
     $.fn.activate_nav_bar = function(){
         $(".nav-item.active").removeClass("active");
@@ -372,6 +373,38 @@ $(document).ready(function(){
         .appendTo(element);
     }
 
+    $.fn.get_random_items = function(){
+      $.ajax({
+          url: "/Restaurant-And-Food-Recommender/UserPortal/user_services.php",
+          method: "POST",
+          data:{
+                  "actionmode"	: "get_random_items",
+                  "USER_ID"     : user_id,
+                  "NUM_ITEMS"   : 10
+              },
+          success:function(data) {
+               data = JSON.parse(data);
+               if (!data.success){
+                   $("#error").html("<b>ERROR GETTING USER DATA!</b>");
+                   $.fn.temporary_show("#error");
+               }else{
+                   random_items = []
+                   data = data.dataset[0];
+                   data.forEach(function(item){
+                     random_items.push({"label" : item["NAME"]})
+                   })
+                   $("#chart").show();
+                   $("#normal_food_items_page").addClass("blur_more")
+                   Wheel(random_items)
+                   $("#close_chart").on("click", function(){
+                     $("#chart").hide();
+                     $("#normal_food_items_page").removeClass("blur_more")
+                   })
+               }
+           }
+       });
+    };
+
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
@@ -405,6 +438,12 @@ $(document).ready(function(){
                   $("#recommended_food_items_page").removeClass("blur_more")
                 })
             })
+
+            $("#random").on("click", function(){
+                $.fn.get_random_items();
+            })
+
+
 
         };
         return thispage;

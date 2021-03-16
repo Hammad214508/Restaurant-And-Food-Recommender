@@ -31,6 +31,8 @@
              <h1> Food Items </h1>
              <p>Do you need help deciding?</p>
              <button id="get_recom" type="button" class="btn btn-secondary">Get Recommendations</button>
+             <button id="random" type="button" class="btn btn-secondary">Pick Random Item</button>
+
         </div>
     </div>
 
