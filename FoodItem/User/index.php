@@ -22,7 +22,7 @@
         <div id="error" class="alert alert-danger text-center" role="alert" style="display:none;"></div>
     </div>
 
-    <div class="container mb-5 mt-5">
+    <div class="container-fluid mb-5 mt-5">
 		<div class="row">
 			<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5" style="border-right: 0.5px solid grey;">
 				<p id="food_name" class="display-3" style="font-family: Georgia, serif;"></p>
@@ -31,8 +31,7 @@
 					<div id="msg" style="display:none;"></div>
 					<form method="post" id="image-form" enctype="multipart/form-data" onSubmit="return false;">
 						<div class="mb-3">
-						<img id="image" src="" class="img-thumbnail food_img" style="display:none"> 
-
+							<img id="image" src="" class="img-thumbnail food_img" style="display:none"> 
 						</div>
 					</form>
 				</div>
@@ -73,6 +72,9 @@
 
 				<h3 class="mt-5">Statistics</h3>
 				<div id="stats"></div>
+
+				<h3 class="mt-5">You might also like</h3>
+				<div id="item_based_foods" class="row mt-3"></div>
 			</div>
 			<div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7 "> 
 				

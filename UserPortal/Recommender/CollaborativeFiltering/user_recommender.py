@@ -137,11 +137,11 @@ def get_user_food_recommendations(user_id, parameters):
 
 def get_item_based_data():
 
-  sql = """ SELECT DISTINCT F.FOOD_ID, F.NAME, F.PRICE, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING,
-                  F.AVG_RATING, RES.NAME AS RESTAURANT_NAME
-            FROM RATINGS R 
-                INNER JOIN FOOD F ON R.FOOD_ID = F.FOOD_ID
-                INNER JOIN RESTAURANT RES ON F.RESTAURANT_ID = RES.RESTAURANT_ID
+  sql = """ SELECT  F.FOOD_ID, F.NAME, IM.IMAGE_NAME
+            FROM FOOD F 
+            INNER JOIN IMAGES IM ON F.FOOD_ID = IM.ENTITY_ID
+            WHERE IM.ENTITY_TYPE = "FOOD"
+    
         """
                
   mycursor.execute(sql)
@@ -157,8 +157,7 @@ def get_item_based_to_recommend(user_id):
       prediction = item_based.predict(user_id, food_id[0])
       predictions[food_id[0]] = prediction.est
       data[food_id[0]] = {  "P_RATING": prediction.est, "ID" : food_id[0], "NAME": food_id[1], 
-                            "PRICE": food_id[2], "DIET": food_id[3], "HEALTHY" : food_id[4], 
-                            "FILLING": food_id[5], "AVG_RATING": food_id[6], "REST_NAME": food_id[7]}
+                            "IMAGE": food_id[2]}
   sorted_by_preference = [k for k, v in sorted(predictions.items(), key=lambda item: item[1], reverse=True)]
   return data, sorted_by_preference
 

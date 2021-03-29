@@ -6,6 +6,8 @@ $(document).ready(function(){
     var extra_filters = false;
     var rest_lat, rest_long;
     var min_distance = 100; //metres
+    var websocket = new WebSocket("ws://127.0.0.1:6789/");
+
 
     $.fn.get_food_item_by_id = function(){
         $.ajax({
@@ -345,6 +347,72 @@ $(document).ready(function(){
         })
     }
 
+    $.fn.get_food_item_box = function(id, name, img){
+        return (
+            '<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 my-auto text-center">'+
+            '   <a href="https://localhost/Restaurant-And-Food-Recommender/FoodItem/User/?food_id='+id+'" style="color:black">'+
+            '       <img id="'+id+'" src="/Restaurant-And-Food-Recommender/Images/FoodImages/'+img+'" class="img-thumbnail food_img_recommended" > '+
+            '       <p>'+name+'</p>'+
+            '   </a>'+
+            '</div>'
+        )
+
+    }
+
+    $.fn.render_recommended_food_item_boxes = function(recommended, order){
+        var parent = $("#item_based_foods");
+        parent.empty();
+        for (var i=0; i<3; i++){
+            item = order[i]
+            var id = recommended[item]["ID"];
+            var name = recommended[item]["NAME"];
+            var img = recommended[item]["IMAGE"];
+
+            parent.append($.fn.get_food_item_box(id, name, img));
+        }
+
+        // $.fn.add_event();
+    }
+
+
+    $.fn.get_recommended_food_items = function(){
+        websocket.send(
+            JSON.stringify(
+                {
+                    action: 'item_food_recommender',
+                    "user_id": user_id,
+                }));
+    }
+
+    websocket.onmessage = function (event) {
+        data = JSON.parse(event.data);
+        if (data.type == "recommended_items"){
+            if (data["recommended"][1].length > 0){
+                console.log(data)
+                $.fn.render_recommended_food_item_boxes(data["recommended"][0], data["recommended"][1]);
+            }else{
+                // parent = $("#r_food_items_container");
+                // parent.empty();
+                // parent.append("<h3>NO FOOD ITEMS</h3>");
+            }
+        }
+        else{
+            $("#error").html("<b>ERROR GETTING ITEM BASED FOOD RECOMMENDATIONS!</b>");
+            $.fn.temporary_show("#error");
+        }
+    };
+
+
+    websocket.onopen = function(error) {
+        $.fn.get_recommended_food_items();
+    };
+
+    websocket.onerror = function(error) {
+        $("#error").html("<b>ERROR WITH WEBSOCKET SERVER</b>");
+        $.fn.temporary_show("#error");
+    };
+
+
     var pageready = (function(){
         var thispage = {};
         thispage.init = function(){
@@ -358,7 +426,8 @@ $(document).ready(function(){
             $.fn.give_review_events();
             $.fn.getLocation();
             $.fn.give_rating();
-
+            
+          
         };
         return thispage;
     })();
