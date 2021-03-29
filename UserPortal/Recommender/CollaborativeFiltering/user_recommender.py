@@ -23,22 +23,32 @@ mycursor = mydb.cursor(prepared=True, cursor_class=MySQLCursorNamedTuple)
 
 from surprise import KNNBasic, KNNWithMeans, KNNWithZScore, KNNBaseline
 
-# To use item-based cosine similarity
-sim_options = {
+# To use user-based cosine similarity
+sim_options_user = {
     "name": "cosine",
-    "user_based": False,  # Compute  similarities between items
+    "user_based": True,  # Compute  similarities between items
+    "min_support": 2,
 }
 
-# name contains the similarity metric to use. Options are cosine, msd, pearson, or pearson_baseline. The default is msd.
-# user_based is a boolean that tells whether the approach will be user-based or item-based. The default is True, which means the user-based approach will be used.
-# min_support is the minimum number of common items needed between users to consider them for similarity. For the item-based approach, this corresponds to the minimum number of common users for two items.
+# To use item-based cosine similarity
 
-# FOR THE DUMMY TEST DATA accuracy_check.py gave:
-# sim_options = {'name': 'msd',
-#                'min_support': 1, 
-#                'user_based': True}
+sim_options_item = {
+    "name": "cosine",
+    "user_based": False,  # Compute  similarities between items
+    "min_support": 2,
+}
 
-algo = KNNWithZScore(sim_options=sim_options)
+# - name contains the similarity metric to use. Options are cosine, msd, pearson, or pearson_baseline. The default is msd.
+# - user_based is a boolean that tells whether the approach will be user-based or item-based. 
+#   The default is True, which means the user-based approach will be used.
+# - min_support is the minimum number of common items needed between users to consider them for similarity. 
+#   For the item-based approach, this corresponds to the minimum number of common users for two items.
+
+
+user_based = KNNWithZScore(sim_options=sim_options_user)
+item_based = KNNWithZScore(sim_options=sim_options_item)
+
+
 # KNNBasic
 # KNNWithZScore 
 # KNNBaseline
@@ -75,10 +85,11 @@ reader = Reader(rating_scale=(1, 5))
 training_data = Dataset.load_from_df(df[["user", "item", "rating"]], reader)
 
 trainingSet = training_data.build_full_trainset()
-algo.fit(trainingSet)
+user_based.fit(trainingSet)
+item_based.fit(trainingSet)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"            COLLABORATIVE FILTERING FOOD_ITEMS                     "
+"                     USER_BASED FOOD_ITEMS                         "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 def get_data_to_recommend(parameters):
@@ -111,7 +122,39 @@ def get_user_food_recommendations(user_id, parameters):
   data = {}
   predictions = {}
   for food_id in food_ids:
-      prediction = algo.predict(user_id, food_id[0])
+      prediction = user_based.predict(user_id, food_id[0])
+      predictions[food_id[0]] = prediction.est
+      data[food_id[0]] = {  "P_RATING": prediction.est, "ID" : food_id[0], "NAME": food_id[1], 
+                            "PRICE": food_id[2], "DIET": food_id[3], "HEALTHY" : food_id[4], 
+                            "FILLING": food_id[5], "AVG_RATING": food_id[6], "REST_NAME": food_id[7]}
+  sorted_by_preference = [k for k, v in sorted(predictions.items(), key=lambda item: item[1], reverse=True)]
+  return data, sorted_by_preference
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                     ITEM_BASED FOOD_ITEMS                         "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+def get_item_based_data():
+
+  sql = """ SELECT DISTINCT F.FOOD_ID, F.NAME, F.PRICE, F.DIET_TYPE, F.HEALTHY_RATING, F.FILLING_RATING,
+                  F.AVG_RATING, RES.NAME AS RESTAURANT_NAME
+            FROM RATINGS R 
+                INNER JOIN FOOD F ON R.FOOD_ID = F.FOOD_ID
+                INNER JOIN RESTAURANT RES ON F.RESTAURANT_ID = RES.RESTAURANT_ID
+        """
+               
+  mycursor.execute(sql)
+
+  return mycursor.fetchall()
+
+
+def get_item_based_to_recommend(user_id):
+  food_ids = get_item_based_data()
+  data = {}
+  predictions = {}
+  for food_id in food_ids:
+      prediction = item_based.predict(user_id, food_id[0])
       predictions[food_id[0]] = prediction.est
       data[food_id[0]] = {  "P_RATING": prediction.est, "ID" : food_id[0], "NAME": food_id[1], 
                             "PRICE": food_id[2], "DIET": food_id[3], "HEALTHY" : food_id[4], 
@@ -122,7 +165,7 @@ def get_user_food_recommendations(user_id, parameters):
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"            COLLABORATIVE FILTERING RESTAURANTS                    "
+"                     USER_BASED RESTAURANTS                        "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 def get_all_restaurants(parameters):
@@ -148,7 +191,7 @@ def get_restaurant_foods(restaurant_id):
 def get_rest_score(user_id, rest_foods):
     predictions = {}
     for food in rest_foods:
-        prediction = algo.predict(user_id, food[0])
+        prediction = user_based.predict(user_id, food[0])
         predictions[food[0]] = prediction.est
     sorted_ratings = [v for k, v in sorted(predictions.items(), key=lambda item: item[1], reverse=True)]
     if sorted_ratings:

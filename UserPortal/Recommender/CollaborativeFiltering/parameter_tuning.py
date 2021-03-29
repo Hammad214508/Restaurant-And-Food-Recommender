@@ -1,6 +1,6 @@
 from surprise import KNNWithMeans, KNNWithZScore
 from surprise import Dataset
-from surprise.model_selection import GridSearchCV
+from surprise.model_selection import GridSearchCV, RandomizedSearchCV
 from train import training_data
 
 # data = Dataset.load_builtin("ml-100k") Load the movielens dataset
@@ -12,7 +12,7 @@ sim_options = {
 
 param_grid = {"sim_options": sim_options}
 
-gs = GridSearchCV(KNNWithZScore, param_grid, measures=["rmse", "mae"], cv=3)
+gs = RandomizedSearchCV(KNNWithZScore, param_grid, measures=["rmse", "mae"], cv=3)
 gs.fit(training_data)
 
 print()
