@@ -82,11 +82,14 @@ df = pd.DataFrame(ratings_dict)
 reader = Reader(rating_scale=(1, 5))
 
 # Loads Pandas dataframe
-training_data = Dataset.load_from_df(df[["user", "item", "rating"]], reader)
+training_user_data = Dataset.load_from_df(df[["user", "item", "rating"]], reader)
+trainingSet_user = training_user_data.build_full_trainset()
+user_based.fit(trainingSet_user)
 
-trainingSet = training_data.build_full_trainset()
-user_based.fit(trainingSet)
-item_based.fit(trainingSet)
+training_item_data = Dataset.load_from_df(df[["item", "user", "rating"]], reader)
+trainingSet_item = training_item_data.build_full_trainset()
+item_based.fit(trainingSet_item)
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                     USER_BASED FOOD_ITEMS                         "

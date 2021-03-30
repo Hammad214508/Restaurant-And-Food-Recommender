@@ -62,8 +62,8 @@ async def handler(websocket, path):
                 await send_response(websocket)
 
             elif data["action"] == "item_food_recommender":
-                print("    -> REQUEST: ITEM BASED FOOD RECOMMENDATIONS FOR USER "+data['user_id'])
-                DATA["recommended"] = user_recommender.get_item_based_to_recommend(int(data['user_id']))
+                print("    -> REQUEST: ITEM BASED FOOD RECOMMENDATIONS FOR ITEM "+data['food_id'])
+                DATA["recommended"] = user_recommender.get_item_based_to_recommend(int(data['food_id']))
                 await send_response(websocket)
 
             elif data["action"] == "user_restaurant_recommender":

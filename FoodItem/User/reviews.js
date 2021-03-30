@@ -371,7 +371,6 @@ $(document).ready(function(){
             parent.append($.fn.get_food_item_box(id, name, img));
         }
 
-        // $.fn.add_event();
     }
 
 
@@ -380,7 +379,7 @@ $(document).ready(function(){
             JSON.stringify(
                 {
                     action: 'item_food_recommender',
-                    "user_id": user_id,
+                    "food_id": food_id,
                 }));
     }
 
@@ -391,9 +390,9 @@ $(document).ready(function(){
                 console.log(data)
                 $.fn.render_recommended_food_item_boxes(data["recommended"][0], data["recommended"][1]);
             }else{
-                // parent = $("#r_food_items_container");
-                // parent.empty();
-                // parent.append("<h3>NO FOOD ITEMS</h3>");
+                var parent = $("#item_based_foods");
+                parent.empty();
+                parent.append("<h3>NO FOOD RECOMMENDATIONS</h3>");
             }
         }
         else{
