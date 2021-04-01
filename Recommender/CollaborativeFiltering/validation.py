@@ -11,6 +11,7 @@ sim_options = {
     "user_based": True,
 }
 
-
+print()
 algo = KNNWithZScore(sim_options=sim_options)
-cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
+cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=10, verbose=True)
+print()
