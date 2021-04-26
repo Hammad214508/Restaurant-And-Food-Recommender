@@ -1,0 +1,7 @@
+scikit_surprise==1.1.1
+pandas==1.1.4
+numpy==1.19.4
+matplotlib==3.3.4
+websockets==8.1
+mysql_connector_repackaged==0.3.1
+surprise==0.1
