@@ -1,7 +1,7 @@
 from surprise import KNNWithMeans, KNNWithZScore
 from surprise import Dataset
 from surprise.model_selection import GridSearchCV, RandomizedSearchCV, KFold
-# from train import training_data
+import time
 
 training_data = Dataset.load_builtin("ml-100k")
 sim_options = {
@@ -17,7 +17,7 @@ print('   "user_based": [False, True]\n')
 
 
 param_grid = {"sim_options": sim_options}
-import time
+
 start_time = time.time()
 # RandomSearchCV
 gs = RandomizedSearchCV(KNNWithZScore, param_grid, measures=["rmse", "mae"], cv=3)
