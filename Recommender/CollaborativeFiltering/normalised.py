@@ -46,12 +46,11 @@ for user_id in users:
     user_ratings = [rating.RATING for rating in user_ratings]
 
     # sd = 0.00001
-    # for rating in user_ratings:        
+    # for rating in user_ratings:
     #     sd += (rating.RATING - user_avg[user_id])**2
     user_var[user_id] = statistics.stdev(user_ratings)
     user_avg[user_id] = mean(user_ratings)
-    
-    
+
 
 sql = "SELECT USERID, MOVIEID, RATING FROM RATINGS WHERE USERID < 10"
 mycursor.execute(sql)
@@ -79,8 +78,3 @@ plt.xlim(0,1)
 plt.xlabel('Food rating')
 plt.title('Food ratings histograms')
 plt.show()
-
-
-
-
-
