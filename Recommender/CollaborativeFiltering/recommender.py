@@ -10,13 +10,8 @@ sim_options = {
 # user_based is a boolean that tells whether the approach will be user-based or item-based. The default is True, which means the user-based approach will be used.
 # min_support is the minimum number of common items needed between users to consider them for similarity. For the item-based approach, this corresponds to the minimum number of common users for two items.
 
-# FOR THE DUMMY TEST DATA accuracy_check.py gave:
-# sim_options = {'name': 'msd',
-#                'min_support': 1, 
-#                'user_based': True}
-
 algo = KNNWithZScore(sim_options=sim_options)
 # KNNBasic
-# KNNWithZScore 
+# KNNWithZScore
 # KNNBaseline
 # KNNWithMeans
