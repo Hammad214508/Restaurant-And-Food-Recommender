@@ -1,8 +1,6 @@
 
 # Restaurant and Food Recommender
 
-[Research](https://drive.google.com/file/d/1L3rLqzHODylY8u2rzIo6tUiNzQx7VwMq/view?usp=sharing)
-
 ## Overview
 
   
@@ -12,6 +10,9 @@ This is a full featured web application that can help users decide where and wha
   
 
 This has been further extended to give group recommendations using Preference Aggregation Strategy. It also includes an easy way to create and manage events for a group by implementing LinkedIn like connections.
+
+[Research Paper](https://drive.google.com/file/d/1L3rLqzHODylY8u2rzIo6tUiNzQx7VwMq/view?usp=sharing)
+
 
   
   
